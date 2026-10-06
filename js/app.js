@@ -428,23 +428,7 @@
       b.classList.add("active");
       treatmentCards(b.dataset.filter || "All Procedures");
     };
-    $("#caseTabs").innerHTML = [
-      "Full Arch All-on-4 Dental Implant",
-      "Invisible Clear Aligners - Crowding Correction",
-      "Porcelain Veneers - Gap Closure & Whitening",
-    ]
-      .map(
-        (x, i) =>
-          `<button class="${i ? "" : "active"}" data-case="${i}">${x}</button>`,
-      )
-      .join("");
-    $("#caseTabs").onclick = (e) => {
-      let b = e.target.closest("button");
-      if (b) {
-        $$("button", "#caseTabs").forEach((x) => x.classList.remove("active"));
-        b.classList.add("active");
-      }
-    };
+  
     let wrap = $("#beforeAfter"),
       drag = false,
       move = (x) => {
