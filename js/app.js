@@ -15,6 +15,8 @@
 
     if (!isReload) return;
 
+    // Remove hash after refresh so the browser doesn't jump
+    // back to the previous section.
     if (window.location.hash) {
       history.replaceState(
         null,
@@ -27,12 +29,14 @@
       window.scrollTo({
         top: 0,
         left: 0,
-        behavior: "instant"
+        behavior: "instant",
       });
     };
 
+    // Immediately move to top
     goTop();
 
+    // Prevent browser/framework delayed restoration
     requestAnimationFrame(() => {
       goTop();
 
@@ -52,27 +56,8 @@
      HELPERS
      ========================================================= */
 
-  const $ = (selector, root = document) =>
-    root.querySelector(selector);
-
-  const $$ = (selector, root = document) =>
-    [...root.querySelectorAll(selector)];
-
-  const esc = value =>
-    String(value ?? "").replace(
-      /[&<>"']/g,
-      char =>
-        ({
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#039;"
-        })[char]
-    );
-
-  const money = value =>
-    Number(value).toLocaleString("en-IN");
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
   /* =========================================================
      TREATMENTS
@@ -92,8 +77,8 @@
       [
         "Digital 3D Bone Scan",
         "Painless Fixture Placement",
-        "Zirconia Crown Placement"
-      ]
+        "Zirconia Crown Placement",
+      ],
     ],
     [
       "clear-aligners",
@@ -105,11 +90,7 @@
       3499,
       "Zero Metal",
       "Orthodontist",
-      [
-        "3D Virtual Smile Plan",
-        "Custom Tray Delivery",
-        "Progress Reviews"
-      ]
+      ["3D Virtual Smile Plan", "Custom Tray Delivery", "Progress Reviews"],
     ],
     [
       "rct-laser",
@@ -121,11 +102,7 @@
       null,
       "100% Painless",
       "Endodontist",
-      [
-        "Anaesthetic & Isolation",
-        "Microscopic Canal Cleaning",
-        "Crown Seal"
-      ]
+      ["Anaesthetic & Isolation", "Microscopic Canal Cleaning", "Crown Seal"],
     ],
     [
       "laser-whitening",
@@ -137,11 +114,7 @@
       null,
       "Instant Glow",
       "Cosmetic Dentist",
-      [
-        "Enamel Inspection",
-        "Gum Barrier",
-        "Laser Activation"
-      ]
+      ["Enamel Inspection", "Gum Barrier", "Laser Activation"],
     ],
     [
       "veneers",
@@ -153,11 +126,7 @@
       1199,
       "Smile Design",
       "Cosmetic Dentist",
-      [
-        "Digital Smile Design",
-        "Trial Smile",
-        "Ceramic Bonding"
-      ]
+      ["Digital Smile Design", "Trial Smile", "Ceramic Bonding"],
     ],
     [
       "wisdom",
@@ -169,11 +138,7 @@
       null,
       "Sedation",
       "Oral Surgeon",
-      [
-        "3D Imaging",
-        "Sedation & Guided Access",
-        "Recovery Review"
-      ]
+      ["3D Imaging", "Sedation & Guided Access", "Recovery Review"],
     ],
     [
       "kids",
@@ -185,11 +150,7 @@
       null,
       "Gentle Care",
       "Pedodontist",
-      [
-        "Child-Friendly Exam",
-        "Preventive Care",
-        "Home Care Plan"
-      ]
+      ["Child-Friendly Exam", "Preventive Care", "Home Care Plan"],
     ],
     [
       "gum-laser",
@@ -201,12 +162,8 @@
       null,
       "Laser Care",
       "Periodontist",
-      [
-        "Gum Assessment",
-        "Deep Cleaning",
-        "Laser Therapy & Review"
-      ]
-    ]
+      ["Gum Assessment", "Deep Cleaning", "Laser Therapy & Review"],
+    ],
   ];
 
   /* =========================================================
@@ -224,7 +181,7 @@
       "380",
       ["Mon", "Tue", "Thu", "Fri", "Sat"],
       "2,800+ implant surgeries",
-      "Available Today @ 5:00 PM"
+      "Available Today @ 5:00 PM",
     ],
     [
       "doc-2",
@@ -236,7 +193,7 @@
       "420",
       ["Tue", "Wed", "Fri", "Sat"],
       "1,400+ smile cases",
-      "Available Today @ 4:30 PM"
+      "Available Today @ 4:30 PM",
     ],
     [
       "doc-3",
@@ -248,7 +205,7 @@
       "310",
       ["Mon", "Wed", "Fri"],
       "1,900+ RCT cases",
-      "Available Today @ 6:00 PM"
+      "Available Today @ 6:00 PM",
     ],
     [
       "doc-4",
@@ -260,8 +217,8 @@
       "265",
       ["Mon", "Tue", "Thu", "Sat"],
       "3,200+ child visits",
-      "Available Today @ 5:00 PM"
-    ]
+      "Available Today @ 5:00 PM",
+    ],
   ];
 
   /* =========================================================
@@ -274,43 +231,43 @@
       "Oct 2026",
       "Dr. Arvind",
       "The team explained every implant stage clearly.",
-      "5"
+      "5",
     ],
     [
       "Arjun Kumar",
       "Sep 2026",
       "Dr. Vikram",
       "The root canal experience was comfortable and organised.",
-      "5"
+      "5",
     ],
     [
       "Sneha Patel",
       "Sep 2026",
       "Dr. Sneha",
       "A welcoming aligner consultation with clear pricing.",
-      "5"
+      "5",
     ],
     [
       "Vikram Rao",
       "Aug 2026",
       "Dr. Arvind",
       "Clean clinic, friendly staff and excellent consultation.",
-      "5"
+      "5",
     ],
     [
       "Meera Sharma",
       "Aug 2026",
       "Dr. Kavitha",
       "My child was comfortable throughout the appointment.",
-      "5"
+      "5",
     ],
     [
       "Rahul Varma",
       "Jul 2026",
       "Dr. Sneha",
       "The smile design explanation made the decision easy.",
-      "5"
-    ]
+      "5",
+    ],
   ];
 
   /* =========================================================
@@ -320,28 +277,28 @@
   const F = [
     [
       "Is the root canal procedure completely painless?",
-      "Modern local anaesthesia, rotary instruments and careful isolation are designed to make treatment comfortable."
+      "Modern local anaesthesia, rotary instruments and careful isolation are designed to make treatment comfortable.",
     ],
     [
       "How long do dental implants last?",
-      "With proper planning, hygiene and maintenance, implants can be long-lasting."
+      "With proper planning, hygiene and maintenance, implants can be long-lasting.",
     ],
     [
       "What is the difference between traditional braces and clear aligners?",
-      "Braces use fixed brackets and wires; aligners use a series of removable transparent trays."
+      "Braces use fixed brackets and wires; aligners use a series of removable transparent trays.",
     ],
     [
       "Can I pay for dental treatment in monthly installments (EMI)?",
-      "This prototype includes an EMI calculator; actual financing depends on the provider."
+      "This prototype includes an EMI calculator; actual financing depends on the provider.",
     ],
     [
       "What sterilization protocols do you follow between patients?",
-      "The prototype highlights 100% autoclave sterilisation and bio-waste management compliance."
+      "The prototype highlights 100% autoclave sterilisation and bio-waste management compliance.",
     ],
     [
       "Can I reschedule or cancel my booked slot?",
-      "Contact the clinic before the appointment so the team can update or release the slot."
-    ]
+      "Contact the clinic before the appointment so the team can update or release the slot.",
+    ],
   ];
 
   /* =========================================================
@@ -354,7 +311,7 @@
       ["10:15 AM", "a"],
       ["11:00 AM", "b"],
       ["11:45 AM", "f"],
-      ["12:30 PM", "a"]
+      ["12:30 PM", "a"],
     ],
     evening: [
       ["04:30 PM", "b"],
@@ -362,8 +319,8 @@
       ["06:00 PM", "a"],
       ["06:45 PM", "f"],
       ["07:30 PM", "a"],
-      ["08:00 PM", "a"]
-    ]
+      ["08:00 PM", "a"],
+    ],
   };
 
   /* =========================================================
@@ -376,236 +333,138 @@
     d: null,
     date: null,
     shift: "morning",
-    slot: null
+    slot: null,
   };
 
   /* =========================================================
-     DATE HELPERS
+     ESCAPE HTML
      ========================================================= */
 
-  function localDateKey(date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-
-    return `${year}-${month}-${day}`;
-  }
-
-  function dates() {
-    return Array.from({ length: 7 }, (_, index) => {
-      const date = new Date();
-
-      date.setHours(0, 0, 0, 0);
-      date.setDate(date.getDate() + index);
-
-      return date;
-    });
-  }
-
-  function dateText(date, index) {
-    if (index === 0) return "Today";
-    if (index === 1) return "Tomorrow";
-
-    return (
-      date.toLocaleDateString("en-IN", {
-        weekday: "short"
-      }) +
-      " " +
-      date.getDate()
+  const esc = (x) =>
+    String(x).replace(
+      /[&<>"']/g,
+      (c) =>
+        ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;",
+        })[c]
     );
-  }
 
   /* =========================================================
      MODALS
      ========================================================= */
 
-  const modal = id => {
-    const element = $("#" + id);
-
-    if (!element) return;
-
-    element.classList.add("show");
-    element.setAttribute("aria-hidden", "false");
+  const modal = (id) => {
+    const el = $("#" + id);
+    if (el) el.classList.add("show");
   };
 
-  const close = id => {
-    const element = $("#" + id);
+  const close = (id) => {
+    const el = $("#" + id);
 
-    if (!element) return;
-
-    element.classList.remove("show");
-    element.setAttribute("aria-hidden", "true");
+    if (el) {
+      el.classList.remove("show");
+    }
 
     document.body.style.overflow = "";
   };
 
-  const open = id => {
+  function open(id) {
     modal(id);
     document.body.style.overflow = "hidden";
-  };
-
-  /* =========================================================
-     RESET BOOKING
-     ========================================================= */
-
-  function resetBooking() {
-    B = {
-      step: 1,
-      t: null,
-      d: null,
-      date: null,
-      shift: "morning",
-      slot: null
-    };
   }
 
   /* =========================================================
-     BOOKING STEP HEADER
+     TREATMENT CARDS
      ========================================================= */
 
-  function bookingSteps() {
-    const treatment = T.find(item => item[0] === B.t);
-    const doctor =
-      B.d === "fastest"
-        ? null
-        : D.find(item => item[0] === B.d);
+  function treatmentCards(filter = "All Procedures") {
+    const list =
+      filter === "All Procedures"
+        ? T
+        : T.filter((x) => x[2] === filter);
 
-    const stepData = [
-      {
-        number: 1,
-        title: "Treatment",
-        value: treatment ? treatment[1] : "Select treatment"
-      },
-      {
-        number: 2,
-        title: "Specialist",
-        value: doctor
-          ? doctor[1]
-          : B.d === "fastest"
-            ? "First available"
-            : "Select specialist"
-      },
-      {
-        number: 3,
-        title: "Date & Slot",
-        value:
-          B.date && B.slot
-            ? `${B.date} • ${B.slot}`
-            : "Select date & time"
-      },
-      {
-        number: 4,
-        title: "Patient Info",
-        value: "Enter patient details"
-      }
-    ];
+    const grid = $("#treatmentGrid");
 
-    return `
-      <div class="booking-step-list">
-        ${stepData
-          .map(
-            item => `
-              <button
-                type="button"
-                class="
-                  booking-step
-                  ${B.step === item.number ? "active" : ""}
-                  ${B.step > item.number ? "completed" : ""}
-                "
-                data-step="${item.number}"
-              >
-                <span class="booking-step-number">
-                  ${item.number}
-                </span>
+    if (!grid) return;
 
-                <span class="booking-step-content">
-                  <strong>
-                    ${item.number} ${esc(item.title)}
-                  </strong>
+    grid.innerHTML = list
+      .map(
+        (x) =>
+          `<div class="col-md-6 col-xl-3">
+            <article class="treatment-card reveal visible">
+              <div class="treatment-head">
+                <span class="category-badge">${x[2]}</span>
+                <span class="duration">${x[4]}</span>
+              </div>
 
-                  <small>
-                    ${esc(item.value)}
-                  </small>
-                </span>
-              </button>
-            `
-          )
-          .join("")}
-      </div>
-    `;
+              <h3>${x[1]}</h3>
+
+              <p>${x[3]}</p>
+
+              <div class="price">
+                From ₹${x[5].toLocaleString("en-IN")}
+              </div>
+
+              <div class="emi-line">
+                ${
+                  x[6]
+                    ? "EMI from ₹" +
+                      x[6].toLocaleString("en-IN") +
+                      "/mo"
+                    : "Transparent one-time estimate"
+                }
+              </div>
+
+              <div class="card-actions">
+                <button
+                  class="protocol-btn"
+                  data-protocol="${x[0]}"
+                >
+                  View Protocol
+                </button>
+
+                <button
+                  class="book-treatment"
+                  data-book="${x[0]}"
+                >
+                  Book Slot
+                </button>
+              </div>
+            </article>
+          </div>`
+      )
+      .join("");
   }
 
   /* =========================================================
-     BOOKING SUMMARY
+     DATES
      ========================================================= */
 
-  function bookingSummary() {
-    const treatment = T.find(item => item[0] === B.t);
-    const doctor =
-      B.d === "fastest"
-        ? null
-        : D.find(item => item[0] === B.d);
+  function dates() {
+    return Array.from({ length: 7 }, (_, i) => {
+      let d = new Date();
 
-    if (!treatment && !doctor && !B.date) {
-      return "";
-    }
+      d.setHours(0, 0, 0, 0);
+      d.setDate(d.getDate() + i);
 
-    return `
-      <div class="booking-summary">
+      return d;
+    });
+  }
 
-        ${
-          treatment
-            ? `
-              <div>
-                <small>Treatment</small>
-                <strong>${esc(treatment[1])}</strong>
-              </div>
-            `
-            : ""
-        }
-
-        ${
-          doctor
-            ? `
-              <div>
-                <small>Specialist</small>
-                <strong>${esc(doctor[1])}</strong>
-              </div>
-            `
-            : B.d === "fastest"
-              ? `
-                <div>
-                  <small>Specialist</small>
-                  <strong>First Available Specialist</strong>
-                </div>
-              `
-              : ""
-        }
-
-        ${
-          B.date
-            ? `
-              <div>
-                <small>Date</small>
-                <strong>${esc(B.date)}</strong>
-              </div>
-            `
-            : ""
-        }
-
-        ${
-          B.slot
-            ? `
-              <div>
-                <small>Time</small>
-                <strong>${esc(B.slot)}</strong>
-              </div>
-            `
-            : ""
-        }
-
-      </div>
-    `;
+  function dateText(d, i) {
+    return i === 0
+      ? "Today"
+      : i === 1
+        ? "Tomorrow"
+        : d.toLocaleDateString("en-IN", {
+            weekday: "short",
+          }) +
+          " " +
+          d.getDate();
   }
 
   /* =========================================================
@@ -613,189 +472,96 @@
      ========================================================= */
 
   function bookingView() {
-    const content = $("#bookingContent");
+    const c = $("#bookingContent");
 
-    if (!content) return;
+    if (!c) return;
 
-    let heading = "";
-    let description = "";
+    let h = "";
     let body = "";
 
-    /* -------------------------------------------------------
-       STEP 1
-       ------------------------------------------------------- */
-
     if (B.step === 1) {
-      heading = "Select your treatment";
-      description = "Choose the dental treatment you need.";
+      h = "Select your treatment";
 
       body = `
         <div class="choice-grid">
-
           ${T.map(
-            treatment => `
-              <button
-                type="button"
-                class="
-                  choice-card
-                  ${B.t === treatment[0] ? "selected" : ""}
-                "
-                data-t="${treatment[0]}"
+            (x) =>
+              `<button
+                class="choice-card ${
+                  B.t === x[0] ? "selected" : ""
+                }"
+                data-t="${x[0]}"
               >
-
-                <span class="choice-number">
-                  ${B.t === treatment[0] ? "✓" : ""}
-                </span>
-
-                <strong>
-                  ${esc(treatment[1])}
-                </strong>
-
+                <strong>${x[1]}</strong>
                 <small>
-                  ${esc(treatment[2])}
+                  ${x[4]} • From ₹${x[5].toLocaleString("en-IN")}
                 </small>
-
-                <small>
-                  ${esc(treatment[4])}
-                  • From ₹${money(treatment[5])}
-                </small>
-
-                ${
-                  treatment[6]
-                    ? `
-                      <small>
-                        EMI from ₹${money(treatment[6])}/mo
-                      </small>
-                    `
-                    : ""
-                }
-
-              </button>
-            `
+              </button>`
           ).join("")}
-
         </div>
       `;
-    }
-
-    /* -------------------------------------------------------
-       STEP 2
-       ------------------------------------------------------- */
-
-    else if (B.step === 2) {
-      heading = "Choose your specialist";
-      description =
-        "Select your preferred specialist or choose the first available doctor.";
+    } else if (B.step === 2) {
+      h = "Choose your specialist";
 
       body = `
         <div class="choice-grid">
 
           <button
-            type="button"
-            class="
-              choice-card
-              ${B.d === "fastest" ? "selected" : ""}
-            "
+            class="choice-card ${
+              B.d === "fastest" ? "selected" : ""
+            }"
             data-d="fastest"
           >
-
-            <span class="choice-number">
-              ${B.d === "fastest" ? "✓" : ""}
-            </span>
-
             <strong>
-              ⚡ First Available Specialist
+              ⚡ First Available Specialist (Fastest)
             </strong>
 
             <small>
               Earliest suitable clinician
             </small>
-
           </button>
 
           ${D.map(
-            doctor => `
-              <button
-                type="button"
-                class="
-                  choice-card
-                  ${B.d === doctor[0] ? "selected" : ""}
-                "
-                data-d="${doctor[0]}"
+            (x) =>
+              `<button
+                class="choice-card ${
+                  B.d === x[0] ? "selected" : ""
+                }"
+                data-d="${x[0]}"
               >
-
-                <span class="choice-number">
-                  ${B.d === doctor[0] ? "✓" : ""}
-                </span>
-
-                <strong>
-                  ${esc(doctor[1])}
-                </strong>
-
-                <small>
-                  ${esc(doctor[2])}
-                </small>
-
-                <small>
-                  ★ ${esc(doctor[5])}
-                  • ${esc(doctor[3])}
-                </small>
-
-                <small>
-                  ${esc(doctor[9])}
-                </small>
-
-              </button>
-            `
+                <strong>${x[1]}</strong>
+                <small>${x[2]}</small>
+              </button>`
           ).join("")}
 
         </div>
       `;
-    }
-
-    /* -------------------------------------------------------
-       STEP 3
-       ------------------------------------------------------- */
-
-    else if (B.step === 3) {
-      heading = "Select date & slot";
-      description =
-        "Choose your preferred appointment date and available time.";
-
-      const availableDates = dates();
+    } else if (B.step === 3) {
+      const ds = dates();
 
       body = `
         <div class="date-row">
 
-          ${availableDates
+          ${ds
             .map(
-              (date, index) => {
-                const key = localDateKey(date);
-
-                return `
-                  <button
-                    type="button"
-                    class="
-                      date-pill
-                      ${B.date === key ? "active" : ""}
-                    "
-                    data-date="${key}"
-                  >
-
-                    <strong>
-                      ${dateText(date, index)}
-                    </strong>
-
-                    <small>
-                      ${date.toLocaleDateString("en-IN", {
-                        month: "short",
-                        day: "numeric"
-                      })}
-                    </small>
-
-                  </button>
-                `;
-              }
+              (d, i) =>
+                `<button
+                  class="date-pill ${
+                    B.date === d.toISOString().slice(0, 10)
+                      ? "active"
+                      : ""
+                  }"
+                  data-date="${d
+                    .toISOString()
+                    .slice(0, 10)}"
+                >
+                  ${dateText(d, i)}
+                  <small>
+                    ${d.toLocaleDateString("en-IN", {
+                      month: "short",
+                    })}
+                  </small>
+                </button>`
             )
             .join("")}
 
@@ -804,312 +570,170 @@
         <div class="shift-row">
 
           <button
-            type="button"
-            class="${B.shift === "morning" ? "active" : ""}"
+            class="${
+              B.shift === "morning" ? "active" : ""
+            }"
             data-shift="morning"
           >
-            ☀ Morning
-            <small>9:00 AM - 1:00 PM</small>
+            ☀ Morning 9:00-1:00
           </button>
 
           <button
-            type="button"
-            class="${B.shift === "evening" ? "active" : ""}"
+            class="${
+              B.shift === "evening" ? "active" : ""
+            }"
             data-shift="evening"
           >
-            ◐ Evening
-            <small>4:30 PM - 8:30 PM</small>
+            ◐ Evening 4:30-8:30
           </button>
 
-        </div>
-
-        <div class="slot-heading">
-          <strong>
-            Available time slots
-          </strong>
-
-          <span>
-            ${
-              B.date
-                ? esc(B.date)
-                : "Select a date first"
-            }
-          </span>
         </div>
 
         <div class="slot-row">
 
-          ${B.date
-            ? slots[B.shift]
-                .map(slot => {
-                  const isBooked = slot[1] === "b";
-                  const isFast = slot[1] === "f";
-                  const isSelected = B.slot === slot[0];
-
-                  return `
-                    <button
-                      type="button"
-                      class="
-                        slot-chip
-                        ${isBooked ? "booked" : ""}
-                        ${isFast ? "fast" : ""}
-                        ${isSelected ? "selected" : ""}
-                      "
-                      ${isBooked ? "disabled" : ""}
-                      data-slot="${slot[0]}"
-                    >
-
-                      ${esc(slot[0])}
-
-                      ${
-                        isFast
-                          ? `<small>1 left</small>`
-                          : ""
-                      }
-
-                      ${
-                        isSelected
-                          ? " ✓"
-                          : ""
-                      }
-
-                    </button>
-                  `;
-                })
-                .join("")
-            : `
-              <div class="empty-slot-message">
-                Please select a date to view available slots.
-              </div>
-            `}
+          ${slots[B.shift]
+            .map(
+              (s) =>
+                `<button
+                  class="slot-chip
+                    ${s[1] === "b" ? "booked" : ""}
+                    ${s[1] === "f" ? "fast" : ""}
+                    ${B.slot === s[0] ? "selected" : ""}
+                  "
+                  ${s[1] === "b" ? "disabled" : ""}
+                  data-slot="${s[0]}"
+                >
+                  ${s[0]}
+                  ${s[1] === "f" ? " • 1 left" : ""}
+                  ${B.slot === s[0] ? " ✓" : ""}
+                </button>`
+            )
+            .join("")}
 
         </div>
       `;
-    }
-
-    /* -------------------------------------------------------
-       STEP 4
-       ------------------------------------------------------- */
-
-    else {
-      heading = "Enter patient information";
-      description =
-        "Enter the patient's details to confirm the appointment.";
-
+    } else {
       body = `
-        ${bookingSummary()}
-
-        <form
-          id="patientForm"
-          class="form-grid"
-        >
+        <form id="patientForm" class="form-grid">
 
           <label>
-            <span>Full Name *</span>
-
-            <input
-              name="name"
-              type="text"
-              placeholder="Enter full name"
-              autocomplete="name"
-              required
-            >
+            Full Name *
+            <input name="name" required>
           </label>
 
           <label>
-            <span>WhatsApp Mobile Number *</span>
-
-            <input
-              name="phone"
-              type="tel"
-              placeholder="+91 XXXXX XXXXX"
-              autocomplete="tel"
-              required
-            >
+            WhatsApp Mobile Number *
+            <input name="phone" required>
           </label>
 
           <label>
-            <span>Age *</span>
-
+            Age *
             <input
               name="age"
               type="number"
+              required
               min="1"
               max="120"
-              placeholder="Age"
-              required
             >
           </label>
 
           <label>
-            <span>Gender *</span>
-
-            <select
-              name="gender"
-              required
-            >
-              <option value="">
-                Select Gender
-              </option>
-
-              <option value="Female">
-                Female
-              </option>
-
-              <option value="Male">
-                Male
-              </option>
-
-              <option value="Other">
-                Other
-              </option>
+            Gender *
+            <select name="gender" required>
+              <option value="">Select</option>
+              <option>Female</option>
+              <option>Male</option>
+              <option>Other</option>
             </select>
           </label>
 
           <label>
-            <span>Consultation Type *</span>
-
-            <select
-              name="type"
-              required
-            >
-              <option value="">
-                Select consultation
-              </option>
-
-              <option value="In-Clinic Consultation">
-                In-Clinic Consultation
-              </option>
-
-              <option value="Emergency Toothache">
-                Emergency Toothache
-              </option>
+            Consultation Type *
+            <select name="type" required>
+              <option value="">Select</option>
+              <option>In-Clinic Consultation</option>
+              <option>Emergency Toothache</option>
             </select>
-          </label>
-
-          <label>
-            <span>Email Address</span>
-
-            <input
-              name="email"
-              type="email"
-              placeholder="example@email.com"
-              autocomplete="email"
-            >
           </label>
 
           <label class="full">
-            <span>Chief Complaint</span>
-
+            Chief Complaint
             <textarea
               name="complaint"
               rows="3"
-              placeholder="Tell us about your dental problem..."
             ></textarea>
           </label>
 
-          <label class="checkbox-label full">
-
+          <label class="full">
             <input
               name="wa"
               type="checkbox"
               checked
             >
-
-            <span>
-              Receive appointment confirmation
-              and reminders on WhatsApp
-            </span>
-
+            Receive instant appointment confirmation & reminders on WhatsApp
           </label>
+
+          <div class="wizard-actions full">
+
+            <button
+              type="button"
+              class="btn btn-outline-teal"
+              data-back
+            >
+              ← Back
+            </button>
+
+            <button
+              class="btn btn-primary-glow"
+            >
+              Confirm Appointment
+            </button>
+
+          </div>
 
         </form>
       `;
     }
 
-    /* =======================================================
-       RENDER COMPLETE BOOKING CONTENT
-       ======================================================= */
+    c.innerHTML = `
+      <span class="eyebrow">
+        STEP ${B.step} OF 4
+      </span>
 
-    content.innerHTML = `
-      ${bookingSteps()}
+      <h2>${h}</h2>
 
-      <div class="booking-main">
+      ${
+        B.step === 1
+          ? "<p>Visual treatment cards with duration and starting price.</p>"
+          : ""
+      }
 
-        <span class="eyebrow">
-          STEP ${B.step} OF 4
-        </span>
+      ${body}
 
-        <h2>
-          ${esc(heading)}
-        </h2>
+      <div class="wizard-actions">
 
-        <p class="booking-description">
-          ${esc(description)}
-        </p>
-
-        ${body}
+        ${
+          B.step > 1 && B.step < 4
+            ? '<button class="btn btn-outline-teal" data-back>← Back</button>'
+            : "<span></span>"
+        }
 
         ${
           B.step < 4
-            ? `
-              <div class="wizard-actions">
-
+            ? `<button
+                class="btn btn-primary-glow"
+                data-next
                 ${
-                  B.step > 1
-                    ? `
-                      <button
-                        type="button"
-                        class="btn btn-outline-teal"
-                        data-back
-                      >
-                        ← Back
-                      </button>
-                    `
-                    : `
-                      <span></span>
-                    `
+                  (B.step === 1 && !B.t) ||
+                  (B.step === 2 && !B.d) ||
+                  (B.step === 3 && (!B.date || !B.slot))
+                    ? "disabled"
+                    : ""
                 }
-
-                <button
-                  type="button"
-                  class="btn btn-primary-glow"
-                  data-next
-                  ${
-                    (B.step === 1 && !B.t) ||
-                    (B.step === 2 && !B.d) ||
-                    (B.step === 3 &&
-                      (!B.date || !B.slot))
-                      ? "disabled"
-                      : ""
-                  }
-                >
-                  Continue →
-                </button>
-
-              </div>
-            `
-            : `
-              <div class="wizard-actions">
-
-                <button
-                  type="button"
-                  class="btn btn-outline-teal"
-                  data-back
-                >
-                  ← Back
-                </button>
-
-                <button
-                  type="submit"
-                  form="patientForm"
-                  class="btn btn-primary-glow"
-                >
-                  Confirm Appointment
-                </button>
-
-              </div>
-            `
+              >
+                Continue →
+              </button>`
+            : ""
         }
 
       </div>
@@ -1117,27 +741,12 @@
   }
 
   /* =========================================================
-     OPEN BOOKING
-     ========================================================= */
-
-  function startBooking() {
-    resetBooking();
-    bookingView();
-    open("bookingModal");
-  }
-
-  /* =========================================================
      CONFIRM APPOINTMENT
      ========================================================= */
 
-  function confirmAppointment(patient, treatment, doctor) {
-    const content = $("#bookingContent");
-
-    if (!content) return;
-
-    content.innerHTML = `
+  function confirm(p, t, d) {
+    $("#bookingContent").innerHTML = `
       <div class="loader">
-
         <div class="loader-ring"></div>
 
         <h3>
@@ -1145,14 +754,13 @@
         </h3>
 
         <p>
-          Please wait...
+          0.8 second medical loader
         </p>
-
       </div>
     `;
 
     setTimeout(() => {
-      content.innerHTML = `
+      $("#bookingContent").innerHTML = `
         <div class="confirm-card">
 
           <span class="eyebrow">
@@ -1164,38 +772,30 @@
           </h2>
 
           <div class="token-big">
-            ${esc(patient.token)}
+            ${p.token}
           </div>
 
           <div class="confirm-details">
 
             <div>
               <small>Patient</small>
-              <strong>
-                ${esc(patient.name)}
-              </strong>
+              <strong>${esc(p.name)}</strong>
             </div>
 
             <div>
               <small>Treatment</small>
-              <strong>
-                ${esc(treatment[1])}
-              </strong>
+              <strong>${esc(t[1])}</strong>
             </div>
 
             <div>
               <small>Doctor</small>
-              <strong>
-                ${esc(doctor[1])}
-              </strong>
+              <strong>${esc(d[1])}</strong>
             </div>
 
             <div>
               <small>Date & Time</small>
               <strong>
-                ${esc(patient.date)}
-                •
-                ${esc(patient.slot)}
+                ${p.date} • ${p.slot}
               </strong>
             </div>
 
@@ -1204,7 +804,6 @@
           <div class="calendar-actions">
 
             <button
-              type="button"
               class="btn btn-primary-glow"
               id="gcal"
             >
@@ -1212,7 +811,6 @@
             </button>
 
             <button
-              type="button"
               class="btn btn-outline-teal"
               id="ical"
             >
@@ -1220,7 +818,6 @@
             </button>
 
             <button
-              type="button"
               class="btn btn-outline-teal"
               id="pslip"
             >
@@ -1230,7 +827,6 @@
           </div>
 
           <button
-            type="button"
             class="btn btn-link"
             data-close-booking
           >
@@ -1240,39 +836,20 @@
         </div>
       `;
 
-      const toast = $("#whatsappToast");
+      setTimeout(() => {
+        const w = $("#whatsappToast");
 
-      if (toast) {
-        const message = $("#waMessage");
+        if (!w) return;
 
-        if (message) {
-          message.textContent =
-            `Hello ${patient.name}! Your appointment at Apex Dental Studio is confirmed. Token ${patient.token}. Doctor: ${doctor[1]}. Date: ${patient.date} at ${patient.slot}.`;
-        }
+        $("#waMessage").textContent =
+          `Hello ${p.name}! Your appointment at Apex Dental Studio is confirmed. Token ${p.token}. Doctor: ${d[1]}. Date: ${p.date} at ${p.slot}. Tap for Google Maps directions.`;
 
-        setTimeout(() => {
-          toast.classList.add("show");
-        }, 800);
-      }
+        w.classList.add("show");
+      }, 1200);
 
-      const gcalButton = $("#gcal");
-      const icalButton = $("#ical");
-      const pdfButton = $("#pslip");
-
-      if (gcalButton) {
-        gcalButton.onclick = () =>
-          gcal(patient, treatment, doctor);
-      }
-
-      if (icalButton) {
-        icalButton.onclick = () =>
-          ical(patient, treatment, doctor);
-      }
-
-      if (pdfButton) {
-        pdfButton.onclick = () =>
-          pdf(patient, treatment, doctor);
-      };
+      $("#gcal").onclick = () => gcal(p, t, d);
+      $("#ical").onclick = () => ical(p, t, d);
+      $("#pslip").onclick = () => pdf(p, t, d);
     }, 800);
   }
 
@@ -1280,90 +857,85 @@
      GOOGLE CALENDAR
      ========================================================= */
 
-  function gcal(patient, treatment, doctor) {
-    const start =
-      patient.date.replaceAll("-", "") +
+  function gcal(p, t, d) {
+    const st =
+      p.date.replaceAll("-", "") +
       "T" +
-      to24(patient.slot) +
+      to24(p.slot) +
       "00";
 
-    const end =
-      patient.date.replaceAll("-", "") +
-      "T" +
-      to24(patient.slot, 45) +
-      "00";
-
-    const url =
+    const u =
       `https://calendar.google.com/calendar/render?action=TEMPLATE` +
       `&text=${encodeURIComponent(
-        "Apex Dental " + patient.token
+        "Apex Dental " + p.token
       )}` +
-      `&dates=${start}/${end}` +
+      `&dates=${st}/${st}` +
       `&details=${encodeURIComponent(
-        treatment[1] + " with " + doctor[1]
+        t[1] + " with " + d[1]
       )}` +
       `&location=${encodeURIComponent(
         "Plot 18, Jubilee Hills Road No. 36, Hyderabad"
       )}`;
 
-    window.open(url, "_blank");
+    window.open(u, "_blank");
   }
 
   /* =========================================================
      TIME CONVERSION
      ========================================================= */
 
-  function to24(time, add = 0) {
-    const match = time.match(
+  function to24(t, add = 0) {
+    const m = t.match(
       /(\d+):(\d+)\s*(AM|PM)/i
     );
 
-    if (!match) return "0000";
+    if (!m) return "0000";
 
-    let hours = Number(match[1]);
-    let minutes = Number(match[2]);
+    let h = +m[1];
+    let n = +m[2];
 
-    const period = match[3].toUpperCase();
-
-    if (period === "PM" && hours < 12) {
-      hours += 12;
+    if (
+      m[3].toUpperCase() === "PM" &&
+      h < 12
+    ) {
+      h += 12;
     }
 
-    if (period === "AM" && hours === 12) {
-      hours = 0;
+    if (
+      m[3].toUpperCase() === "AM" &&
+      h === 12
+    ) {
+      h = 0;
     }
 
-    minutes += add;
+    n += add;
 
-    hours += Math.floor(minutes / 60);
-    minutes %= 60;
+    h += Math.floor(n / 60);
+    n %= 60;
 
     return (
-      String(hours).padStart(2, "0") +
-      String(minutes).padStart(2, "0")
+      String(h).padStart(2, "0") +
+      String(n).padStart(2, "0")
     );
   }
 
   /* =========================================================
-     DOWNLOAD FILE
+     DOWNLOAD
      ========================================================= */
 
   function dl(data, name, type) {
-    const link = document.createElement("a");
+    const a = document.createElement("a");
 
-    const url = URL.createObjectURL(
+    a.href = URL.createObjectURL(
       new Blob([data], { type })
     );
 
-    link.href = url;
-    link.download = name;
+    a.download = name;
 
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
+    a.click();
 
     setTimeout(() => {
-      URL.revokeObjectURL(url);
+      URL.revokeObjectURL(a.href);
     }, 1000);
   }
 
@@ -1371,17 +943,11 @@
      APPLE CALENDAR
      ========================================================= */
 
-  function ical(patient, treatment, doctor) {
-    const start =
-      patient.date.replaceAll("-", "") +
+  function ical(p, t, d) {
+    const s =
+      p.date.replaceAll("-", "") +
       "T" +
-      to24(patient.slot) +
-      "00";
-
-    const end =
-      patient.date.replaceAll("-", "") +
-      "T" +
-      to24(patient.slot, 45) +
+      to24(p.slot) +
       "00";
 
     dl(
@@ -1390,11 +956,9 @@ VERSION:2.0
 PRODID:-//Apex Dental//EN
 BEGIN:VEVENT
 UID:${Date.now()}@apex
-DTSTART:${start}
-DTEND:${end}
-SUMMARY:Apex Dental ${patient.token}
-DESCRIPTION:${treatment[1]} with ${doctor[1]}
-LOCATION:Plot 18, Jubilee Hills Road No. 36, Hyderabad
+DTSTART:${s}
+SUMMARY:Apex Dental ${p.token}
+DESCRIPTION:${t[1]} with ${d[1]}
 END:VEVENT
 END:VCALENDAR`,
       "apex-dental.ics",
@@ -1406,27 +970,27 @@ END:VCALENDAR`,
      PDF
      ========================================================= */
 
-  function pdf(patient, treatment, doctor) {
+  function pdf(p, t, d) {
     const lines = [
       "APEX DENTAL & IMPLANT STUDIO",
       "Appointment Confirmation",
-      "Token: " + patient.token,
-      "Patient: " + patient.name,
-      "Treatment: " + treatment[1],
-      "Doctor: " + doctor[1],
-      "Date: " + patient.date,
-      "Time: " + patient.slot,
-      "Type: " + patient.type,
+      "Token: " + p.token,
+      "Patient: " + p.name,
+      "Treatment: " + t[1],
+      "Doctor: " + d[1],
+      "Date: " + p.date,
+      "Time: " + p.slot,
+      "Type: " + p.type,
       "Plot 18, Jubilee Hills Road No. 36, Hyderabad",
-      "Phone: +91 98480 22338"
+      "Phone: +91 98480 22338",
     ];
 
     const stream =
       "BT /F1 16 Tf 50 800 Td " +
       lines
         .map(
-          line =>
-            `(${line.replace(
+          (x) =>
+            `(${x.replace(
               /([\\()])/g,
               "\\$1"
             )}) Tj 0 -25 Td`
@@ -1434,7 +998,7 @@ END:VCALENDAR`,
         .join(" ") +
       " ET";
 
-    const objects = [
+    const objs = [
       "1 0 obj<< /Type /Catalog /Pages 2 0 R >>endobj",
 
       "2 0 obj<< /Type /Pages /Kids [3 0 R] /Count 1 >>endobj",
@@ -1446,1258 +1010,564 @@ END:VCALENDAR`,
       `5 0 obj<< /Length ${stream.length} >>stream
 ${stream}
 endstream
-endobj`
+endobj`,
     ];
 
-    let output = "%PDF-1.4\n";
-    const offsets = [0];
+    let out = "%PDF-1.4\n";
+    const off = [0];
 
-    objects.forEach(object => {
-      offsets.push(output.length);
-      output += object + "\n";
+    objs.forEach((o) => {
+      off.push(out.length);
+      out += o + "\n";
     });
 
-    const xrefPosition = output.length;
+    const x = out.length;
 
-    output +=
-      `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n` +
-      offsets
+    out +=
+      `xref\n0 ${
+        objs.length + 1
+      }\n0000000000 65535 f \n` +
+      off
         .slice(1)
         .map(
-          offset =>
-            String(offset).padStart(10, "0") +
+          (v) =>
+            String(v).padStart(10, "0") +
             " 00000 n \n"
         )
         .join("") +
       `trailer<< /Size ${
-        objects.length + 1
-      } /Root 1 0 R >>\nstartxref\n${xrefPosition}\n%%EOF`;
+        objs.length + 1
+      } /Root 1 0 R >>\nstartxref\n${x}\n%%EOF`;
 
     dl(
-      output,
+      out,
       "apex-dental-appointment-slip.pdf",
       "application/pdf"
     );
   }
 
   /* =========================================================
-     EMI
+     INITIALIZE
      ========================================================= */
 
-  function openEMI() {
-    close("bookingModal");
-    close("protocolModal");
-    close("roadmapModal");
+  function init() {
+    /* -------------------------------------------------------
+       TREATMENT FILTERS
+       ------------------------------------------------------- */
 
-    const emiSection = $("#emi");
+    const f = $("#treatmentFilters");
 
-    if (!emiSection) return;
-
-    emiSection.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-
-    setTimeout(() => {
-      const cost = $("#emiCost");
-
-      if (cost) {
-        cost.focus();
-      }
-    }, 700);
-  }
-
-  function initEMI() {
-    const cost = $("#emiCost");
-    const months = $("#emiMonths");
-
-    if (!cost || !months) return;
-
-    const update = () => {
-      const amount = Number(cost.value);
-      const duration = Number(months.value);
-
-      const costOutput = $("#emiCostOut");
-      const monthsOutput = $("#emiMonthsOut");
-      const result = $("#emiResult");
-
-      if (costOutput) {
-        costOutput.textContent =
-          "₹" + money(amount);
-      }
-
-      if (monthsOutput) {
-        monthsOutput.textContent =
-          duration + " months";
-      }
-
-      if (result) {
-        result.textContent =
-          "₹" +
-          Math.round(
-            amount / duration
-          ).toLocaleString("en-IN");
-      }
-    };
-
-    cost.addEventListener("input", update);
-    months.addEventListener("input", update);
-
-    update();
-  }
-
-  /* =========================================================
-     ROADMAP
-     ========================================================= */
-
-  function openRoadmap() {
-    open("roadmapModal");
-  }
-
-  /* =========================================================
-     QUEUE
-     ========================================================= */
-
-  function openQueue() {
-    const queue = $("#queue");
-
-    if (!queue) return;
-
-    queue.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-  }
-
-  /* =========================================================
-     PROTOCOL
-     ========================================================= */
-
-  function showProtocol(id) {
-    const treatment = T.find(
-      item => item[0] === id
-    );
-
-    if (!treatment) return;
-
-    const content = $("#protocolContent");
-
-    if (!content) return;
-
-    content.innerHTML = `
-      <span class="eyebrow">
-        ${esc(treatment[2])}
-      </span>
-
-      <h2>
-        ${esc(treatment[1])}
-      </h2>
-
-      <p>
-        ${esc(treatment[3])}
-      </p>
-
-      <div class="roadmap-line">
-
-        ${treatment[8]
-          .map(
-            (step, index) => `
-              <article>
-
-                <b>
-                  0${index + 1}
-                </b>
-
-                <h3>
-                  ${esc(step)}
-                </h3>
-
-                <p>
-                  Preparation, comfort-first treatment
-                  and review.
-                </p>
-
-              </article>
-            `
-          )
-          .join("")}
-
-      </div>
-
-      <p>
-
-        <b>
-          Starting from
-          ₹${money(treatment[5])}
-        </b>
-
-        ${
-          treatment[6]
-            ? ` • EMI from ₹${money(treatment[6])}/mo`
-            : ""
-        }
-
-      </p>
-
-      <button
-        type="button"
-        class="btn btn-primary-glow"
-        data-book="${treatment[0]}"
-      >
-        Book this treatment
-      </button>
-    `;
-
-    open("protocolModal");
-  }
-
-  /* =========================================================
-     ASSESSMENT
-     ========================================================= */
-
-  function assessment() {
-    let step = 0;
-    const answers = [];
-
-    const questions = [
-      [
-        "What is your primary dental goal?",
-        [
-          "Severe tooth pain",
-          "Replace missing teeth",
-          "Straighten teeth",
-          "Whiter smile"
-        ]
-      ],
-      [
-        "How long have you experienced this issue?",
-        [
-          "Less than a week",
-          "1-6 months",
-          "Over a year"
-        ]
-      ],
-      [
-        "Do you experience dental anxiety or fear of needles?",
-        [
-          "Yes, need pain-free sedation",
-          "No, comfortable"
-        ]
+    if (f) {
+      f.innerHTML = [
+        "All Procedures (8)",
+        "Implants & Surgery",
+        "Cosmetic & Aligners",
+        "Root Canal & Crowns",
+        "Pediatric (Kids)",
       ]
-    ];
-
-    const content = $("#assessmentContent");
-
-    if (!content) return;
-
-    const render = () => {
-      if (step < 3) {
-        content.innerHTML = `
-          <span class="eyebrow">
-            60-SECOND SMILE ASSESSMENT •
-            ${step + 1}/3
-          </span>
-
-          <h2>
-            ${esc(questions[step][0])}
-          </h2>
-
-          <div class="assessment-options">
-
-            ${questions[step][1]
-              .map(
-                option => `
-                  <button
-                    type="button"
-                    data-answer="${esc(option)}"
-                  >
-                    ${esc(option)}
-                  </button>
-                `
-              )
-              .join("")}
-
-          </div>
-        `;
-      } else {
-        let treatment =
-          "Urgent Dental Examination & Pain-Relief Consultation";
-
-        let doctor =
-          "Dr. Vikram Varma, MDS";
-
-        if (
-          answers[0] ===
-          "Replace missing teeth"
-        ) {
-          treatment =
-            "Computerized Implant Evaluation + 3D CBCT Scan";
-
-          doctor =
-            "Dr. Arvind Swaminathan, MDS";
-        } else if (
-          answers[0] ===
-          "Straighten teeth"
-        ) {
-          treatment =
-            "3D Clear Aligner Smile Plan";
-
-          doctor =
-            "Dr. Sneha Reddy, MDS";
-        } else if (
-          answers[0] ===
-          "Whiter smile"
-        ) {
-          treatment =
-            "In-Clinic Laser Whitening Consultation";
-
-          doctor =
-            "Dr. Sneha Reddy, MDS";
-        }
-
-        content.innerHTML = `
-          <span class="eyebrow">
-            YOUR RESULT
-          </span>
-
-          <h2>
-            Recommended Treatment Plan
-          </h2>
-
-          <div class="result-plan">
-
-            <h3>
-              ${esc(treatment)}
-            </h3>
-
-            <p>
-              Recommended Specialist:
-              <b>${esc(doctor)}</b>
-            </p>
-
-            <strong>
-              ₹500 Consultation Waiver Applied to Token
-            </strong>
-
-          </div>
-
-          <button
-            type="button"
-            class="btn btn-primary-glow mt-3"
-            data-assessment-book
-          >
-            Book This Solution
-          </button>
-        `;
-      }
-    };
-
-    content.onclick = event => {
-      const answerButton =
-        event.target.closest("[data-answer]");
-
-      if (answerButton) {
-        answers[step] =
-          answerButton.dataset.answer;
-
-        step++;
-        render();
-
-        return;
-      }
-
-      if (
-        event.target.closest(
-          "[data-assessment-book]"
+        .map(
+          (x, i) =>
+            `<button
+              class="${i ? "" : "active"}"
+              data-filter="${i ? "" : x}"
+            >
+              ${x}
+            </button>`
         )
-      ) {
-        close("assessmentModal");
-        startBooking();
-      }
-    };
+        .join("");
 
-    render();
-    open("assessmentModal");
-  }
+      treatmentCards();
 
-  /* =========================================================
-     BEFORE / AFTER
-     ========================================================= */
+      f.onclick = (e) => {
+        const b =
+          e.target.closest("button");
 
-  function initBeforeAfter() {
-    const wrapper = $("#beforeAfter");
+        if (!b) return;
 
-    if (!wrapper) return;
-
-    let dragging = false;
-
-    const move = x => {
-      const rect =
-        wrapper.getBoundingClientRect();
-
-      const percentage = Math.max(
-        0,
-        Math.min(
-          100,
-          ((x - rect.left) / rect.width) * 100
-        )
-      );
-
-      const before = $("#baBefore");
-      const divider = $("#baDivider");
-      const hint = $("#dragHint");
-
-      if (before) {
-        before.style.clipPath =
-          `inset(0 ${100 - percentage}% 0 0)`;
-      }
-
-      if (divider) {
-        divider.style.left =
-          percentage + "%";
-      }
-
-      if (hint) {
-        hint.style.display = "none";
-      }
-    };
-
-    wrapper.addEventListener(
-      "pointerdown",
-      event => {
-        dragging = true;
-        move(event.clientX);
-
-        wrapper.setPointerCapture(
-          event.pointerId
+        $$("button", f).forEach((x) =>
+          x.classList.remove("active")
         );
-      }
-    );
 
-    wrapper.addEventListener(
-      "pointermove",
-      event => {
-        if (dragging) {
-          move(event.clientX);
-        }
-      }
-    );
+        b.classList.add("active");
 
-    wrapper.addEventListener(
-      "pointerup",
-      () => {
-        dragging = false;
-      }
-    );
-
-    wrapper.addEventListener(
-      "pointercancel",
-      () => {
-        dragging = false;
-      }
-    );
-  }
-
-  /* =========================================================
-     DOCTORS
-     ========================================================= */
-
-  function initDoctors() {
-    const grid = $("#doctorGrid");
-
-    if (!grid) return;
-
-    grid.innerHTML = D.map(
-      doctor => `
-        <article class="doctor-card">
-
-          <div class="doctor-avatar">
-            🧑‍⚕️
-          </div>
-
-          <div class="doctor-body">
-
-            <h3>
-              ${esc(doctor[1])}
-            </h3>
-
-            <div class="doctor-title">
-              ${esc(doctor[2])}
-            </div>
-
-            <div class="doctor-meta">
-
-              <span>
-                ★ ${esc(doctor[5])}
-                (${esc(doctor[6])})
-              </span>
-
-              <span>
-                ${esc(doctor[3])}
-              </span>
-
-              <span>
-                Medical Council ✓
-              </span>
-
-              <span>
-                ${esc(doctor[8])}
-              </span>
-
-              ${doctor[7]
-                .map(
-                  day =>
-                    `<span>${esc(day)}</span>`
-                )
-                .join("")}
-
-              <span class="available">
-                ${esc(doctor[9])}
-              </span>
-
-            </div>
-
-            <small>
-              ${esc(doctor[4])}
-            </small>
-
-            <button
-              type="button"
-              class="doctor-book"
-              data-doctor="${doctor[0]}"
-            >
-              Book with Dr.
-              ${esc(
-                doctor[1].replace("Dr. ", "").split(" ")[0]
-              )}
-            </button>
-
-          </div>
-
-        </article>
-      `
-    ).join("");
-  }
-
-  /* =========================================================
-     REVIEWS
-     ========================================================= */
-
-  function initReviews() {
-    const grid = $("#reviewsGrid");
-
-    if (!grid) return;
-
-    grid.innerHTML = S.map(
-      review => `
-        <article class="review">
-
-          <div class="stars">
-            ★★★★★
-          </div>
-
-          <p>
-            “${esc(review[3])}”
-          </p>
-
-          <div class="reviewer">
-
-            <b>
-              ${esc(review[0])}
-            </b>
-
-            <span>
-              ${esc(review[1])}
-              • ✓
-              ${esc(review[2])}
-            </span>
-
-          </div>
-
-        </article>
-      `
-    ).join("");
-  }
-
-  /* =========================================================
-     FAQ
-     ========================================================= */
-
-  function initFAQ() {
-    const accordion = $("#faqAccordion");
-
-    if (!accordion) return;
-
-    accordion.innerHTML = F.map(
-      (faq, index) => `
-        <div class="accordion-item">
-
-          <h2 class="accordion-header">
-
-            <button
-              class="accordion-button ${
-                index ? "collapsed" : ""
-              }"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#faq${index}"
-              aria-expanded="${index === 0}"
-            >
-              ${esc(faq[0])}
-            </button>
-
-          </h2>
-
-          <div
-            id="faq${index}"
-            class="accordion-collapse collapse ${
-              index === 0 ? "show" : ""
-            }"
-          >
-
-            <div class="accordion-body">
-              ${esc(faq[1])}
-            </div>
-
-          </div>
-
-        </div>
-      `
-    ).join("");
-  }
-
-  /* =========================================================
-     TREATMENT CARDS
-     ========================================================= */
-
-  function treatmentCards(filter = "All Procedures") {
-    const list =
-      filter === "All Procedures"
-        ? T
-        : T.filter(item => item[2] === filter);
-
-    const grid = $("#treatmentGrid");
-
-    if (!grid) return;
-
-    grid.innerHTML = list
-      .map(
-        treatment => `
-          <div class="col-md-6 col-xl-3">
-
-            <article class="treatment-card reveal visible">
-
-              <div class="treatment-head">
-
-                <span class="category-badge">
-                  ${esc(treatment[2])}
-                </span>
-
-                <span class="duration">
-                  ${esc(treatment[4])}
-                </span>
-
-              </div>
-
-              <h3>
-                ${esc(treatment[1])}
-              </h3>
-
-              <p>
-                ${esc(treatment[3])}
-              </p>
-
-              <div class="price">
-                From ₹${money(treatment[5])}
-              </div>
-
-              <div class="emi-line">
-
-                ${
-                  treatment[6]
-                    ? `EMI from ₹${money(treatment[6])}/mo`
-                    : "Transparent one-time estimate"
-                }
-
-              </div>
-
-              <div class="card-actions">
-
-                <button
-                  type="button"
-                  class="protocol-btn"
-                  data-protocol="${treatment[0]}"
-                >
-                  View Protocol
-                </button>
-
-                <button
-                  type="button"
-                  class="book-treatment"
-                  data-book="${treatment[0]}"
-                >
-                  Book Slot
-                </button>
-
-              </div>
-
-            </article>
-
-          </div>
-        `
-      )
-      .join("");
-  }
-
-  /* =========================================================
-     TREATMENT FILTERS
-     ========================================================= */
-
-  function initTreatmentFilters() {
-    const filters = $("#treatmentFilters");
-
-    if (!filters) return;
-
-    const filterData = [
-      {
-        label: "All Procedures (8)",
-        value: "All Procedures"
-      },
-      {
-        label: "Implants & Surgery",
-        value: "Implants & Surgery"
-      },
-      {
-        label: "Cosmetic & Aligners",
-        value: "Cosmetic & Aligners"
-      },
-      {
-        label: "Root Canal & Crowns",
-        value: "Root Canal & Crowns"
-      },
-      {
-        label: "Pediatric (Kids)",
-        value: "Pediatric (Kids)"
-      }
-    ];
-
-    filters.innerHTML = filterData
-      .map(
-        (filter, index) => `
-          <button
-            type="button"
-            class="${index === 0 ? "active" : ""}"
-            data-filter="${esc(filter.value)}"
-          >
-            ${esc(filter.label)}
-          </button>
-        `
-      )
-      .join("");
-
-    treatmentCards();
-
-    filters.addEventListener("click", event => {
-      const button =
-        event.target.closest("button");
-
-      if (!button) return;
-
-      $$("button", filters).forEach(item =>
-        item.classList.remove("active")
-      );
-
-      button.classList.add("active");
-
-      treatmentCards(
-        button.dataset.filter ||
-        "All Procedures"
-      );
-    });
-  }
-
-  /* =========================================================
-     REVEAL / COUNTERS
-     ========================================================= */
-
-  function initReveal() {
-    if (!("IntersectionObserver" in window)) {
-      $$(".reveal").forEach(element =>
-        element.classList.add("visible")
-      );
-
-      return;
+        treatmentCards(
+          b.dataset.filter ||
+            "All Procedures"
+        );
+      };
     }
 
-    const observer =
-      new IntersectionObserver(
-        entries => {
-          entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
+    /* -------------------------------------------------------
+       BEFORE / AFTER SLIDER
+       ------------------------------------------------------- */
 
-            const element =
-              entry.target;
+    const wrap = $("#beforeAfter");
 
-            if (element.dataset.count) {
-              const target =
-                Number(element.dataset.count);
+    if (wrap) {
+      let drag = false;
 
-              const start =
-                performance.now();
+      const move = (x) => {
+        const r =
+          wrap.getBoundingClientRect();
 
-              const animate =
-                currentTime => {
-                  const progress =
-                    Math.min(
-                      1,
-                      (currentTime - start) /
-                        1000
-                    );
+        const p = Math.max(
+          0,
+          Math.min(
+            100,
+            ((x - r.left) / r.width) * 100
+          )
+        );
 
-                  const value =
-                    Math.floor(
-                      target *
-                        (1 -
-                          Math.pow(
-                            1 - progress,
-                            3
-                          ))
-                    );
+        const before = $("#baBefore");
+        const divider = $("#baDivider");
+        const hint = $("#dragHint");
 
-                  element.textContent =
-                    value.toLocaleString(
-                      "en-IN"
-                    ) + "+";
-
-                  if (progress < 1) {
-                    requestAnimationFrame(
-                      animate
-                    );
-                  }
-                };
-
-              requestAnimationFrame(
-                animate
-              );
-            }
-
-            element.classList.add(
-              "visible"
-            );
-
-            observer.unobserve(
-              element
-            );
-          });
-        },
-        {
-          threshold: 0.2
+        if (before) {
+          before.style.clipPath =
+            `inset(0 ${100 - p}% 0 0)`;
         }
-      );
 
-    $$(".reveal,[data-count]").forEach(
-      element =>
-        observer.observe(element)
-    );
-  }
+        if (divider) {
+          divider.style.left = p + "%";
+        }
 
-  /* =========================================================
-     MAIN CLICK HANDLER
-     ========================================================= */
+        if (hint) {
+          hint.style.display = "none";
+        }
+      };
 
-  function initClicks() {
+      wrap.onpointerdown = (e) => {
+        drag = true;
+        move(e.clientX);
+        wrap.setPointerCapture(
+          e.pointerId
+        );
+      };
+
+      wrap.onpointermove = (e) => {
+        if (drag) move(e.clientX);
+      };
+
+      wrap.onpointerup = () => {
+        drag = false;
+      };
+
+      wrap.onpointercancel = () => {
+        drag = false;
+      };
+    }
+
+    /* -------------------------------------------------------
+       DOCTORS
+       ------------------------------------------------------- */
+
+    const doctorGrid = $("#doctorGrid");
+
+    if (doctorGrid) {
+      doctorGrid.innerHTML = D.map(
+        (x) =>
+          `<article class="doctor-card">
+
+            <div class="doctor-avatar">
+              🧑‍⚕️
+            </div>
+
+            <div class="doctor-body">
+
+              <h3>${x[1]}</h3>
+
+              <div class="doctor-title">
+                ${x[2]}
+              </div>
+
+              <div class="doctor-meta">
+
+                <span>
+                  ★ ${x[5]} (${x[6]})
+                </span>
+
+                <span>
+                  ${x[3]}
+                </span>
+
+                <span>
+                  Medical Council ✓
+                </span>
+
+                <span>
+                  ${x[8]}
+                </span>
+
+                ${x[7]
+                  .map(
+                    (v) =>
+                      `<span>${v}</span>`
+                  )
+                  .join("")}
+
+                <span class="available">
+                  ${x[9]}
+                </span>
+
+              </div>
+
+              <small>
+                ${x[4]}
+              </small>
+
+              <button
+                class="doctor-book"
+                data-doctor="${x[0]}"
+              >
+                Book with Dr.
+                ${x[1].split(" ")[1]}
+              </button>
+
+            </div>
+
+          </article>`
+      ).join("");
+    }
+
+    /* -------------------------------------------------------
+       REVIEWS
+       ------------------------------------------------------- */
+
+    const reviewsGrid =
+      $("#reviewsGrid");
+
+    if (reviewsGrid) {
+      reviewsGrid.innerHTML = S.map(
+        (x) =>
+          `<article class="review">
+
+            <div class="stars">
+              ★★★★★
+            </div>
+
+            <p>
+              “${x[3]}”
+            </p>
+
+            <div class="reviewer">
+              <b>${x[0]}</b>
+              <span>
+                ${x[1]} • ✓ ${x[2]}
+              </span>
+            </div>
+
+          </article>`
+      ).join("");
+    }
+
+    /* -------------------------------------------------------
+       FAQ
+       ------------------------------------------------------- */
+
+    const faqAccordion =
+      $("#faqAccordion");
+
+    if (faqAccordion) {
+      faqAccordion.innerHTML = F.map(
+        (x, i) =>
+          `<div class="accordion-item">
+
+            <h2 class="accordion-header">
+
+              <button
+                class="accordion-button ${
+                  i ? "collapsed" : ""
+                }"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq${i}"
+              >
+                ${x[0]}
+              </button>
+
+            </h2>
+
+            <div
+              id="faq${i}"
+              class="accordion-collapse collapse ${
+                i ? "" : "show"
+              }"
+            >
+
+              <div class="accordion-body">
+                ${x[1]}
+              </div>
+
+            </div>
+
+          </div>`
+      ).join("");
+    }
+
+    /* -------------------------------------------------------
+       YEAR
+       ------------------------------------------------------- */
+
+    const year = $("#year");
+
+    if (year) {
+      year.textContent =
+        new Date().getFullYear();
+    }
+
+    /* -------------------------------------------------------
+       COMMON CLICK EVENTS
+       ------------------------------------------------------- */
+
     document.addEventListener(
       "click",
-      event => {
-
-        /* ---------------------------------------------------
-           BOOK APPOINTMENT
-           --------------------------------------------------- */
+      (e) => {
+        /* OPEN BOOKING */
 
         if (
-          event.target.closest(
+          e.target.closest(
             "[data-open-booking]"
           )
         ) {
-          startBooking();
-          return;
-        }
-
-        /* ---------------------------------------------------
-           EMI
-           --------------------------------------------------- */
-
-        if (
-          event.target.closest(
-            "[data-open-emi]"
-          )
-        ) {
-          openEMI();
-          return;
-        }
-
-        /* ---------------------------------------------------
-           ROADMAP
-           --------------------------------------------------- */
-
-        if (
-          event.target.closest(
-            "[data-open-roadmap]"
-          )
-        ) {
-          openRoadmap();
-          return;
-        }
-
-        /* ---------------------------------------------------
-           QUEUE
-           --------------------------------------------------- */
-
-        const queueButton =
-          event.target.closest(
-            "[data-open-queue]"
-          );
-
-        if (queueButton) {
-          event.preventDefault();
-          openQueue();
-          return;
-        }
-
-        /* ---------------------------------------------------
-           BOOK TREATMENT
-           --------------------------------------------------- */
-
-        const bookButton =
-          event.target.closest(
-            "[data-book]"
-          );
-
-        if (bookButton) {
-          const treatmentId =
-            bookButton.dataset.book;
-
-          const treatment =
-            T.find(
-              item =>
-                item[0] === treatmentId
-            );
-
-          if (!treatment) return;
-
-          B = {
-            step: 1,
-            t: treatmentId,
-            d: null,
-            date: null,
-            shift: "morning",
-            slot: null
-          };
-
-          close("protocolModal");
-
-          bookingView();
-          open("bookingModal");
-
-          return;
-        }
-
-        /* ---------------------------------------------------
-           BOOK WITH DOCTOR
-           --------------------------------------------------- */
-
-        const doctorButton =
-          event.target.closest(
-            "[data-doctor]"
-          );
-
-        if (doctorButton) {
           B = {
             step: 1,
             t: null,
-            d: doctorButton.dataset.doctor,
+            d: null,
             date: null,
             shift: "morning",
-            slot: null
+            slot: null,
           };
 
           bookingView();
           open("bookingModal");
-
-          return;
         }
 
-        /* ---------------------------------------------------
-           BOOKING STEP NAVIGATION
-           --------------------------------------------------- */
+        /* BOOK TREATMENT */
 
-        const stepButton =
-          event.target.closest(
-            "[data-step]"
-          );
+        const bt =
+          e.target.closest("[data-book]");
 
-        if (stepButton) {
-          const targetStep =
-            Number(
-              stepButton.dataset.step
-            );
+        if (bt) {
+          B = {
+            step: 3,
+            t: bt.dataset.book,
+            d: "fastest",
+            date: dates()[0]
+              .toISOString()
+              .slice(0, 10),
+            shift: "morning",
+            slot: null,
+          };
 
-          if (
-            targetStep < B.step ||
-            (
-              targetStep === 2 &&
-              B.t
-            ) ||
-            (
-              targetStep === 3 &&
-              B.t &&
-              B.d
-            ) ||
-            (
-              targetStep === 4 &&
-              B.t &&
-              B.d &&
-              B.date &&
-              B.slot
-            )
-          ) {
-            B.step = targetStep;
-            bookingView();
-          }
-
-          return;
+          bookingView();
+          open("bookingModal");
+          close("protocolModal");
         }
 
-        /* ---------------------------------------------------
-           PROTOCOL
-           --------------------------------------------------- */
+        /* BOOK WITH DOCTOR */
 
-        const protocolButton =
-          event.target.closest(
+        const db =
+          e.target.closest("[data-doctor]");
+
+        if (db) {
+          B = {
+            step: 1,
+            t: null,
+            d: db.dataset.doctor,
+            date: null,
+            shift: "morning",
+            slot: null,
+          };
+
+          bookingView();
+          open("bookingModal");
+        }
+
+        /* PROTOCOL */
+
+        const tt =
+          e.target.closest(
             "[data-protocol]"
           );
 
-        if (protocolButton) {
-          showProtocol(
-            protocolButton.dataset.protocol
+        if (tt) {
+          const t = T.find(
+            (x) =>
+              x[0] ===
+              tt.dataset.protocol
           );
 
-          return;
+          if (!t) return;
+
+          $("#protocolContent").innerHTML = `
+            <span class="eyebrow">
+              ${t[2]}
+            </span>
+
+            <h2>${t[1]}</h2>
+
+            <p>${t[3]}</p>
+
+            <div class="roadmap-line">
+
+              ${t[8]
+                .map(
+                  (s, i) =>
+                    `<article>
+                      <b>0${i + 1}</b>
+                      <h3>${s}</h3>
+                      <p>
+                        Preparation, comfort-first
+                        treatment and review.
+                      </p>
+                    </article>`
+                )
+                .join("")}
+
+            </div>
+
+            <p>
+              <b>
+                Starting from
+                ₹${t[5].toLocaleString("en-IN")}
+              </b>
+
+              ${
+                t[6]
+                  ? " • EMI from ₹" +
+                    t[6].toLocaleString(
+                      "en-IN"
+                    ) +
+                    "/mo"
+                  : ""
+              }
+            </p>
+
+            <button
+              class="btn btn-primary-glow"
+              data-book="${t[0]}"
+            >
+              Book this treatment
+            </button>
+          `;
+
+          open("protocolModal");
         }
 
-        /* ---------------------------------------------------
-           CLOSE BOOKING
-           --------------------------------------------------- */
+        /* CLOSE BOOKING */
 
         if (
-          event.target.closest(
+          e.target.closest(
             "[data-close-booking]"
           )
         ) {
           close("bookingModal");
-          return;
         }
 
-        /* ---------------------------------------------------
-           CLOSE MODALS
-           --------------------------------------------------- */
+        /* CLOSE MODAL */
 
-        const closeButton =
-          event.target.closest(
-            "[data-close]"
-          );
-
-        if (closeButton) {
+        if (
+          e.target.closest("[data-close]")
+        ) {
           close(
-            closeButton.dataset.close
+            e.target.closest(
+              "[data-close]"
+            ).dataset.close
           );
-
-          return;
         }
 
-        /* ---------------------------------------------------
-           BACK
-           --------------------------------------------------- */
+        /* BACK */
 
         if (
-          event.target.closest(
-            "[data-back]"
-          )
+          e.target.closest("[data-back]")
         ) {
-          if (B.step > 1) {
-            B.step--;
-            bookingView();
-          }
+          B.step--;
 
-          return;
+          bookingView();
         }
 
-        /* ---------------------------------------------------
-           NEXT
-           --------------------------------------------------- */
+        /* NEXT */
 
         if (
-          event.target.closest(
-            "[data-next]"
-          )
+          e.target.closest("[data-next]")
         ) {
-          if (B.step >= 4) return;
-
-          if (B.step === 1 && !B.t) {
-            return;
-          }
-
-          if (B.step === 2 && !B.d) {
-            return;
-          }
-
-          if (
-            B.step === 3 &&
-            (!B.date || !B.slot)
-          ) {
-            return;
-          }
-
           B.step++;
-
-          if (
-            B.step === 2 &&
-            !B.d
-          ) {
-            B.d = "fastest";
-          }
 
           if (
             B.step === 3 &&
             !B.date
           ) {
-            B.date =
-              localDateKey(
-                dates()[0]
-              );
+            B.date = dates()[0]
+              .toISOString()
+              .slice(0, 10);
           }
 
           bookingView();
-
-          return;
         }
 
-        /* ---------------------------------------------------
-           TREATMENT SELECTION
-           --------------------------------------------------- */
+        /* TREATMENT */
 
-        const treatmentButton =
-          event.target.closest(
-            "[data-t]"
-          );
+        const t =
+          e.target.closest("[data-t]");
 
-        if (treatmentButton) {
-          B.t =
-            treatmentButton.dataset.t;
-
-          B.step = 2;
-
+        if (t) {
+          B.t = t.dataset.t;
           bookingView();
-
-          return;
         }
 
-        /* ---------------------------------------------------
-           DOCTOR SELECTION
-           --------------------------------------------------- */
+        /* DOCTOR */
 
-        const doctorChoice =
-          event.target.closest(
-            "[data-d]"
-          );
+        const d =
+          e.target.closest("[data-d]");
 
-        if (doctorChoice) {
-          B.d =
-            doctorChoice.dataset.d;
-
-          B.step = 3;
-
-          if (!B.date) {
-            B.date =
-              localDateKey(
-                dates()[0]
-              );
-          }
-
+        if (d) {
+          B.d = d.dataset.d;
           bookingView();
-
-          return;
         }
 
-        /* ---------------------------------------------------
-           DATE
-           --------------------------------------------------- */
+        /* DATE */
 
-        const dateButton =
-          event.target.closest(
+        const dt =
+          e.target.closest(
             "[data-date]"
           );
 
-        if (dateButton) {
-          B.date =
-            dateButton.dataset.date;
-
-          B.slot = null;
-
+        if (dt) {
+          B.date = dt.dataset.date;
           bookingView();
-
-          return;
         }
 
-        /* ---------------------------------------------------
-           SHIFT
-           --------------------------------------------------- */
+        /* SHIFT */
 
-        const shiftButton =
-          event.target.closest(
+        const sh =
+          e.target.closest(
             "[data-shift]"
           );
 
-        if (shiftButton) {
-          B.shift =
-            shiftButton.dataset.shift;
-
+        if (sh) {
+          B.shift = sh.dataset.shift;
           B.slot = null;
-
           bookingView();
-
-          return;
         }
 
-        /* ---------------------------------------------------
-           SLOT
-           --------------------------------------------------- */
+        /* SLOT */
 
-        const slotButton =
-          event.target.closest(
+        const sl =
+          e.target.closest(
             "[data-slot]"
           );
 
         if (
-          slotButton &&
-          !slotButton.disabled
+          sl &&
+          !sl.disabled
         ) {
-          B.slot =
-            slotButton.dataset.slot;
-
+          B.slot = sl.dataset.slot;
           bookingView();
-
-          return;
         }
 
-        /* ---------------------------------------------------
-           WHATSAPP CLOSE
-           --------------------------------------------------- */
+        /* WHATSAPP */
 
         if (
-          event.target.closest(
-            "#closeWa"
-          )
+          e.target.closest("#closeWa")
         ) {
           const toast =
             $("#whatsappToast");
@@ -2707,32 +1577,22 @@ endobj`
               "show"
             );
           }
-
-          return;
         }
 
-        /* ---------------------------------------------------
-           VIRTUAL TOUR
-           --------------------------------------------------- */
+        /* TOUR */
 
         if (
-          event.target.closest(
-            "#playTour"
-          )
+          e.target.closest("#playTour")
         ) {
           alert(
-            "Virtual tour preview:\n\nReception → Consultation → Digital Scan → Surgery → Recovery"
+            "Virtual tour preview: Reception → Consultation → Digital Scan → Surgery → Recovery."
           );
-
-          return;
         }
 
-        /* ---------------------------------------------------
-           ASSESSMENT
-           --------------------------------------------------- */
+        /* ASSESSMENT */
 
         if (
-          event.target.closest(
+          e.target.closest(
             "[data-open-assessment]"
           )
         ) {
@@ -2740,77 +1600,47 @@ endobj`
         }
       }
     );
-  }
 
-  /* =========================================================
-     FORM SUBMISSION
-     ========================================================= */
+    /* -------------------------------------------------------
+       FORM SUBMISSION
+       ------------------------------------------------------- */
 
-  function initForms() {
     document.addEventListener(
       "submit",
-      event => {
+      (e) => {
         if (
-          event.target.id !==
+          e.target.id !==
           "patientForm"
         ) {
           return;
         }
 
-        event.preventDefault();
+        e.preventDefault();
 
         const form =
-          new FormData(
-            event.target
-          );
+          new FormData(e.target);
 
-        const treatment =
-          T.find(
-            item =>
-              item[0] === B.t
-          );
+        const t = T.find(
+          (x) =>
+            x[0] === B.t
+        );
 
-        if (!treatment) {
-          alert(
-            "Please select a treatment."
-          );
-
-          B.step = 1;
-          bookingView();
-
-          return;
-        }
-
-        const doctor =
+        const d =
           B.d === "fastest"
             ? D[0]
             : D.find(
-                item =>
-                  item[0] === B.d
+                (x) =>
+                  x[0] === B.d
               ) || D[0];
 
-        if (!B.date || !B.slot) {
-          alert(
-            "Please select a date and time slot."
-          );
-
-          B.step = 3;
-          bookingView();
-
-          return;
-        }
-
-        const patient = {
+        const p = {
           name: form.get("name"),
           phone: form.get("phone"),
           age: form.get("age"),
           gender: form.get("gender"),
-          email: form.get("email"),
           type: form.get("type"),
           complaint:
             form.get("complaint"),
-          whatsapp:
-            form.get("wa") === "on",
 
           token:
             "#APX-" +
@@ -2823,51 +1653,316 @@ endobj`
             ),
 
           date: B.date,
-          slot: B.slot
+          slot: B.slot,
         };
 
         localStorage.setItem(
           "apexLastAppointment",
-          JSON.stringify(patient)
+          JSON.stringify(p)
         );
 
-        confirmAppointment(
-          patient,
-          treatment,
-          doctor
-        );
+        confirm(p, t, d);
       }
     );
-  }
 
-  /* =========================================================
-     YEAR
-     ========================================================= */
+    /* =====================================================
+       ASSESSMENT
+       ===================================================== */
 
-  function initYear() {
-    const year = $("#year");
+    function assessment() {
+      let step = 0;
+      const a = [];
 
-    if (year) {
-      year.textContent =
-        new Date().getFullYear();
+      const q = [
+        [
+          "What is your primary dental goal?",
+          [
+            "Severe tooth pain",
+            "Replace missing teeth",
+            "Straighten teeth",
+            "Whiter smile",
+          ],
+        ],
+
+        [
+          "How long have you experienced this issue?",
+          [
+            "Less than a week",
+            "1-6 months",
+            "Over a year",
+          ],
+        ],
+
+        [
+          "Do you experience dental anxiety or fear of needles?",
+          [
+            "Yes, need pain-free sedation",
+            "No, comfortable",
+          ],
+        ],
+      ];
+
+      const render = () => {
+        const content =
+          $("#assessmentContent");
+
+        if (!content) return;
+
+        content.innerHTML =
+          step < 3
+            ? `
+              <span class="eyebrow">
+                60-SECOND SMILE ASSESSMENT •
+                ${step + 1}/3
+              </span>
+
+              <h2>
+                ${q[step][0]}
+              </h2>
+
+              <div class="assessment-options">
+
+                ${q[step][1]
+                  .map(
+                    (o) =>
+                      `<button
+                        data-answer="${o}"
+                      >
+                        ${o}
+                      </button>`
+                  )
+                  .join("")}
+
+              </div>
+            `
+            : `
+              <span class="eyebrow">
+                YOUR RESULT
+              </span>
+
+              <h2>
+                Recommended Treatment Plan
+              </h2>
+
+              <div class="result-plan">
+
+                <h3>
+                  ${
+                    a[0] ===
+                    "Replace missing teeth"
+                      ? "Computerized Implant Evaluation + 3D CBCT Scan"
+                      : a[0] ===
+                          "Straighten teeth"
+                        ? "3D Clear Aligner Smile Plan"
+                        : a[0] ===
+                            "Whiter smile"
+                          ? "In-Clinic Laser Whitening Consultation"
+                          : "Urgent Dental Examination & Pain-Relief Consultation"
+                  }
+                </h3>
+
+                <p>
+                  Recommended Specialist:
+                  <b>
+                    ${
+                      a[0] ===
+                      "Straighten teeth"
+                        ? "Dr. Sneha Reddy, MDS"
+                        : a[0] ===
+                            "Replace missing teeth"
+                          ? "Dr. Arvind Swaminathan, MDS"
+                          : a[0] ===
+                              "Whiter smile"
+                            ? "Dr. Sneha Reddy, MDS"
+                            : "Dr. Vikram Varma, MDS"
+                    }
+                  </b>
+                </p>
+
+                <strong>
+                  ₹500 Consultation Waiver Applied to Token
+                </strong>
+
+              </div>
+
+              <button
+                class="btn btn-primary-glow mt-3"
+                data-open-booking
+              >
+                Book This Solution
+              </button>
+            `;
+      };
+
+      const content =
+        $("#assessmentContent");
+
+      if (!content) return;
+
+      content.onclick = (e) => {
+        const b =
+          e.target.closest(
+            "[data-answer]"
+          );
+
+        if (b) {
+          a[step++] =
+            b.dataset.answer;
+
+          render();
+        } else if (
+          e.target.closest(
+            "[data-open-booking]"
+          )
+        ) {
+          close(
+            "assessmentModal"
+          );
+
+          B = {
+            step: 1,
+            t: null,
+            d: null,
+            date: null,
+            shift: "morning",
+            slot: null,
+          };
+
+          bookingView();
+          open("bookingModal");
+        }
+      };
+
+      render();
+      open("assessmentModal");
     }
-  }
 
-  /* =========================================================
-     INITIALIZE
-     ========================================================= */
+    /* =====================================================
+       EMI
+       ===================================================== */
 
-  function init() {
-    initTreatmentFilters();
-    initBeforeAfter();
-    initDoctors();
-    initReviews();
-    initFAQ();
-    initEMI();
-    initReveal();
-    initClicks();
-    initForms();
-    initYear();
+    const ec = $("#emiCost");
+    const em = $("#emiMonths");
+
+    function emi() {
+      if (!ec || !em) return;
+
+      const c = +ec.value;
+      const m = +em.value;
+
+      const costOut =
+        $("#emiCostOut");
+
+      const monthsOut =
+        $("#emiMonthsOut");
+
+      const result =
+        $("#emiResult");
+
+      if (costOut) {
+        costOut.textContent =
+          "₹" +
+          c.toLocaleString(
+            "en-IN"
+          );
+      }
+
+      if (monthsOut) {
+        monthsOut.textContent =
+          m + " months";
+      }
+
+      if (result) {
+        result.textContent =
+          "₹" +
+          Math.round(
+            c / m
+          ).toLocaleString(
+            "en-IN"
+          );
+      }
+    }
+
+    if (ec && em) {
+      ec.oninput = emi;
+      em.oninput = emi;
+      emi();
+    }
+
+    /* =====================================================
+       COUNTERS + REVEAL
+       ===================================================== */
+
+    if (
+      "IntersectionObserver" in window
+    ) {
+      const io =
+        new IntersectionObserver(
+          (es) =>
+            es.forEach((e) => {
+              if (
+                e.isIntersecting
+              ) {
+                if (
+                  e.target.dataset.count
+                ) {
+                  const n =
+                    +e.target
+                      .dataset.count;
+
+                  const start =
+                    performance.now();
+
+                  const f = (t) => {
+                    const p =
+                      Math.min(
+                        1,
+                        (t -
+                          start) /
+                          1000
+                      );
+
+                    e.target.textContent =
+                      Math.floor(
+                        n *
+                          (1 -
+                            (1 -
+                              p) **
+                              3)
+                      ).toLocaleString(
+                        "en-IN"
+                      ) + "+";
+
+                    if (p < 1) {
+                      requestAnimationFrame(
+                        f
+                      );
+                    }
+                  };
+
+                  requestAnimationFrame(
+                    f
+                  );
+                }
+
+                e.target.classList.add(
+                  "visible"
+                );
+
+                io.unobserve(
+                  e.target
+                );
+              }
+            }),
+          {
+            threshold: 0.2,
+          }
+        );
+
+      $$(".reveal,[data-count]").forEach(
+        (e) => io.observe(e)
+      );
+    }
   }
 
   /* =========================================================
@@ -2885,5 +1980,4 @@ endobj`
   } else {
     init();
   }
-
 })();

@@ -1,2719 +1,522 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="SmileCare Dental Clinic">
-  <title>SmileCare Dental Clinic</title>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Apex Dental & Implant Studio - Modern patient experience prototype"
+    >
+    <title>Apex Dental & Implant Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    >
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
-    rel="stylesheet"
-  >
-
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
-
-  <link rel="stylesheet" href="./style.css">
-</head>
-
-<body>
-
-<!-- =========================================================
-     HEADER
-========================================================= -->
-
-<header class="site-header">
-  <nav class="navbar navbar-expand-lg glass-nav">
-    <div class="container">
-
-      <a href="#" class="brand d-flex align-items-center gap-2">
-        <span class="brand-mark">🦷</span>
-
-        <span>
-          <strong>SmileCare</strong>
-          <small>Dental Clinic</small>
-        </span>
-      </a>
-
-      <div class="open-status ms-auto me-3">
-        <span class="pulse-dot"></span>
-        Open Today
-      </div>
-
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navLinks"
-      >
-        ☰
-      </button>
-
-      <div class="collapse navbar-collapse" id="navLinks">
-        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
-
-          <li class="nav-item">
-            <a class="nav-link" href="#home">Home</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="#treatments">Treatments</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="#doctors">Specialists</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="#reviews">Reviews</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="phone-pill" href="tel:+919876543210">
-              📞 +91 98765 43210
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <button
-              class="btn-primary-glow"
-              data-book-treatment="general"
-            >
-              Book Appointment
-            </button>
-          </li>
-
-        </ul>
-      </div>
-
-    </div>
-  </nav>
-</header>
-
-
-<!-- =========================================================
-     HERO
-========================================================= -->
-
-<main>
-
-<section id="home" class="hero-section">
-  <div class="container">
-
-    <div class="row align-items-center g-5">
-
-      <div class="col-lg-6">
-
-        <span class="eyebrow">
-          Modern Dental Care
-        </span>
-
-        <h1>
-          Your smile deserves
-          <span class="text-gradient">
-            expert care.
-          </span>
-        </h1>
-
-        <p class="hero-copy">
-          Comfortable, modern and personalized dental care
-          delivered by experienced specialists using advanced
-          technology.
-        </p>
-
-        <div class="d-flex flex-wrap gap-2 mt-4">
-
-          <button
-            class="btn-primary-glow"
-            data-book-treatment="general"
-          >
-            Book an Appointment
-          </button>
-
+  <body>
+    <header class="site-header" id="top">
+      <nav class="navbar navbar-expand-xl glass-nav">
+        <div class="container-fluid px-lg-4">
           <a
-            href="#treatments"
-            class="btn-outline-teal text-decoration-none d-flex align-items-center justify-content-center"
+            class="brand d-flex align-items-center gap-2"
+            href="#home"
+            aria-label="Apex Dental home"
           >
-            Explore Treatments
+            <span class="brand-mark">✦</span>
+            <span>
+              <strong>Apex Dental</strong>
+              <small>& Implant Studio</small>
+            </span>
           </a>
 
-        </div>
-
-        <div class="social-proof">
-
-          <div class="avatars">
-            <span>DR</span>
-            <span>SM</span>
-            <span>AK</span>
-            <span>RS</span>
-          </div>
-
-          <div>
-            <strong>5,000+</strong>
-            <div class="small text-muted">
-              Happy patients
-            </div>
-          </div>
-
-        </div>
-
-        <div class="micro-tags">
-          <span>✓ Experienced Doctors</span>
-          <span>✓ Modern Equipment</span>
-          <span>✓ Easy Booking</span>
-        </div>
-
-      </div>
-
-
-      <div class="col-lg-6">
-
-        <div class="hero-visual">
-
-          <div class="hero-dental-art">
-
-            <div class="art-ring"></div>
-
-            <div class="art-cross">✚</div>
-
-            <div class="tooth-art">
-              🦷
-            </div>
-
-            <div class="art-label">
-              Advanced Dental Care
-            </div>
-
-          </div>
-
-          <div class="floating-badge badge-one">
-            <span class="radar-dot"></span>
-            12 Specialists Available
-          </div>
-
-          <div class="floating-badge badge-two">
-            ⭐ 4.9/5 Patient Rating
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-
-<!-- =========================================================
-     METRICS
-========================================================= -->
-
-<section class="metrics-strip">
-  <div class="container">
-
-    <div class="row g-0">
-
-      <div class="col-6 col-lg-3">
-        <div class="metric">
-          <strong>5K+</strong>
-          <span>Happy Patients</span>
-        </div>
-      </div>
-
-      <div class="col-6 col-lg-3">
-        <div class="metric">
-          <strong>12+</strong>
-          <span>Dental Specialists</span>
-        </div>
-      </div>
-
-      <div class="col-6 col-lg-3">
-        <div class="metric">
-          <strong>15+</strong>
-          <span>Years Experience</span>
-        </div>
-      </div>
-
-      <div class="col-6 col-lg-3">
-        <div class="metric">
-          <strong>4.9★</strong>
-          <span>Patient Rating</span>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-
-<!-- =========================================================
-     COMMON DENTAL PROBLEMS
-========================================================= -->
-
-<section class="section-pad" id="problems">
-
-  <div class="container">
-
-    <div class="section-heading">
-
-      <span class="eyebrow">
-        Dental Problems
-      </span>
-
-      <h2>
-        What can we help you with?
-      </h2>
-
-      <p>
-        Choose a treatment based on your dental concern.
-      </p>
-
-    </div>
-
-
-    <div class="comparison-grid">
-
-      <article class="compare-card">
-
-        <div class="problem-icon">
-          🦷
-        </div>
-
-        <h3>
-          Tooth Pain
-        </h3>
-
-        <p>
-          Get professional diagnosis and treatment for
-          persistent tooth pain.
-        </p>
-
-        <div class="solution">
-          Root Canal / Dental Filling
-        </div>
-
-        <button
-          class="demo-link"
-          data-book-treatment="root-canal"
-        >
-          Book Treatment →
-        </button>
-
-      </article>
-
-
-      <article class="compare-card">
-
-        <div class="problem-icon">
-          ✨
-        </div>
-
-        <h3>
-          Yellow Teeth
-        </h3>
-
-        <p>
-          Improve the appearance of your smile with
-          professional whitening.
-        </p>
-
-        <div class="solution">
-          Teeth Whitening
-        </div>
-
-        <button
-          class="demo-link"
-          data-book-treatment="whitening"
-        >
-          Book Treatment →
-        </button>
-
-      </article>
-
-
-      <article class="compare-card">
-
-        <div class="problem-icon">
-          😁
-        </div>
-
-        <h3>
-          Missing Teeth
-        </h3>
-
-        <p>
-          Restore missing teeth with comfortable and
-          durable dental implants.
-        </p>
-
-        <div class="solution">
-          Dental Implants
-        </div>
-
-        <button
-          class="demo-link"
-          data-book-treatment="implant-single"
-        >
-          Book Treatment →
-        </button>
-
-      </article>
-
-
-      <article class="compare-card">
-
-        <div class="problem-icon">
-          🪥
-        </div>
-
-        <h3>
-          Plaque & Tartar
-        </h3>
-
-        <p>
-          Professional cleaning helps maintain healthy
-          teeth and gums.
-        </p>
-
-        <div class="solution">
-          Dental Cleaning
-        </div>
-
-        <button
-          class="demo-link"
-          data-book-treatment="cleaning"
-        >
-          Book Treatment →
-        </button>
-
-      </article>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================================================
-     TREATMENTS
-========================================================= -->
-
-<section class="section-pad alt" id="treatments">
-
-  <div class="container">
-
-    <div class="section-heading">
-
-      <span class="eyebrow">
-        Treatments
-      </span>
-
-      <h2>
-        Choose the right treatment
-      </h2>
-
-      <p>
-        Professional dental treatments designed for your needs.
-      </p>
-
-    </div>
-
-
-    <div class="filter-row mb-4">
-
-      <button class="active" data-filter="all">
-        All
-      </button>
-
-      <button data-filter="general">
-        General
-      </button>
-
-      <button data-filter="cosmetic">
-        Cosmetic
-      </button>
-
-      <button data-filter="restorative">
-        Restorative
-      </button>
-
-      <button data-filter="implant">
-        Implants
-      </button>
-
-    </div>
-
-
-    <div class="row g-4" id="treatmentList">
-
-      <!-- Cleaning -->
-
-      <div
-        class="col-md-6 col-lg-3 treatment-item"
-        data-category="general"
-      >
-
-        <article class="treatment-card">
-
-          <div class="treatment-head">
-
-            <span class="category-badge">
-              General
-            </span>
-
-            <span class="duration">
-              30–45 min
-            </span>
-
-          </div>
-
-          <h3>
-            Dental Cleaning
-          </h3>
-
-          <p>
-            Professional cleaning to remove plaque,
-            tartar and surface stains.
-          </p>
-
-          <div class="price">
-            ₹800
-          </div>
-
-          <div class="emi-line">
-            Affordable preventive care
-          </div>
-
-          <div class="card-actions">
-
-            <button
-              class="protocol-btn"
-              data-treatment-info="cleaning"
-            >
-              Details
-            </button>
-
-            <button
-              class="book-treatment"
-              data-book-treatment="cleaning"
-            >
-              Book
-            </button>
-
-          </div>
-
-        </article>
-
-      </div>
-
-
-      <!-- Whitening -->
-
-      <div
-        class="col-md-6 col-lg-3 treatment-item"
-        data-category="cosmetic"
-      >
-
-        <article class="treatment-card">
-
-          <div class="treatment-head">
-
-            <span class="category-badge">
-              Cosmetic
-            </span>
-
-            <span class="duration">
-              60 min
-            </span>
-
-          </div>
-
-          <h3>
-            Teeth Whitening
-          </h3>
-
-          <p>
-            Brighten your smile with professional
-            teeth whitening treatment.
-          </p>
-
-          <div class="price">
-            ₹4,500
-          </div>
-
-          <div class="emi-line">
-            Consultation included
-          </div>
-
-          <div class="card-actions">
-
-            <button
-              class="protocol-btn"
-              data-treatment-info="whitening"
-            >
-              Details
-            </button>
-
-            <button
-              class="book-treatment"
-              data-book-treatment="whitening"
-            >
-              Book
-            </button>
-
-          </div>
-
-        </article>
-
-      </div>
-
-
-      <!-- Root Canal -->
-
-      <div
-        class="col-md-6 col-lg-3 treatment-item"
-        data-category="restorative"
-      >
-
-        <article class="treatment-card">
-
-          <div class="treatment-head">
-
-            <span class="category-badge">
-              Restorative
-            </span>
-
-            <span class="duration">
-              60–90 min
-            </span>
-
-          </div>
-
-          <h3>
-            Root Canal
-          </h3>
-
-          <p>
-            Save an infected or damaged tooth with
-            advanced root canal treatment.
-          </p>
-
-          <div class="price">
-            ₹5,500
-          </div>
-
-          <div class="emi-line">
-            Multiple sittings may be required
-          </div>
-
-          <div class="card-actions">
-
-            <button
-              class="protocol-btn"
-              data-treatment-info="root-canal"
-            >
-              Details
-            </button>
-
-            <button
-              class="book-treatment"
-              data-book-treatment="root-canal"
-            >
-              Book
-            </button>
-
-          </div>
-
-        </article>
-
-      </div>
-
-
-      <!-- Implant -->
-
-      <div
-        class="col-md-6 col-lg-3 treatment-item"
-        data-category="implant"
-      >
-
-        <article class="treatment-card">
-
-          <div class="treatment-head">
-
-            <span class="category-badge">
-              Implant
-            </span>
-
-            <span class="duration">
-              60–90 min
-            </span>
-
-          </div>
-
-          <h3>
-            Single Dental Implant
-          </h3>
-
-          <p>
-            Replace a missing tooth with a strong,
-            natural-looking dental implant.
-          </p>
-
-          <div class="price">
-            ₹25,000
-          </div>
-
-          <div class="emi-line">
-            Consultation required
-          </div>
-
-          <div class="card-actions">
-
-            <button
-              class="protocol-btn"
-              data-treatment-info="implant-single"
-            >
-              Details
-            </button>
-
-            <button
-              class="book-treatment"
-              data-book-treatment="implant-single"
-            >
-              Book
-            </button>
-
-          </div>
-
-        </article>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================================================
-     BEFORE / AFTER
-========================================================= -->
-
-<section class="section-pad">
-
-  <div class="container">
-
-    <div class="section-heading">
-
-      <span class="eyebrow">
-        Smile Transformation
-      </span>
-
-      <h2>
-        Before & After
-      </h2>
-
-      <p>
-        Drag the slider to see the transformation.
-      </p>
-
-    </div>
-
-
-    <div class="ba-wrap" id="beforeAfter">
-
-      <div class="ba-layer after"></div>
-
-      <div class="ba-layer before"></div>
-
-      <span class="ba-label left">
-        BEFORE
-      </span>
-
-      <span class="ba-label right">
-        AFTER
-      </span>
-
-      <div class="ba-divider" id="baDivider">
-        <span>
-          ↔
-        </span>
-      </div>
-
-      <div class="drag-hint">
-        Drag to compare
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================================================
-     DOCTORS
-========================================================= -->
-
-<section class="section-pad alt" id="doctors">
-
-  <div class="container">
-
-    <div class="section-heading">
-
-      <span class="eyebrow">
-        Our Specialists
-      </span>
-
-      <h2>
-        Meet our dental experts
-      </h2>
-
-      <p>
-        Choose a specialist based on your treatment requirement.
-      </p>
-
-    </div>
-
-
-    <div class="doctor-scroller">
-
-
-      <!-- Doctor 1 -->
-
-      <article class="doctor-card">
-
-        <div class="doctor-avatar">
-          👨‍⚕️
-        </div>
-
-        <div class="doctor-body">
-
-          <h3>
-            Dr. Arjun Kumar
-          </h3>
-
-          <div class="doctor-title">
-            Senior Dentist · General & Cosmetic Dentistry
-          </div>
-
-          <div class="doctor-meta">
-
-            <span>
-              12 Years Experience
-            </span>
-
-            <span>
-              BDS, MDS
-            </span>
-
-            <span class="available">
-              Available Today
-            </span>
-
+          <div class="open-status">
+            <span class="pulse-dot"></span> Clinic Open Today • 9:00 AM - 8:30 PM
           </div>
 
           <button
-            class="doctor-book"
-            data-book-doctor="dr-arjun"
-          >
-            Select Doctor
-          </button>
-
-        </div>
-
-      </article>
-
-
-      <!-- Doctor 2 -->
-
-      <article class="doctor-card">
-
-        <div class="doctor-avatar">
-          👩‍⚕️
-        </div>
-
-        <div class="doctor-body">
-
-          <h3>
-            Dr. Priya Sharma
-          </h3>
-
-          <div class="doctor-title">
-            Cosmetic Dentist · Smile Design & Whitening
-          </div>
-
-          <div class="doctor-meta">
-
-            <span>
-              9 Years Experience
-            </span>
-
-            <span>
-              BDS, MDS
-            </span>
-
-            <span class="available">
-              Available Today
-            </span>
-
-          </div>
-
-          <button
-            class="doctor-book"
-            data-book-doctor="dr-priya"
-          >
-            Select Doctor
-          </button>
-
-        </div>
-
-      </article>
-
-
-      <!-- Doctor 3 -->
-
-      <article class="doctor-card">
-
-        <div class="doctor-avatar">
-          👨‍⚕️
-        </div>
-
-        <div class="doctor-body">
-
-          <h3>
-            Dr. Rahul Reddy
-          </h3>
-
-          <div class="doctor-title">
-            Implantologist · Dental Implants & Surgery
-          </div>
-
-          <div class="doctor-meta">
-
-            <span>
-              15 Years Experience
-            </span>
-
-            <span>
-              BDS, MDS
-            </span>
-
-            <span class="available">
-              Available Today
-            </span>
-
-          </div>
-
-          <button
-            class="doctor-book"
-            data-book-doctor="dr-rahul"
-          >
-            Select Doctor
-          </button>
-
-        </div>
-
-      </article>
-
-
-      <!-- Doctor 4 -->
-
-      <article class="doctor-card">
-
-        <div class="doctor-avatar">
-          👩‍⚕️
-        </div>
-
-        <div class="doctor-body">
-
-          <h3>
-            Dr. Sneha Rao
-          </h3>
-
-          <div class="doctor-title">
-            Endodontist · Root Canal Specialist
-          </div>
-
-          <div class="doctor-meta">
-
-            <span>
-              10 Years Experience
-            </span>
-
-            <span>
-              BDS, MDS
-            </span>
-
-            <span class="available">
-              Available Today
-            </span>
-
-          </div>
-
-          <button
-            class="doctor-book"
-            data-book-doctor="dr-sneha"
-          >
-            Select Doctor
-          </button>
-
-        </div>
-
-      </article>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================================================
-     CLINIC TOUR
-========================================================= -->
-
-<section class="section-pad">
-
-  <div class="container">
-
-    <div class="tour-card">
-
-      <div>
-
-        <span class="eyebrow">
-          Clinic Tour
-        </span>
-
-        <h2 class="mt-3">
-          A comfortable place for your smile
-        </h2>
-
-        <p class="text-muted">
-          Our clinic is designed to make your dental
-          experience comfortable, clean and stress-free.
-        </p>
-
-        <div class="tour-points">
-
-          <span>Modern Equipment</span>
-          <span>Clean Environment</span>
-          <span>Comfortable Rooms</span>
-          <span>Experienced Staff</span>
-
-        </div>
-
-      </div>
-
-
-      <div class="tour-visual">
-
-        <div class="tour-room">
-          <b>🏥</b>
-          <span>SmileCare Clinic</span>
-        </div>
-
-        <button class="play-tour">
-          ▶ Virtual Tour
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================================================
-     VIDEO REVIEWS
-========================================================= -->
-
-<section class="section-pad alt" id="reviews">
-
-  <div class="container">
-
-    <div class="section-heading">
-
-      <span class="eyebrow">
-        Patient Stories
-      </span>
-
-      <h2>
-        What our patients say
-      </h2>
-
-      <p>
-        Real experiences from SmileCare patients.
-      </p>
-
-    </div>
-
-
-    <div class="video-reviews">
-
-      <article>
-
-        <div class="video-thumb">
-          ▶
-          <small>
-            Smile Transformation
-          </small>
-        </div>
-
-        <span>
-          Verified Patient
-        </span>
-
-      </article>
-
-
-      <article>
-
-        <div class="video-thumb">
-          ▶
-          <small>
-            Dental Implant Experience
-          </small>
-        </div>
-
-        <span>
-          Verified Patient
-        </span>
-
-      </article>
-
-
-      <article>
-
-        <div class="video-thumb">
-          ▶
-          <small>
-            Teeth Whitening
-          </small>
-        </div>
-
-        <span>
-          Verified Patient
-        </span>
-
-      </article>
-
-    </div>
-
-
-    <div class="reviews-grid mt-4">
-
-      <article class="review">
-
-        <div class="stars">
-          ★★★★★
-        </div>
-
-        <p>
-          Very professional doctors and friendly staff.
-          The treatment was explained clearly.
-        </p>
-
-        <div class="reviewer">
-          <strong>
-            Rahul
-          </strong>
-
-          <span>
-            Verified Patient
-          </span>
-        </div>
-
-      </article>
-
-
-      <article class="review">
-
-        <div class="stars">
-          ★★★★★
-        </div>
-
-        <p>
-          The clinic was clean and comfortable.
-          My teeth whitening experience was excellent.
-        </p>
-
-        <div class="reviewer">
-          <strong>
-            Priya
-          </strong>
-
-          <span>
-            Verified Patient
-          </span>
-        </div>
-
-      </article>
-
-
-      <article class="review">
-
-        <div class="stars">
-          ★★★★★
-        </div>
-
-        <p>
-          Easy appointment booking and very helpful
-          doctors. Highly recommended.
-        </p>
-
-        <div class="reviewer">
-          <strong>
-            Kiran
-          </strong>
-
-          <span>
-            Verified Patient
-          </span>
-        </div>
-
-      </article>
-
-    </div>
-
-
-    <div class="trust-badges">
-
-      <span>✓ Verified Doctors</span>
-      <span>✓ Sterilized Equipment</span>
-      <span>✓ Transparent Pricing</span>
-      <span>✓ Easy Appointment Booking</span>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================================================
-     QUEUE SCREEN
-========================================================= -->
-
-<section class="section-pad">
-
-  <div class="container">
-
-    <div class="queue-screen">
-
-      <div class="queue-head">
-
-        <strong>
-          Live Clinic Queue
-        </strong>
-
-        <span>
-          ● Live
-        </span>
-
-      </div>
-
-
-      <div class="queue-main">
-
-        <div class="current-token">
-
-          <span>
-            Current Token
-          </span>
-
-          <strong>
-            A104
-          </strong>
-
-          <span>
-            Room 2 · Dr. Priya
-          </span>
-
-        </div>
-
-
-        <div class="next-tokens">
-
-          <div>
-            <span>
-              Next
-            </span>
-
-            <strong>
-              A105
-            </strong>
-          </div>
-
-          <div>
-            <span>
-              After
-            </span>
-
-            <strong>
-              A106
-            </strong>
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="rooms">
-
-        <span>
-          Room 1
-          <b>Available</b>
-        </span>
-
-        <span>
-          Room 2
-          <b>In Treatment</b>
-        </span>
-
-        <span>
-          Room 3
-          <b>Available</b>
-        </span>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================================================
-     EMI CALCULATOR
-========================================================= -->
-
-<section class="section-pad">
-
-  <div class="container">
-
-    <div class="emi-card">
-
-      <div>
-
-        <span class="eyebrow">
-          Flexible Payment
-        </span>
-
-        <h2 class="mt-3">
-          Treatment EMI Calculator
-        </h2>
-
-        <p>
-          Estimate your monthly payment for selected
-          dental treatment.
-        </p>
-
-      </div>
-
-
-      <div class="emi-controls">
-
-        <label>
-          Treatment Amount
-          <strong id="amountValue">
-            ₹25,000
-          </strong>
-        </label>
-
-        <input
-          type="range"
-          id="emiAmount"
-          min="5000"
-          max="100000"
-          step="1000"
-          value="25000"
-        >
-
-
-        <label>
-          Duration
-          <strong id="monthsValue">
-            12 Months
-          </strong>
-        </label>
-
-        <input
-          type="range"
-          id="emiMonths"
-          min="3"
-          max="24"
-          step="3"
-          value="12"
-        >
-
-
-        <div class="emi-result">
-
-          <span>
-            Estimated Monthly EMI
-          </span>
-
-          <strong id="emiResult">
-            ₹2,083
-          </strong>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================================================
-     FAQ
-========================================================= -->
-
-<section class="section-pad alt">
-
-  <div class="container">
-
-    <div class="section-heading">
-
-      <span class="eyebrow">
-        FAQ
-      </span>
-
-      <h2>
-        Frequently asked questions
-      </h2>
-
-    </div>
-
-
-    <div class="accordion" id="faqAccordion">
-
-      <div class="accordion-item">
-
-        <h2 class="accordion-header">
-
-          <button
-            class="accordion-button"
+            class="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#faqOne"
+            data-bs-target="#mainNav"
+            aria-label="Toggle navigation"
           >
-            Do I need an appointment?
+            <span>☰</span>
           </button>
 
-        </h2>
+          <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav mx-auto align-items-xl-center gap-xl-2">
+              <li><a class="nav-link" href="#treatments">Treatments⌄</a></li>
+              <li><a class="nav-link" href="#doctors">Our Doctors</a></li>
+              <li><a class="nav-link" href="#gallery">Smile Gallery</a></li>
+              <li><a class="nav-link" href="#queue">Clinic Queue</a></li>
+              <li><a class="nav-link" href="#faq">FAQ</a></li>
+            </ul>
 
-        <div
-          id="faqOne"
-          class="accordion-collapse collapse show"
-          data-bs-parent="#faqAccordion"
-        >
+            <div class="nav-actions d-flex gap-2 align-items-center">
+              <a class="phone-pill" href="tel:+919848022338">☎ +91 98480 22338</a>
+              <button class="btn btn-primary-glow" data-open-booking>
+                Book Appointment
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
 
-          <div class="accordion-body">
-            We recommend booking an appointment so we
-            can provide timely and personalized care.
+    <main id="home">
+      <section class="hero-section section-pad">
+        <div class="container">
+          <div class="row align-items-center g-5">
+            <div class="col-lg-7 reveal">
+              <span class="eyebrow">✦ Multi-Specialty Dental & Advanced Implant Center</span>
+              <h1>
+                Transform Your Smile With
+                <span class="text-gradient">Painless, Modern Dental Excellence.</span>
+              </h1>
+              <p class="hero-copy">
+                Experience zero-wait appointments, certified implantologists,
+                transparent procedure pricing, and AI-guided digital smile design.
+              </p>
+
+              <div class="d-flex flex-wrap gap-3 mb-4">
+                <button class="btn btn-primary-glow btn-lg" data-open-booking>
+                  ⚡ Book Instant Appointment
+                </button>
+                <button class="btn btn-outline-teal btn-lg" data-open-assessment>
+                  Take 60s Smile Assessment ↗
+                </button>
+              </div>
+
+              <div class="social-proof">
+                <div class="avatars">
+                  <span>PR</span><span>AK</span><span>SR</span><span>VR</span><span>KN</span>
+                </div>
+                <div>
+                  <strong>★ 4.9/5</strong>
+                  <span> across 1,200+ verified Google Reviews</span>
+                </div>
+              </div>
+
+              <div class="micro-tags">
+                <span>✓ NABH Accredited Facility</span>
+                <span>✓ 100% Painless Laser Tech</span>
+                <span>✓ EMI Starting @ ₹999/mo</span>
+              </div>
+            </div>
+
+            <div class="col-lg-5 reveal">
+              <div class="hero-visual">
+                <div class="hero-dental-art" aria-label="Dental clinic visual">
+                  <div class="tooth-art">🦷</div>
+                  <div class="art-cross">✚</div>
+                  <div class="art-ring"></div>
+                  <div class="art-label">Advanced<br>Digital Dentistry</div>
+                </div>
+
+                <div class="floating-badge badge-one">
+                  <span class="radar-dot"></span> Next Slot Available Today:
+                  <b>4:30 PM</b> (Evening)
+                </div>
+
+                <div class="floating-badge badge-two">
+                  98.4% Implant Success Rate • 15-Year Warranty
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="metrics-strip" id="metrics">
+        <div class="container">
+          <div class="row g-0">
+            <div class="col-6 col-lg-3 metric">
+              <strong data-count="15000">0</strong>
+              <span>Happy Smiles Restored</span>
+            </div>
+            <div class="col-6 col-lg-3 metric">
+              <strong data-count="2800">0</strong>
+              <span>Precision Implants Placed</span>
+            </div>
+            <div class="col-6 col-lg-3 metric">
+              <strong data-count="12">0</strong>
+              <span>MDS Dental Surgeons & Implant Specialists</span>
+            </div>
+            <div class="col-6 col-lg-3 metric">
+              <strong data-count="8">0</strong>
+              <span>Minutes Average Waiting Time</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-pad" id="problems">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="eyebrow">THE APEX DIGITAL WAY</span>
+            <h2>Why Traditional Dental Booking Fails vs. Apex</h2>
+            <p>Every patient friction point becomes a simple, interactive digital solution.</p>
           </div>
 
+          <div class="comparison-grid">
+            <article class="compare-card reveal">
+              <span class="problem-icon">☎</span>
+              <h3>Busy phone lines</h3>
+              <p>Receptionists are busy with walking patients.</p>
+              <div class="solution">⚡ Instant 24/7 web booking with live slot reservation</div>
+              <button class="demo-link" data-open-booking>Try live slot preview →</button>
+            </article>
+
+            <article class="compare-card reveal">
+              <span class="problem-icon">₹</span>
+              <h3>Surprise treatment bills</h3>
+              <p>Patients fear unclear root canal and implant pricing.</p>
+              <div class="solution">✓ Transparent starting costs + EMI calculator</div>
+              <button class="demo-link" data-open-emi>Try EMI calculator →</button>
+            </article>
+
+            <article class="compare-card reveal">
+              <span class="problem-icon">⌁</span>
+              <h3>Treatment anxiety</h3>
+              <p>Patients worry about pain and procedure time.</p>
+              <div class="solution">◈ Step-by-step roadmap with sedation options</div>
+              <button class="demo-link" data-open-roadmap>View 3D-style roadmap →</button>
+            </article>
+
+            <article class="compare-card reveal">
+              <span class="problem-icon">#</span>
+              <h3>Uncertain waiting rooms</h3>
+              <p>Crowded clinics leave patients unsure about token status.</p>
+              <div class="solution">▣ Live digital queue + WhatsApp arrival alert</div>
+              <a class="demo-link" href="#queue">View waiting room TV →</a>
+            </article>
+          </div>
         </div>
+      </section>
 
-      </div>
+      <section class="section-pad alt" id="treatments">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="eyebrow">TREATMENT & PROCEDURE CATALOG</span>
+            <h2>Clinical care, explained before you book.</h2>
+            <p>
+              Transparent pricing, duration, EMI and a simple protocol for every core
+              treatment.
+            </p>
+          </div>
+          <div class="filter-row" id="treatmentFilters"></div>
+          <div class="row g-4" id="treatmentGrid"></div>
+        </div>
+      </section>
 
+      <section class="section-pad" id="gallery">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="eyebrow">SMILE GALLERY</span>
+            <h2>See the transformation before you decide.</h2>
+            <p>Drag the divider to compare the treatment journey.</p>
+          </div>
+          <div class="ba-wrap reveal" id="beforeAfter">
+            <div class="ba-layer after" id="baAfter"></div>
+            <div class="ba-layer before" id="baBefore"></div>
+            <span class="ba-label left">Before Treatment</span>
+            <span class="ba-label right">After 2 Sittings</span>
+            <div class="ba-divider" id="baDivider"><span>⟷</span></div>
+            <div class="drag-hint" id="dragHint">↔ Drag to Compare</div>
+          </div>
+        </div>
+      </section>
 
-      <div class="accordion-item">
+      <section class="section-pad alt" id="doctors">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="eyebrow">SPECIALIST TEAM</span>
+            <h2>Meet the specialists behind your smile.</h2>
+          </div>
+          <div class="doctor-scroller" id="doctorGrid"></div>
+        </div>
+      </section>
 
-        <h2 class="accordion-header">
+      <section class="section-pad" id="tour">
+        <div class="container">
+          <div class="tour-card reveal">
+            <div>
+              <span class="eyebrow">VIRTUAL TOUR</span>
+              <h2>Walk through a calm, modern dental studio.</h2>
+              <p>
+                Explore the reception, consultation rooms, digital scan area and
+                sterilisation workflow.
+              </p>
+              <div class="tour-points">
+                <span>✓ HEPA-filtered clinical rooms</span>
+                <span>✓ Digital CBCT / 3D planning</span>
+                <span>✓ 100% autoclave sterilisation</span>
+              </div>
+            </div>
 
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#faqTwo"
-          >
-            How long does a dental cleaning take?
-          </button>
+            <div class="tour-visual">
+              <div class="tour-room">
+                <span>APEX</span>
+                <b>CLINIC TOUR</b>
+                <small>Reception • Consultation • Surgery • Recovery</small>
+              </div>
+              <button class="play-tour" id="playTour">▶ Play 360° Tour</button>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        </h2>
-
-        <div
-          id="faqTwo"
-          class="accordion-collapse collapse"
-          data-bs-parent="#faqAccordion"
-        >
-
-          <div class="accordion-body">
-            A normal professional cleaning usually takes
-            around 30 to 45 minutes.
+      <section class="section-pad alt" id="testimonials">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="eyebrow">PATIENT TRUST</span>
+            <h2>Trusted by Over 15,000 Happy Smiles Across the City</h2>
           </div>
 
-        </div>
-
-      </div>
-
-
-      <div class="accordion-item">
-
-        <h2 class="accordion-header">
-
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#faqThree"
-          >
-            Can I choose my doctor?
-          </button>
-
-        </h2>
-
-        <div
-          id="faqThree"
-          class="accordion-collapse collapse"
-          data-bs-parent="#faqAccordion"
-        >
-
-          <div class="accordion-body">
-            Yes. During appointment booking you can select
-            your preferred specialist.
+          <div class="video-reviews">
+            <article>
+              <div class="video-thumb">▶<small>Implant Journey</small></div>
+              <span>✓ Verified Implant Patient</span>
+            </article>
+            <article>
+              <div class="video-thumb">▶<small>Aligner Journey</small></div>
+              <span>✓ Verified Aligner Patient</span>
+            </article>
+            <article>
+              <div class="video-thumb">▶<small>Smile Makeover</small></div>
+              <span>✓ Verified Cosmetic Patient</span>
+            </article>
           </div>
 
+          <div class="reviews-grid" id="reviewsGrid"></div>
+
+          <div class="trust-badges">
+            <span>ISO 9001:2015 Certified</span>
+            <span>Bio-Waste Management Compliant</span>
+            <span>100% Autoclave Sterilization</span>
+          </div>
         </div>
+      </section>
 
+      <section class="section-pad" id="queue">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="eyebrow">LIVE OPD QUEUE</span>
+            <h2>Know your token before you enter.</h2>
+          </div>
+
+          <div class="queue-screen reveal">
+            <div class="queue-head">
+              <div>
+                <small>APEX DENTAL • LIVE WAITING ROOM</small>
+                <h3>Now Serving</h3>
+              </div>
+              <span class="live-dot">● LIVE</span>
+            </div>
+
+            <div class="queue-main">
+              <div class="current-token">
+                <small>CURRENT TOKEN</small>
+                <strong id="currentToken">#APX-8839</strong>
+                <span>Room 1 • Dr. Arvind</span>
+              </div>
+
+              <div class="next-tokens">
+                <div>
+                  <small>NEXT IN LINE</small>
+                  <strong>#APX-8840</strong>
+                  <span>Room 2</span>
+                </div>
+                <div class="your-token">
+                  <small>YOUR TOKEN</small>
+                  <strong id="yourToken">#APX-8841</strong>
+                  <span>Estimated wait: <b id="waitTime">12 mins</b></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="rooms">
+              <span>Room 1 <b>● Occupied</b></span>
+              <span>Room 2 <b>● Occupied</b></span>
+              <span>Room 3 <b>● Available</b></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-pad alt" id="emi">
+        <div class="container">
+          <div class="emi-card reveal">
+            <div>
+              <span class="eyebrow">0% EMI CALCULATOR</span>
+              <h2>Make premium dental care easier to plan.</h2>
+              <p>
+                Adjust treatment cost and months to preview an estimated monthly amount.
+              </p>
+            </div>
+
+            <div class="emi-controls">
+              <label>
+                Treatment cost
+                <output id="emiCostOut">₹50,000</output>
+              </label>
+              <input id="emiCost" type="range" min="10000" max="150000" step="1000" value="50000">
+
+              <label>
+                Tenure
+                <output id="emiMonthsOut">12 months</output>
+              </label>
+              <input id="emiMonths" type="range" min="3" max="24" step="3" value="12">
+
+              <div class="emi-result">
+                <span>Estimated monthly EMI</span>
+                <strong id="emiResult">₹4,167</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-pad" id="faq">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="eyebrow">PATIENT FAQ</span>
+            <h2>Answers before your appointment.</h2>
+          </div>
+          <div class="accordion" id="faqAccordion"></div>
+        </div>
+      </section>
+
+      <section class="section-pad contact-section">
+        <div class="container">
+          <div class="contact-grid">
+            <div>
+              <span class="eyebrow">VISIT APEX DENTAL</span>
+              <h2>Modern care, close to you.</h2>
+              <p>Plot 18, Jubilee Hills Road No. 36, Hyderabad, Telangana 500033</p>
+              <a href="tel:+919848022338" class="contact-link">☎ +91 98480 22338</a>
+              <a href="https://wa.me/919848022338" target="_blank" rel="noopener" class="contact-link">
+                ◉ WhatsApp Clinic
+              </a>
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=Apex+Dental+Studio+Hyderabad"
+                target="_blank"
+                rel="noopener"
+                class="contact-link"
+              >
+                ⌖ Google Maps directions
+              </a>
+            </div>
+
+            <div class="hours">
+              <h3>Opening Hours</h3>
+              <table>
+                <tr><td>Monday - Saturday</td><td>9:00 AM - 1:00 PM</td></tr>
+                <tr><td>Evening</td><td>4:30 PM - 8:30 PM</td></tr>
+                <tr><td>Sunday</td><td>Emergency on request</td></tr>
+              </table>
+              <span class="prototype-credit">
+                Frontend interactive prototype • Client-side mock data only
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container d-flex flex-column flex-md-row justify-content-between gap-3">
+        <span>© <span id="year"></span> Apex Dental & Implant Studio</span>
+        <span>Designed as a patient-experience prototype.</span>
       </div>
+    </footer>
 
+    <div class="mobile-action-bar">
+      <a href="tel:+919848022338">☎ Call Clinic</a>
+      <button data-open-booking>⚡ Book Appointment - Today Available</button>
     </div>
 
-  </div>
+    <!-- BOOKING MODAL -->
+    <div class="modal-shell" id="bookingModal" aria-hidden="true">
+      <div class="modal-card booking-card">
+        <button class="modal-close" data-close-booking>×</button>
+        <div class="booking-progress">
+          <span class="active">1 Treatment</span>
+          <span>2 Specialist</span>
+          <span>3 Date & Slot</span>
+          <span>4 Patient Info</span>
+        </div>
+        <div id="bookingContent"></div>
+      </div>
+    </div>
 
-</section>
+    <!-- PROTOCOL MODAL -->
+    <div class="modal-shell" id="protocolModal" aria-hidden="true">
+      <div class="modal-card">
+        <button class="modal-close" data-close="protocolModal">×</button>
+        <div id="protocolContent"></div>
+      </div>
+    </div>
 
+    <!-- ASSESSMENT MODAL -->
+    <div class="modal-shell" id="assessmentModal" aria-hidden="true">
+      <div class="modal-card assessment-card">
+        <button class="modal-close" data-close="assessmentModal">×</button>
+        <div id="assessmentContent"></div>
+      </div>
+    </div>
 
-<!-- =========================================================
-     CONTACT
-========================================================= -->
+    <!-- ROADMAP MODAL -->
+    <div class="modal-shell" id="roadmapModal" aria-hidden="true">
+      <div class="modal-card">
+        <button class="modal-close" data-close="roadmapModal">×</button>
+        <div class="roadmap">
+          <span class="eyebrow">INTERACTIVE 3-STAGE ROADMAP</span>
+          <h2>Your treatment journey, step by step.</h2>
+          <div class="roadmap-line">
+            <article>
+              <b>01</b>
+              <h3>Digital Diagnosis</h3>
+              <p>3D scan, consultation and personalised plan.</p>
+            </article>
+            <article>
+              <b>02</b>
+              <h3>Painless Procedure</h3>
+              <p>Comfort-first clinical treatment with sedation options where appropriate.</p>
+            </article>
+            <article>
+              <b>03</b>
+              <h3>Final Smile</h3>
+              <p>Restoration, review and maintenance guidance.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<section class="section-pad">
-
-  <div class="container">
-
-    <div class="contact-grid">
-
+    <div class="whatsapp-toast" id="whatsappToast">
+      <div class="wa-icon">◉</div>
       <div>
-
-        <span class="eyebrow">
-          Contact Us
-        </span>
-
-        <h2 class="mt-3">
-          Ready to improve your smile?
-        </h2>
-
-        <p>
-          Contact SmileCare Dental Clinic or book an
-          appointment online.
-        </p>
-
-        <a
-          class="contact-link"
-          href="tel:+919876543210"
-        >
-          📞 +91 98765 43210
-        </a>
-
-        <a
-          class="contact-link"
-          href="mailto:hello@smilecare.com"
-        >
-          ✉ hello@smilecare.com
-        </a>
-
-        <a
-          class="contact-link"
-          href="#"
-        >
-          📍 Hyderabad, Telangana
-        </a>
-
+        <strong>WhatsApp • Apex Dental</strong>
+        <p id="waMessage"></p>
       </div>
-
-
-      <div class="hours">
-
-        <h3>
-          Clinic Hours
-        </h3>
-
-        <table>
-
-          <tr>
-            <td>Monday</td>
-            <td>9:00 AM – 8:00 PM</td>
-          </tr>
-
-          <tr>
-            <td>Tuesday</td>
-            <td>9:00 AM – 8:00 PM</td>
-          </tr>
-
-          <tr>
-            <td>Wednesday</td>
-            <td>9:00 AM – 8:00 PM</td>
-          </tr>
-
-          <tr>
-            <td>Thursday</td>
-            <td>9:00 AM – 8:00 PM</td>
-          </tr>
-
-          <tr>
-            <td>Friday</td>
-            <td>9:00 AM – 8:00 PM</td>
-          </tr>
-
-          <tr>
-            <td>Saturday</td>
-            <td>9:00 AM – 6:00 PM</td>
-          </tr>
-
-          <tr>
-            <td>Sunday</td>
-            <td>Emergency Only</td>
-          </tr>
-
-        </table>
-
-      </div>
-
+      <button id="closeWa">×</button>
     </div>
 
-  </div>
+    <div class="toast-msg" id="toastMsg"></div>
 
-</section>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-</main>
-
-
-<!-- =========================================================
-     FOOTER
-========================================================= -->
-
-<footer>
-
-  <div class="container text-center">
-
-    © 2026 SmileCare Dental Clinic.
-    All rights reserved.
-
-    <span class="prototype-credit">
-      Dental care website prototype
-    </span>
-
-  </div>
-
-</footer>
-
-
-<!-- =========================================================
-     MOBILE ACTION BAR
-========================================================= -->
-
-<div class="mobile-action-bar">
-
-  <a href="tel:+919876543210">
-    📞 Call
-  </a>
-
-  <a href="#treatments">
-    🦷 Treatments
-  </a>
-
-  <button data-book-treatment="general">
-    Book Appointment
-  </button>
-
-</div>
-
-
-<!-- =========================================================
-     BOOKING MODAL
-========================================================= -->
-
-<div
-  class="modal-shell"
-  id="bookingModal"
-  aria-hidden="true"
->
-
-  <div class="modal-card">
-
-    <button
-      class="modal-close"
-      id="closeBooking"
-      type="button"
-      aria-label="Close"
-    >
-      ×
-    </button>
-
-
-    <!-- =====================================================
-         BOOKING HEADER
-    ====================================================== -->
-
-    <div class="mb-4">
-
-      <span class="eyebrow">
-        Online Appointment
-      </span>
-
-      <h2 class="mt-3 mb-2">
-        Book your appointment
-      </h2>
-
-      <p class="text-muted mb-0">
-        Select your treatment, specialist, date and
-        appointment time.
-      </p>
-
-    </div>
-
-
-    <!-- =====================================================
-         BOOKING PROGRESS - 4 ELEMENTS
-    ====================================================== -->
-
-    <div class="booking-progress">
-
-      <span
-        class="active"
-        data-step-indicator="1"
-      >
-        1 Treatment
-      </span>
-
-      <span
-        data-step-indicator="2"
-      >
-        2 Specialist
-      </span>
-
-      <span
-        data-step-indicator="3"
-      >
-        3 Date & Slot
-      </span>
-
-      <span
-        data-step-indicator="4"
-      >
-        4 Patient Info
-      </span>
-
-    </div>
-
-
-    <!-- =====================================================
-         STEP 1 - TREATMENT
-    ====================================================== -->
-
-    <section
-      class="booking-step"
-      id="bookingStep1"
-      data-step="1"
-    >
-
-      <h3>
-        Select Treatment
-      </h3>
-
-      <p class="text-muted">
-        Choose the dental treatment you need.
-      </p>
-
-
-      <div class="choice-grid">
-
-
-        <button
-          type="button"
-          class="choice-card"
-          data-choice="treatment"
-          data-value="cleaning"
-        >
-
-          <strong>
-            🪥 Dental Cleaning
-          </strong>
-
-          <small>
-            ₹800 · 30–45 min
-          </small>
-
-        </button>
-
-
-        <button
-          type="button"
-          class="choice-card"
-          data-choice="treatment"
-          data-value="whitening"
-        >
-
-          <strong>
-            ✨ Teeth Whitening
-          </strong>
-
-          <small>
-            ₹4,500 · 60 min
-          </small>
-
-        </button>
-
-
-        <button
-          type="button"
-          class="choice-card"
-          data-choice="treatment"
-          data-value="root-canal"
-        >
-
-          <strong>
-            🦷 Root Canal
-          </strong>
-
-          <small>
-            ₹5,500 · 60–90 min
-          </small>
-
-        </button>
-
-
-        <button
-          type="button"
-          class="choice-card"
-          data-choice="treatment"
-          data-value="implant-single"
-        >
-
-          <strong>
-            🦷 Single Dental Implant
-          </strong>
-
-          <small>
-            ₹25,000 · 60–90 min
-          </small>
-
-        </button>
-
-
-        <button
-          type="button"
-          class="choice-card"
-          data-choice="treatment"
-          data-value="consultation"
-        >
-
-          <strong>
-            👨‍⚕️ Dental Consultation
-          </strong>
-
-          <small>
-            ₹500 · 30 min
-          </small>
-
-        </button>
-
-
-        <button
-          type="button"
-          class="choice-card"
-          data-choice="treatment"
-          data-value="general-checkup"
-        >
-
-          <strong>
-            🔍 General Check-up
-          </strong>
-
-          <small>
-            ₹300 · 20–30 min
-          </small>
-
-        </button>
-
-      </div>
-
-
-      <div class="wizard-actions">
-
-        <button
-          type="button"
-          class="btn-outline-teal"
-          id="bookingCancel1"
-        >
-          Cancel
-        </button>
-
-        <button
-          type="button"
-          class="btn-primary-glow"
-          data-next-step
-        >
-          Next: Specialist →
-        </button>
-
-      </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         STEP 2 - SPECIALIST
-    ====================================================== -->
-
-    <section
-      class="booking-step"
-      id="bookingStep2"
-      data-step="2"
-      hidden
-    >
-
-      <h3>
-        Select Specialist
-      </h3>
-
-      <p class="text-muted">
-        Choose your preferred dental specialist.
-      </p>
-
-
-      <div class="choice-grid">
-
-
-        <button
-          type="button"
-          class="choice-card"
-          data-choice="doctor"
-          data-value="dr-arjun"
-        >
-
-          <strong>
-            👨‍⚕️ Dr. Arjun Kumar
-          </strong>
-
-          <small>
-            General & Cosmetic Dentistry
-            · 12 Years Experience
-          </small>
-
-        </button>
-
-
-        <button
-          type="button"
-          class="choice-card"
-          data-choice="doctor"
-          data-value="dr-priya"
-        >
-
-          <strong>
-            👩‍⚕️ Dr. Priya Sharma
-          </strong>
-
-          <small>
-            Cosmetic Dentistry
-            · 9 Years Experience
-          </small>
-
-        </button>
-
-
-        <button
-          type="button"
-          class="choice-card"
-          data-choice="doctor"
-          data-value="dr-rahul"
-        >
-
-          <strong>
-            👨‍⚕️ Dr. Rahul Reddy
-          </strong>
-
-          <small>
-            Implantology
-            · 15 Years Experience
-          </small>
-
-        </button>
-
-
-        <button
-          type="button"
-          class="choice-card"
-          data-choice="doctor"
-          data-value="dr-sneha"
-        >
-
-          <strong>
-            👩‍⚕️ Dr. Sneha Rao
-          </strong>
-
-          <small>
-            Root Canal Specialist
-            · 10 Years Experience
-          </small>
-
-        </button>
-
-      </div>
-
-
-      <div class="wizard-actions">
-
-        <button
-          type="button"
-          class="btn-outline-teal"
-          data-prev-step
-        >
-          ← Back
-        </button>
-
-        <button
-          type="button"
-          class="btn-primary-glow"
-          data-next-step
-        >
-          Next: Date & Slot →
-        </button>
-
-      </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         STEP 3 - DATE & SLOT
-    ====================================================== -->
-
-    <section
-      class="booking-step"
-      id="bookingStep3"
-      data-step="3"
-      hidden
-    >
-
-      <h3>
-        Select Date & Slot
-      </h3>
-
-      <p class="text-muted">
-        Choose your preferred appointment date and time.
-      </p>
-
-
-      <!-- Dates -->
-
-      <h6 class="mt-4 mb-2">
-        Select Date
-      </h6>
-
-      <div class="date-row">
-
-
-        <button
-          type="button"
-          class="date-pill"
-          data-choice="date"
-          data-value="2026-10-07"
-        >
-          <strong>Wed</strong>
-          <small>07 Oct</small>
-        </button>
-
-
-        <button
-          type="button"
-          class="date-pill"
-          data-choice="date"
-          data-value="2026-10-08"
-        >
-          <strong>Thu</strong>
-          <small>08 Oct</small>
-        </button>
-
-
-        <button
-          type="button"
-          class="date-pill"
-          data-choice="date"
-          data-value="2026-10-09"
-        >
-          <strong>Fri</strong>
-          <small>09 Oct</small>
-        </button>
-
-
-        <button
-          type="button"
-          class="date-pill"
-          data-choice="date"
-          data-value="2026-10-10"
-        >
-          <strong>Sat</strong>
-          <small>10 Oct</small>
-        </button>
-
-
-        <button
-          type="button"
-          class="date-pill"
-          data-choice="date"
-          data-value="2026-10-12"
-        >
-          <strong>Mon</strong>
-          <small>12 Oct</small>
-        </button>
-
-
-        <button
-          type="button"
-          class="date-pill"
-          data-choice="date"
-          data-value="2026-10-13"
-        >
-          <strong>Tue</strong>
-          <small>13 Oct</small>
-        </button>
-
-      </div>
-
-
-      <!-- Shift -->
-
-      <h6 class="mt-4 mb-2">
-        Select Session
-      </h6>
-
-      <div class="shift-row">
-
-        <button
-          type="button"
-          data-choice="shift"
-          data-value="morning"
-        >
-          ☀ Morning
-        </button>
-
-        <button
-          type="button"
-          data-choice="shift"
-          data-value="afternoon"
-        >
-          🌤 Afternoon
-        </button>
-
-        <button
-          type="button"
-          data-choice="shift"
-          data-value="evening"
-        >
-          🌙 Evening
-        </button>
-
-      </div>
-
-
-      <!-- Time slots -->
-
-      <h6 class="mb-2">
-        Available Time Slots
-      </h6>
-
-      <div class="slot-row">
-
-
-        <button
-          type="button"
-          class="slot-chip"
-          data-choice="slot"
-          data-value="09:00 AM"
-        >
-          09:00 AM
-        </button>
-
-
-        <button
-          type="button"
-          class="slot-chip"
-          data-choice="slot"
-          data-value="09:30 AM"
-        >
-          09:30 AM
-        </button>
-
-
-        <button
-          type="button"
-          class="slot-chip booked"
-          disabled
-        >
-          10:00 AM
-        </button>
-
-
-        <button
-          type="button"
-          class="slot-chip"
-          data-choice="slot"
-          data-value="10:30 AM"
-        >
-          10:30 AM
-        </button>
-
-
-        <button
-          type="button"
-          class="slot-chip"
-          data-choice="slot"
-          data-value="11:00 AM"
-        >
-          11:00 AM
-        </button>
-
-
-        <button
-          type="button"
-          class="slot-chip"
-          data-choice="slot"
-          data-value="02:00 PM"
-        >
-          02:00 PM
-        </button>
-
-
-        <button
-          type="button"
-          class="slot-chip"
-          data-choice="slot"
-          data-value="03:30 PM"
-        >
-          03:30 PM
-        </button>
-
-
-        <button
-          type="button"
-          class="slot-chip fast"
-          data-choice="slot"
-          data-value="05:00 PM"
-        >
-          05:00 PM
-        </button>
-
-
-        <button
-          type="button"
-          class="slot-chip"
-          data-choice="slot"
-          data-value="06:30 PM"
-        >
-          06:30 PM
-        </button>
-
-      </div>
-
-
-      <div class="wizard-actions">
-
-        <button
-          type="button"
-          class="btn-outline-teal"
-          data-prev-step
-        >
-          ← Back
-        </button>
-
-        <button
-          type="button"
-          class="btn-primary-glow"
-          data-next-step
-        >
-          Next: Patient Info →
-        </button>
-
-      </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         STEP 4 - PATIENT INFO
-    ====================================================== -->
-
-    <section
-      class="booking-step"
-      id="bookingStep4"
-      data-step="4"
-      hidden
-    >
-
-      <h3>
-        Patient Information
-      </h3>
-
-      <p class="text-muted">
-        Enter your details to confirm the appointment.
-      </p>
-
-
-      <div class="form-grid">
-
-
-        <div>
-
-          <label for="patientName">
-            Full Name
-          </label>
-
-          <input
-            type="text"
-            id="patientName"
-            name="patientName"
-            placeholder="Enter your full name"
-            autocomplete="name"
-            required
-          >
-
-        </div>
-
-
-        <div>
-
-          <label for="patientPhone">
-            Mobile Number
-          </label>
-
-          <input
-            type="tel"
-            id="patientPhone"
-            name="patientPhone"
-            placeholder="Enter mobile number"
-            autocomplete="tel"
-            maxlength="10"
-            required
-          >
-
-        </div>
-
-
-        <div>
-
-          <label for="patientEmail">
-            Email Address
-          </label>
-
-          <input
-            type="email"
-            id="patientEmail"
-            name="patientEmail"
-            placeholder="Enter email address"
-            autocomplete="email"
-          >
-
-        </div>
-
-
-        <div>
-
-          <label for="patientAge">
-            Age
-          </label>
-
-          <input
-            type="number"
-            id="patientAge"
-            name="patientAge"
-            placeholder="Enter age"
-            min="1"
-            max="120"
-            required
-          >
-
-        </div>
-
-
-        <div class="full">
-
-          <label for="patientReason">
-            Reason for Visit
-          </label>
-
-          <select
-            id="patientReason"
-            name="patientReason"
-          >
-
-            <option value="">
-              Select reason
-            </option>
-
-            <option value="pain">
-              Tooth Pain
-            </option>
-
-            <option value="cleaning">
-              Teeth Cleaning
-            </option>
-
-            <option value="whitening">
-              Teeth Whitening
-            </option>
-
-            <option value="implant">
-              Missing Tooth / Implant
-            </option>
-
-            <option value="root-canal">
-              Root Canal
-            </option>
-
-            <option value="checkup">
-              General Check-up
-            </option>
-
-            <option value="other">
-              Other
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <div class="full">
-
-          <label for="patientMessage">
-            Additional Information
-          </label>
-
-          <textarea
-            id="patientMessage"
-            name="patientMessage"
-            rows="4"
-            placeholder="Tell us anything else we should know..."
-          ></textarea>
-
-        </div>
-
-      </div>
-
-
-      <!-- Appointment summary -->
-
-      <div
-        class="result-plan mt-4"
-        id="bookingSummary"
-      >
-
-        <strong>
-          Appointment Summary
-        </strong>
-
-        <div class="row mt-3 g-2">
-
-          <div class="col-md-6">
-            <small>
-              Treatment
-            </small>
-
-            <div id="summaryTreatment">
-              Not selected
-            </div>
-          </div>
-
-
-          <div class="col-md-6">
-            <small>
-              Specialist
-            </small>
-
-            <div id="summaryDoctor">
-              Not selected
-            </div>
-          </div>
-
-
-          <div class="col-md-6">
-            <small>
-              Date
-            </small>
-
-            <div id="summaryDate">
-              Not selected
-            </div>
-          </div>
-
-
-          <div class="col-md-6">
-            <small>
-              Time
-            </small>
-
-            <div id="summarySlot">
-              Not selected
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="wizard-actions">
-
-        <button
-          type="button"
-          class="btn-outline-teal"
-          data-prev-step
-        >
-          ← Back
-        </button>
-
-        <button
-          type="button"
-          class="btn-primary-glow"
-          id="confirmBooking"
-        >
-          Confirm Appointment ✓
-        </button>
-
-      </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         CONFIRMATION
-    ====================================================== -->
-
-    <section
-      class="booking-step"
-      id="bookingConfirmation"
-      hidden
-    >
-
-      <div class="confirm-card">
-
-        <div class="mb-3">
-          <span
-            style="
-              display:inline-grid;
-              place-items:center;
-              width:70px;
-              height:70px;
-              border-radius:50%;
-              background:#ecfdf5;
-              font-size:2rem;
-            "
-          >
-            ✓
-          </span>
-        </div>
-
-        <h2>
-          Appointment Confirmed!
-        </h2>
-
-        <p class="text-muted">
-          Your appointment has been successfully booked.
-        </p>
-
-
-        <div class="token-big" id="confirmationToken">
-          SC-104
-        </div>
-
-
-        <div class="confirm-details">
-
-          <div>
-            <strong>
-              Patient
-            </strong>
-
-            <span id="confirmPatient">
-              —
-            </span>
-          </div>
-
-
-          <div>
-            <strong>
-              Treatment
-            </strong>
-
-            <span id="confirmTreatment">
-              —
-            </span>
-          </div>
-
-
-          <div>
-            <strong>
-              Specialist
-            </strong>
-
-            <span id="confirmDoctor">
-              —
-            </span>
-          </div>
-
-
-          <div>
-            <strong>
-              Date
-            </strong>
-
-            <span id="confirmDate">
-              —
-            </span>
-          </div>
-
-
-          <div>
-            <strong>
-              Time
-            </strong>
-
-            <span id="confirmTime">
-              —
-            </span>
-          </div>
-
-
-          <div>
-            <strong>
-              Mobile
-            </strong>
-
-            <span id="confirmPhone">
-              —
-            </span>
-          </div>
-
-        </div>
-
-
-        <div class="calendar-actions">
-
-          <button
-            type="button"
-            class="btn-primary-glow"
-            id="addCalendar"
-          >
-            📅 Add to Calendar
-          </button>
-
-          <button
-            type="button"
-            class="btn-outline-teal"
-            id="sendWhatsApp"
-          >
-            WhatsApp Confirmation
-          </button>
-
-          <button
-            type="button"
-            class="btn-outline-teal"
-            id="closeAfterBooking"
-          >
-            Done
-          </button>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </div>
-
-</div>
-
-
-<!-- =========================================================
-     WHATSAPP TOAST
-========================================================= -->
-
-<div
-  class="whatsapp-toast"
-  id="whatsappToast"
->
-
-  <div class="wa-icon">
-    ✓
-  </div>
-
-  <div>
-
-    <strong>
-      Appointment Ready
-    </strong>
-
-    <p>
-      Your appointment details are ready to share.
-    </p>
-
-  </div>
-
-  <button
-    type="button"
-    id="closeWhatsAppToast"
-  >
-    ×
-  </button>
-
-</div>
-
-
-<!-- =========================================================
-     TOAST
-========================================================= -->
-
-<div
-  class="toast-msg"
-  id="toastMessage"
->
-  Please complete the required information.
-</div>
-
-
-<!-- =========================================================
-     SCRIPTS
-========================================================= -->
-
-<script
-  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-></script>
-
-<script src="./script.js"></script>
-
-</body>
+  <script src="js/app.js"></script>
+  </body>
 </html>
+
