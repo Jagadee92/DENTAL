@@ -1,7 +1,68 @@
 (() => {
   "use strict";
-  const $ = (s, r = document) => r.querySelector(s),
-    $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+  /* =========================================================
+     REFRESH / SCROLL POSITION FIX
+     ========================================================= */
+
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
+
+  const resetScrollOnReload = () => {
+    const navigation = performance.getEntriesByType("navigation")[0];
+    const isReload = navigation && navigation.type === "reload";
+
+    if (!isReload) return;
+
+    // Remove hash after refresh so the browser doesn't jump
+    // back to the previous section.
+    if (window.location.hash) {
+      history.replaceState(
+        null,
+        document.title,
+        window.location.pathname + window.location.search
+      );
+    }
+
+    const goTop = () => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "instant",
+      });
+    };
+
+    // Immediately move to top
+    goTop();
+
+    // Prevent browser/framework delayed restoration
+    requestAnimationFrame(() => {
+      goTop();
+
+      requestAnimationFrame(() => {
+        goTop();
+      });
+    });
+
+    setTimeout(goTop, 100);
+    setTimeout(goTop, 500);
+  };
+
+  window.addEventListener("pageshow", resetScrollOnReload);
+  window.addEventListener("load", resetScrollOnReload);
+
+  /* =========================================================
+     HELPERS
+     ========================================================= */
+
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+  /* =========================================================
+     TREATMENTS
+     ========================================================= */
+
   const T = [
     [
       "implant-single",
@@ -104,6 +165,11 @@
       ["Gum Assessment", "Deep Cleaning", "Laser Therapy & Review"],
     ],
   ];
+
+  /* =========================================================
+     DOCTORS
+     ========================================================= */
+
   const D = [
     [
       "doc-1",
@@ -154,6 +220,11 @@
       "Available Today @ 5:00 PM",
     ],
   ];
+
+  /* =========================================================
+     REVIEWS
+     ========================================================= */
+
   const S = [
     [
       "Priya Reddy",
@@ -198,6 +269,11 @@
       "5",
     ],
   ];
+
+  /* =========================================================
+     FAQ
+     ========================================================= */
+
   const F = [
     [
       "Is the root canal procedure completely painless?",
@@ -224,6 +300,11 @@
       "Contact the clinic before the appointment so the team can update or release the slot.",
     ],
   ];
+
+  /* =========================================================
+     AVAILABLE SLOTS
+     ========================================================= */
+
   const slots = {
     morning: [
       ["09:30 AM", "a"],
@@ -241,6 +322,11 @@
       ["08:00 PM", "a"],
     ],
   };
+
+  /* =========================================================
+     BOOKING STATE
+     ========================================================= */
+
   let B = {
     step: 1,
     t: null,
@@ -249,6 +335,11 @@
     shift: "morning",
     slot: null,
   };
+
+  /* =========================================================
+     ESCAPE HTML
+     ========================================================= */
+
   const esc = (x) =>
     String(x).replace(
       /[&<>"']/g,
@@ -259,112 +350,628 @@
           ">": "&gt;",
           '"': "&quot;",
           "'": "&#039;",
-        })[c],
+        })[c]
     );
-  const modal = (id) => $("#" + id).classList.add("show"),
-    close = (id) => {
-      $("#" + id).classList.remove("show");
-      document.body.style.overflow = "";
-    };
+
+  /* =========================================================
+     MODALS
+     ========================================================= */
+
+  const modal = (id) => {
+    const el = $("#" + id);
+    if (el) el.classList.add("show");
+  };
+
+  const close = (id) => {
+    const el = $("#" + id);
+
+    if (el) {
+      el.classList.remove("show");
+    }
+
+    document.body.style.overflow = "";
+  };
+
   function open(id) {
     modal(id);
     document.body.style.overflow = "hidden";
   }
+
+  /* =========================================================
+     TREATMENT CARDS
+     ========================================================= */
+
   function treatmentCards(filter = "All Procedures") {
     const list =
-      filter === "All Procedures" ? T : T.filter((x) => x[2] === filter);
-    $("#treatmentGrid").innerHTML = list
+      filter === "All Procedures"
+        ? T
+        : T.filter((x) => x[2] === filter);
+
+    const grid = $("#treatmentGrid");
+
+    if (!grid) return;
+
+    grid.innerHTML = list
       .map(
-        (x, i) =>
-          `<div class="col-md-6 col-xl-3"><article class="treatment-card reveal visible"><div class="treatment-head"><span class="category-badge">${x[2]}</span><span class="duration">${x[4]}</span></div><h3>${x[1]}</h3><p>${x[3]}</p><div class="price">From ₹${x[5].toLocaleString("en-IN")}</div><div class="emi-line">${x[6] ? "EMI from ₹" + x[6].toLocaleString("en-IN") + "/mo" : "Transparent one-time estimate"}</div><div class="card-actions"><button class="protocol-btn" data-protocol="${x[0]}">View Protocol</button><button class="book-treatment" data-book="${x[0]}">Book Slot</button></div></article></div>`,
+        (x) =>
+          `<div class="col-md-6 col-xl-3">
+            <article class="treatment-card reveal visible">
+              <div class="treatment-head">
+                <span class="category-badge">${x[2]}</span>
+                <span class="duration">${x[4]}</span>
+              </div>
+
+              <h3>${x[1]}</h3>
+
+              <p>${x[3]}</p>
+
+              <div class="price">
+                From ₹${x[5].toLocaleString("en-IN")}
+              </div>
+
+              <div class="emi-line">
+                ${
+                  x[6]
+                    ? "EMI from ₹" +
+                      x[6].toLocaleString("en-IN") +
+                      "/mo"
+                    : "Transparent one-time estimate"
+                }
+              </div>
+
+              <div class="card-actions">
+                <button
+                  class="protocol-btn"
+                  data-protocol="${x[0]}"
+                >
+                  View Protocol
+                </button>
+
+                <button
+                  class="book-treatment"
+                  data-book="${x[0]}"
+                >
+                  Book Slot
+                </button>
+              </div>
+            </article>
+          </div>`
       )
       .join("");
   }
+
+  /* =========================================================
+     DATES
+     ========================================================= */
+
   function dates() {
     return Array.from({ length: 7 }, (_, i) => {
       let d = new Date();
+
       d.setHours(0, 0, 0, 0);
       d.setDate(d.getDate() + i);
+
       return d;
     });
   }
+
   function dateText(d, i) {
     return i === 0
       ? "Today"
       : i === 1
         ? "Tomorrow"
-        : d.toLocaleDateString("en-IN", { weekday: "short" }) +
+        : d.toLocaleDateString("en-IN", {
+            weekday: "short",
+          }) +
           " " +
           d.getDate();
   }
+
+  /* =========================================================
+     BOOKING VIEW
+     ========================================================= */
+
   function bookingView() {
-    let c = $("#bookingContent"),
-      h = "",
-      body = "";
+    const c = $("#bookingContent");
+
+    if (!c) return;
+
+    let h = "";
+    let body = "";
+
     if (B.step === 1) {
       h = "Select your treatment";
-      body = `<div class="choice-grid">${T.map((x) => `<button class="choice-card ${B.t === x[0] ? "selected" : ""}" data-t="${x[0]}"><strong>${x[1]}</strong><small>${x[4]} • From ₹${x[5].toLocaleString("en-IN")}</small></button>`).join("")}</div>`;
+
+      body = `
+        <div class="choice-grid">
+          ${T.map(
+            (x) =>
+              `<button
+                class="choice-card ${
+                  B.t === x[0] ? "selected" : ""
+                }"
+                data-t="${x[0]}"
+              >
+                <strong>${x[1]}</strong>
+                <small>
+                  ${x[4]} • From ₹${x[5].toLocaleString("en-IN")}
+                </small>
+              </button>`
+          ).join("")}
+        </div>
+      `;
     } else if (B.step === 2) {
       h = "Choose your specialist";
-      body = `<div class="choice-grid"><button class="choice-card ${B.d === "fastest" ? "selected" : ""}" data-d="fastest"><strong>⚡ First Available Specialist (Fastest)</strong><small>Earliest suitable clinician</small></button>${D.map((x) => `<button class="choice-card ${B.d === x[0] ? "selected" : ""}" data-d="${x[0]}"><strong>${x[1]}</strong><small>${x[2]}</small></button>`).join("")}</div>`;
+
+      body = `
+        <div class="choice-grid">
+
+          <button
+            class="choice-card ${
+              B.d === "fastest" ? "selected" : ""
+            }"
+            data-d="fastest"
+          >
+            <strong>
+              ⚡ First Available Specialist (Fastest)
+            </strong>
+
+            <small>
+              Earliest suitable clinician
+            </small>
+          </button>
+
+          ${D.map(
+            (x) =>
+              `<button
+                class="choice-card ${
+                  B.d === x[0] ? "selected" : ""
+                }"
+                data-d="${x[0]}"
+              >
+                <strong>${x[1]}</strong>
+                <small>${x[2]}</small>
+              </button>`
+          ).join("")}
+
+        </div>
+      `;
     } else if (B.step === 3) {
-      let ds = dates();
-      body = `<div class="date-row">${ds.map((d, i) => `<button class="date-pill ${B.date === d.toISOString().slice(0, 10) ? "active" : ""}" data-date="${d.toISOString().slice(0, 10)}">${dateText(d, i)}<small>${d.toLocaleDateString("en-IN", { month: "short" })}</small></button>`).join("")}</div><div class="shift-row"><button class="${B.shift === "morning" ? "active" : ""}" data-shift="morning">☀ Morning 9:00-1:00</button><button class="${B.shift === "evening" ? "active" : ""}" data-shift="evening">◐ Evening 4:30-8:30</button></div><div class="slot-row">${slots[B.shift].map((s) => `<button class="slot-chip ${s[1] === "b" ? "booked" : ""} ${s[1] === "f" ? "fast" : ""} ${B.slot === s[0] ? "selected" : ""}" ${s[1] === "b" ? "disabled" : ""} data-slot="${s[0]}">${s[0]}${s[1] === "f" ? " • 1 left" : ""}${B.slot === s[0] ? " ✓" : ""}</button>`).join("")}</div>`;
+      const ds = dates();
+
+      body = `
+        <div class="date-row">
+
+          ${ds
+            .map(
+              (d, i) =>
+                `<button
+                  class="date-pill ${
+                    B.date === d.toISOString().slice(0, 10)
+                      ? "active"
+                      : ""
+                  }"
+                  data-date="${d
+                    .toISOString()
+                    .slice(0, 10)}"
+                >
+                  ${dateText(d, i)}
+                  <small>
+                    ${d.toLocaleDateString("en-IN", {
+                      month: "short",
+                    })}
+                  </small>
+                </button>`
+            )
+            .join("")}
+
+        </div>
+
+        <div class="shift-row">
+
+          <button
+            class="${
+              B.shift === "morning" ? "active" : ""
+            }"
+            data-shift="morning"
+          >
+            ☀ Morning 9:00-1:00
+          </button>
+
+          <button
+            class="${
+              B.shift === "evening" ? "active" : ""
+            }"
+            data-shift="evening"
+          >
+            ◐ Evening 4:30-8:30
+          </button>
+
+        </div>
+
+        <div class="slot-row">
+
+          ${slots[B.shift]
+            .map(
+              (s) =>
+                `<button
+                  class="slot-chip
+                    ${s[1] === "b" ? "booked" : ""}
+                    ${s[1] === "f" ? "fast" : ""}
+                    ${B.slot === s[0] ? "selected" : ""}
+                  "
+                  ${s[1] === "b" ? "disabled" : ""}
+                  data-slot="${s[0]}"
+                >
+                  ${s[0]}
+                  ${s[1] === "f" ? " • 1 left" : ""}
+                  ${B.slot === s[0] ? " ✓" : ""}
+                </button>`
+            )
+            .join("")}
+
+        </div>
+      `;
     } else {
-      body = `<form id="patientForm" class="form-grid"><label>Full Name *<input name="name" required></label><label>WhatsApp Mobile Number *<input name="phone" required></label><label>Age *<input name="age" type="number" required min="1" max="120"></label><label>Gender *<select name="gender" required><option value="">Select</option><option>Female</option><option>Male</option><option>Other</option></select></label><label>Consultation Type *<select name="type" required><option value="">Select</option><option>In-Clinic Consultation</option><option>Emergency Toothache</option></select></label><label class="full">Chief Complaint<textarea name="complaint" rows="3"></textarea></label><label class="full"><input name="wa" type="checkbox" checked> Receive instant appointment confirmation & reminders on WhatsApp</label><div class="wizard-actions full"><button type="button" class="btn btn-outline-teal" data-back>← Back</button><button class="btn btn-primary-glow">Confirm Appointment</button></div></form>`;
+      body = `
+        <form id="patientForm" class="form-grid">
+
+          <label>
+            Full Name *
+            <input name="name" required>
+          </label>
+
+          <label>
+            WhatsApp Mobile Number *
+            <input name="phone" required>
+          </label>
+
+          <label>
+            Age *
+            <input
+              name="age"
+              type="number"
+              required
+              min="1"
+              max="120"
+            >
+          </label>
+
+          <label>
+            Gender *
+            <select name="gender" required>
+              <option value="">Select</option>
+              <option>Female</option>
+              <option>Male</option>
+              <option>Other</option>
+            </select>
+          </label>
+
+          <label>
+            Consultation Type *
+            <select name="type" required>
+              <option value="">Select</option>
+              <option>In-Clinic Consultation</option>
+              <option>Emergency Toothache</option>
+            </select>
+          </label>
+
+          <label class="full">
+            Chief Complaint
+            <textarea
+              name="complaint"
+              rows="3"
+            ></textarea>
+          </label>
+
+          <label class="full">
+            <input
+              name="wa"
+              type="checkbox"
+              checked
+            >
+            Receive instant appointment confirmation & reminders on WhatsApp
+          </label>
+
+          <div class="wizard-actions full">
+
+            <button
+              type="button"
+              class="btn btn-outline-teal"
+              data-back
+            >
+              ← Back
+            </button>
+
+            <button
+              class="btn btn-primary-glow"
+            >
+              Confirm Appointment
+            </button>
+
+          </div>
+
+        </form>
+      `;
     }
-    c.innerHTML = `<span class="eyebrow">STEP ${B.step} OF 4</span><h2>${h}</h2>${B.step === 1 ? "<p>Visual treatment cards with duration and starting price.</p>" : ""}${body}<div class="wizard-actions">${B.step > 1 && B.step < 4 ? '<button class="btn btn-outline-teal" data-back>← Back</button>' : "<span></span>"}${B.step < 4 ? `<button class="btn btn-primary-glow" data-next ${(B.step === 1 && !B.t) || (B.step === 2 && !B.d) || (B.step === 3 && (!B.date || !B.slot)) ? "disabled" : ""}>Continue →</button>` : ""}</div>`;
+
+    c.innerHTML = `
+      <span class="eyebrow">
+        STEP ${B.step} OF 4
+      </span>
+
+      <h2>${h}</h2>
+
+      ${
+        B.step === 1
+          ? "<p>Visual treatment cards with duration and starting price.</p>"
+          : ""
+      }
+
+      ${body}
+
+      <div class="wizard-actions">
+
+        ${
+          B.step > 1 && B.step < 4
+            ? '<button class="btn btn-outline-teal" data-back>← Back</button>'
+            : "<span></span>"
+        }
+
+        ${
+          B.step < 4
+            ? `<button
+                class="btn btn-primary-glow"
+                data-next
+                ${
+                  (B.step === 1 && !B.t) ||
+                  (B.step === 2 && !B.d) ||
+                  (B.step === 3 && (!B.date || !B.slot))
+                    ? "disabled"
+                    : ""
+                }
+              >
+                Continue →
+              </button>`
+            : ""
+        }
+
+      </div>
+    `;
   }
+
+  /* =========================================================
+     CONFIRM APPOINTMENT
+     ========================================================= */
+
   function confirm(p, t, d) {
-    $("#bookingContent").innerHTML =
-      '<div class="loader"><div class="loader-ring"></div><h3>Securing your appointment slot...</h3><p>0.8 second medical loader</p></div>';
+    $("#bookingContent").innerHTML = `
+      <div class="loader">
+        <div class="loader-ring"></div>
+
+        <h3>
+          Securing your appointment slot...
+        </h3>
+
+        <p>
+          0.8 second medical loader
+        </p>
+      </div>
+    `;
+
     setTimeout(() => {
-      $("#bookingContent").innerHTML =
-        `<div class="confirm-card"><span class="eyebrow">APPOINTMENT CONFIRMED</span><h2>Your appointment is secured.</h2><div class="token-big">${p.token}</div><div class="confirm-details"><div><small>Patient</small><strong>${esc(p.name)}</strong></div><div><small>Treatment</small><strong>${esc(t[1])}</strong></div><div><small>Doctor</small><strong>${esc(d[1])}</strong></div><div><small>Date & Time</small><strong>${p.date} • ${p.slot}</strong></div></div><div class="calendar-actions"><button class="btn btn-primary-glow" id="gcal">Google Calendar</button><button class="btn btn-outline-teal" id="ical">Apple Calendar</button><button class="btn btn-outline-teal" id="pslip">Download PDF Slip</button></div><button class="btn btn-link" data-close-booking>Close</button></div>`;
+      $("#bookingContent").innerHTML = `
+        <div class="confirm-card">
+
+          <span class="eyebrow">
+            APPOINTMENT CONFIRMED
+          </span>
+
+          <h2>
+            Your appointment is secured.
+          </h2>
+
+          <div class="token-big">
+            ${p.token}
+          </div>
+
+          <div class="confirm-details">
+
+            <div>
+              <small>Patient</small>
+              <strong>${esc(p.name)}</strong>
+            </div>
+
+            <div>
+              <small>Treatment</small>
+              <strong>${esc(t[1])}</strong>
+            </div>
+
+            <div>
+              <small>Doctor</small>
+              <strong>${esc(d[1])}</strong>
+            </div>
+
+            <div>
+              <small>Date & Time</small>
+              <strong>
+                ${p.date} • ${p.slot}
+              </strong>
+            </div>
+
+          </div>
+
+          <div class="calendar-actions">
+
+            <button
+              class="btn btn-primary-glow"
+              id="gcal"
+            >
+              Google Calendar
+            </button>
+
+            <button
+              class="btn btn-outline-teal"
+              id="ical"
+            >
+              Apple Calendar
+            </button>
+
+            <button
+              class="btn btn-outline-teal"
+              id="pslip"
+            >
+              Download PDF Slip
+            </button>
+
+          </div>
+
+          <button
+            class="btn btn-link"
+            data-close-booking
+          >
+            Close
+          </button>
+
+        </div>
+      `;
+
       setTimeout(() => {
         const w = $("#whatsappToast");
+
+        if (!w) return;
+
         $("#waMessage").textContent =
           `Hello ${p.name}! Your appointment at Apex Dental Studio is confirmed. Token ${p.token}. Doctor: ${d[1]}. Date: ${p.date} at ${p.slot}. Tap for Google Maps directions.`;
+
         w.classList.add("show");
       }, 1200);
+
       $("#gcal").onclick = () => gcal(p, t, d);
       $("#ical").onclick = () => ical(p, t, d);
       $("#pslip").onclick = () => pdf(p, t, d);
     }, 800);
   }
+
+  /* =========================================================
+     GOOGLE CALENDAR
+     ========================================================= */
+
   function gcal(p, t, d) {
-    let st = p.date.replaceAll("-", "") + "T" + to24(p.slot) + "00";
-    let u = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("Apex Dental " + p.token)}&dates=${st}/${st}&details=${encodeURIComponent(t[1] + " with " + d[1])}&location=${encodeURIComponent("Plot 18, Jubilee Hills Road No. 36, Hyderabad")}`;
+    const st =
+      p.date.replaceAll("-", "") +
+      "T" +
+      to24(p.slot) +
+      "00";
+
+    const u =
+      `https://calendar.google.com/calendar/render?action=TEMPLATE` +
+      `&text=${encodeURIComponent(
+        "Apex Dental " + p.token
+      )}` +
+      `&dates=${st}/${st}` +
+      `&details=${encodeURIComponent(
+        t[1] + " with " + d[1]
+      )}` +
+      `&location=${encodeURIComponent(
+        "Plot 18, Jubilee Hills Road No. 36, Hyderabad"
+      )}`;
+
     window.open(u, "_blank");
   }
+
+  /* =========================================================
+     TIME CONVERSION
+     ========================================================= */
+
   function to24(t, add = 0) {
-    let m = t.match(/(\d+):(\d+)\s*(AM|PM)/i),
-      h = +m[1],
-      n = +m[2];
-    if (m[3].toUpperCase() === "PM" && h < 12) h += 12;
-    if (m[3].toUpperCase() === "AM" && h === 12) h = 0;
+    const m = t.match(
+      /(\d+):(\d+)\s*(AM|PM)/i
+    );
+
+    if (!m) return "0000";
+
+    let h = +m[1];
+    let n = +m[2];
+
+    if (
+      m[3].toUpperCase() === "PM" &&
+      h < 12
+    ) {
+      h += 12;
+    }
+
+    if (
+      m[3].toUpperCase() === "AM" &&
+      h === 12
+    ) {
+      h = 0;
+    }
+
     n += add;
+
     h += Math.floor(n / 60);
     n %= 60;
-    return String(h).padStart(2, "0") + String(n).padStart(2, "0");
-  }
-  function dl(data, name, type) {
-    let a = document.createElement("a");
-    a.href = URL.createObjectURL(new Blob([data], { type }));
-    a.download = name;
-    a.click();
-    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-  }
-  function ical(p, t, d) {
-    let s = p.date.replaceAll("-", "") + "T" + to24(p.slot) + "00";
-    dl(
-      `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Apex Dental//EN\nBEGIN:VEVENT\nUID:${Date.now()}@apex\nDTSTART:${s}\nSUMMARY:Apex Dental ${p.token}\nDESCRIPTION:${t[1]} with ${d[1]}\nEND:VEVENT\nEND:VCALENDAR`,
-      "apex-dental.ics",
-      "text/calendar",
+
+    return (
+      String(h).padStart(2, "0") +
+      String(n).padStart(2, "0")
     );
   }
+
+  /* =========================================================
+     DOWNLOAD
+     ========================================================= */
+
+  function dl(data, name, type) {
+    const a = document.createElement("a");
+
+    a.href = URL.createObjectURL(
+      new Blob([data], { type })
+    );
+
+    a.download = name;
+
+    a.click();
+
+    setTimeout(() => {
+      URL.revokeObjectURL(a.href);
+    }, 1000);
+  }
+
+  /* =========================================================
+     APPLE CALENDAR
+     ========================================================= */
+
+  function ical(p, t, d) {
+    const s =
+      p.date.replaceAll("-", "") +
+      "T" +
+      to24(p.slot) +
+      "00";
+
+    dl(
+      `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Apex Dental//EN
+BEGIN:VEVENT
+UID:${Date.now()}@apex
+DTSTART:${s}
+SUMMARY:Apex Dental ${p.token}
+DESCRIPTION:${t[1]} with ${d[1]}
+END:VEVENT
+END:VCALENDAR`,
+      "apex-dental.ics",
+      "text/calendar"
+    );
+  }
+
+  /* =========================================================
+     PDF
+     ========================================================= */
+
   function pdf(p, t, d) {
-    let lines = [
+    const lines = [
       "APEX DENTAL & IMPLANT STUDIO",
       "Appointment Confirmation",
       "Token: " + p.token,
@@ -377,210 +984,696 @@
       "Plot 18, Jubilee Hills Road No. 36, Hyderabad",
       "Phone: +91 98480 22338",
     ];
-    let stream =
-        "BT /F1 16 Tf 50 800 Td " +
-        lines
-          .map((x, i) => `(${x.replace(/([\\()])/g, "\\$1")}) Tj 0 -25 Td`)
-          .join(" ") +
-        " ET",
-      objs = [
-        "1 0 obj<< /Type /Catalog /Pages 2 0 R >>endobj",
-        "2 0 obj<< /Type /Pages /Kids [3 0 R] /Count 1 >>endobj",
-        "3 0 obj<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>endobj",
-        "4 0 obj<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>endobj",
-        `5 0 obj<< /Length ${stream.length} >>stream\n${stream}\nendstream\nendobj`,
-      ],
-      out = "%PDF-1.4\n",
-      off = [0];
+
+    const stream =
+      "BT /F1 16 Tf 50 800 Td " +
+      lines
+        .map(
+          (x) =>
+            `(${x.replace(
+              /([\\()])/g,
+              "\\$1"
+            )}) Tj 0 -25 Td`
+        )
+        .join(" ") +
+      " ET";
+
+    const objs = [
+      "1 0 obj<< /Type /Catalog /Pages 2 0 R >>endobj",
+
+      "2 0 obj<< /Type /Pages /Kids [3 0 R] /Count 1 >>endobj",
+
+      "3 0 obj<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>endobj",
+
+      "4 0 obj<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>endobj",
+
+      `5 0 obj<< /Length ${stream.length} >>stream
+${stream}
+endstream
+endobj`,
+    ];
+
+    let out = "%PDF-1.4\n";
+    const off = [0];
+
     objs.forEach((o) => {
       off.push(out.length);
       out += o + "\n";
     });
-    let x = out.length;
+
+    const x = out.length;
+
     out +=
-      `xref\n0 ${objs.length + 1}\n0000000000 65535 f \n` +
+      `xref\n0 ${
+        objs.length + 1
+      }\n0000000000 65535 f \n` +
       off
         .slice(1)
-        .map((v) => String(v).padStart(10, "0") + " 00000 n \n")
+        .map(
+          (v) =>
+            String(v).padStart(10, "0") +
+            " 00000 n \n"
+        )
         .join("") +
-      `trailer<< /Size ${objs.length + 1} /Root 1 0 R >>\nstartxref\n${x}\n%%EOF`;
-    dl(out, "apex-dental-appointment-slip.pdf", "application/pdf");
+      `trailer<< /Size ${
+        objs.length + 1
+      } /Root 1 0 R >>\nstartxref\n${x}\n%%EOF`;
+
+    dl(
+      out,
+      "apex-dental-appointment-slip.pdf",
+      "application/pdf"
+    );
   }
+
+  /* =========================================================
+     INITIALIZE
+     ========================================================= */
+
   function init() {
+    /* -------------------------------------------------------
+       TREATMENT FILTERS
+       ------------------------------------------------------- */
+
     const f = $("#treatmentFilters");
-    f.innerHTML = [
-      "All Procedures (8)",
-      "Implants & Surgery",
-      "Cosmetic & Aligners",
-      "Root Canal & Crowns",
-      "Pediatric (Kids)",
-    ]
-      .map(
-        (x, i) =>
-          `<button class="${i ? "" : "active"}" data-filter="${i ? "" : x}">${x}</button>`,
-      )
-      .join("");
-    treatmentCards();
-    f.onclick = (e) => {
-      let b = e.target.closest("button");
-      if (!b) return;
-      $$("button", f).forEach((x) => x.classList.remove("active"));
-      b.classList.add("active");
-      treatmentCards(b.dataset.filter || "All Procedures");
-    };
-  
-    let wrap = $("#beforeAfter"),
-      drag = false,
-      move = (x) => {
-        let r = wrap.getBoundingClientRect(),
-          p = Math.max(0, Math.min(100, ((x - r.left) / r.width) * 100));
-        $("#baBefore").style.clipPath = `inset(0 ${100 - p}% 0 0)`;
-        $("#baDivider").style.left = p + "%";
-        $("#dragHint").style.display = "none";
-      };
-    wrap.onpointerdown = (e) => {
-      drag = true;
-      move(e.clientX);
-      wrap.setPointerCapture(e.pointerId);
-    };
-    wrap.onpointermove = (e) => drag && move(e.clientX);
-    wrap.onpointerup = () => (drag = false);
-    $("#doctorGrid").innerHTML = D.map(
-      (x) =>
-        `<article class="doctor-card"><div class="doctor-avatar">🧑‍⚕️</div><div class="doctor-body"><h3>${x[1]}</h3><div class="doctor-title">${x[2]}</div><div class="doctor-meta"><span>★ ${x[5]} (${x[6]})</span><span>${x[3]}</span><span>Medical Council ✓</span><span>${x[8]}</span>${x[7].map((v) => `<span>${v}</span>`).join("")}<span class="available">${x[9]}</span></div><small>${x[4]}</small><button class="doctor-book" data-doctor="${x[0]}">Book with Dr. ${x[1].split(" ")[1]}</button></div></article>`,
-    ).join("");
-    $("#reviewsGrid").innerHTML = S.map(
-      (x) =>
-        `<article class="review"><div class="stars">★★★★★</div><p>“${x[3]}”</p><div class="reviewer"><b>${x[0]}</b><span>${x[1]} • ✓ ${x[2]}</span></div></article>`,
-    ).join("");
-    $("#faqAccordion").innerHTML = F.map(
-      (x, i) =>
-        `<div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button ${i ? "collapsed" : ""}" data-bs-toggle="collapse" data-bs-target="#faq${i}">${x[0]}</button></h2><div id="faq${i}" class="accordion-collapse collapse ${i ? "" : "show"}"><div class="accordion-body">${x[1]}</div></div></div>`,
-    ).join("");
-    $("#year").textContent = new Date().getFullYear();
-    // booking and common actions
-    document.addEventListener("click", (e) => {
-      if (e.target.closest("[data-open-booking]")) {
-        B = {
-          step: 1,
-          t: null,
-          d: null,
-          date: null,
-          shift: "morning",
-          slot: null,
-        };
-        bookingView();
-        open("bookingModal");
-      }
-      let bt = e.target.closest("[data-book]");
-      if (bt) {
-        B = {
-          step: 3,
-          t: bt.dataset.book,
-          d: "fastest",
-          date: dates()[0].toISOString().slice(0, 10),
-          shift: "morning",
-          slot: null,
-        };
-        bookingView();
-        open("bookingModal");
-        close("protocolModal");
-      }
-      let db = e.target.closest("[data-doctor]");
-      if (db) {
-        B = {
-          step: 1,
-          t: null,
-          d: db.dataset.doctor,
-          date: null,
-          shift: "morning",
-          slot: null,
-        };
-        bookingView();
-        open("bookingModal");
-      }
-      let tt = e.target.closest("[data-protocol]");
-      if (tt) {
-        let t = T.find((x) => x[0] === tt.dataset.protocol);
-        $("#protocolContent").innerHTML =
-          `<span class="eyebrow">${t[2]}</span><h2>${t[1]}</h2><p>${t[3]}</p><div class="roadmap-line">${t[8].map((s, i) => `<article><b>0${i + 1}</b><h3>${s}</h3><p>Preparation, comfort-first treatment and review.</p></article>`).join("")}</div><p><b>Starting from ₹${t[5].toLocaleString("en-IN")}</b> ${t[6] ? "• EMI from ₹" + t[6].toLocaleString("en-IN") + "/mo" : ""}</p><button class="btn btn-primary-glow" data-book="${t[0]}">Book this treatment</button>`;
-        open("protocolModal");
-      }
-      if (e.target.closest("[data-close-booking]")) close("bookingModal");
-      if (e.target.closest("[data-close]"))
-        close(e.target.closest("[data-close]").dataset.close);
-      if (e.target.closest("[data-back]")) {
-        B.step--;
-        bookingView();
-      }
-      if (e.target.closest("[data-next]")) {
-        B.step++;
-        if (B.step === 3 && !B.date)
-          B.date = dates()[0].toISOString().slice(0, 10);
-        bookingView();
-      }
-      let t = e.target.closest("[data-t]");
-      if (t) {
-        B.t = t.dataset.t;
-        bookingView();
-      }
-      let d = e.target.closest("[data-d]");
-      if (d) {
-        B.d = d.dataset.d;
-        bookingView();
-      }
-      let dt = e.target.closest("[data-date]");
-      if (dt) {
-        B.date = dt.dataset.date;
-        bookingView();
-      }
-      let sh = e.target.closest("[data-shift]");
-      if (sh) {
-        B.shift = sh.dataset.shift;
-        B.slot = null;
-        bookingView();
-      }
-      let sl = e.target.closest("[data-slot]");
-      if (sl && !sl.disabled) {
-        B.slot = sl.dataset.slot;
-        bookingView();
-      }
-      if (e.target.closest("#closeWa"))
-        $("#whatsappToast").classList.remove("show");
-      if (e.target.closest("#playTour"))
-        alert(
-          "Virtual tour preview: Reception → Consultation → Digital Scan → Surgery → Recovery.",
+
+    if (f) {
+      f.innerHTML = [
+        "All Procedures (8)",
+        "Implants & Surgery",
+        "Cosmetic & Aligners",
+        "Root Canal & Crowns",
+        "Pediatric (Kids)",
+      ]
+        .map(
+          (x, i) =>
+            `<button
+              class="${i ? "" : "active"}"
+              data-filter="${i ? "" : x}"
+            >
+              ${x}
+            </button>`
+        )
+        .join("");
+
+      treatmentCards();
+
+      f.onclick = (e) => {
+        const b =
+          e.target.closest("button");
+
+        if (!b) return;
+
+        $$("button", f).forEach((x) =>
+          x.classList.remove("active")
         );
-      if (e.target.closest("[data-open-assessment]")) assessment();
-    });
-    document.addEventListener("submit", (e) => {
-      if (e.target.id !== "patientForm") return;
-      e.preventDefault();
-      let f = new FormData(e.target),
-        t = T.find((x) => x[0] === B.t),
-        d = B.d === "fastest" ? D[0] : D.find((x) => x[0] === B.d) || D[0],
-        p = {
-          name: f.get("name"),
-          phone: f.get("phone"),
-          age: f.get("age"),
-          gender: f.get("gender"),
-          type: f.get("type"),
-          complaint: f.get("complaint"),
+
+        b.classList.add("active");
+
+        treatmentCards(
+          b.dataset.filter ||
+            "All Procedures"
+        );
+      };
+    }
+
+    /* -------------------------------------------------------
+       BEFORE / AFTER SLIDER
+       ------------------------------------------------------- */
+
+    const wrap = $("#beforeAfter");
+
+    if (wrap) {
+      let drag = false;
+
+      const move = (x) => {
+        const r =
+          wrap.getBoundingClientRect();
+
+        const p = Math.max(
+          0,
+          Math.min(
+            100,
+            ((x - r.left) / r.width) * 100
+          )
+        );
+
+        const before = $("#baBefore");
+        const divider = $("#baDivider");
+        const hint = $("#dragHint");
+
+        if (before) {
+          before.style.clipPath =
+            `inset(0 ${100 - p}% 0 0)`;
+        }
+
+        if (divider) {
+          divider.style.left = p + "%";
+        }
+
+        if (hint) {
+          hint.style.display = "none";
+        }
+      };
+
+      wrap.onpointerdown = (e) => {
+        drag = true;
+        move(e.clientX);
+        wrap.setPointerCapture(
+          e.pointerId
+        );
+      };
+
+      wrap.onpointermove = (e) => {
+        if (drag) move(e.clientX);
+      };
+
+      wrap.onpointerup = () => {
+        drag = false;
+      };
+
+      wrap.onpointercancel = () => {
+        drag = false;
+      };
+    }
+
+    /* -------------------------------------------------------
+       DOCTORS
+       ------------------------------------------------------- */
+
+    const doctorGrid = $("#doctorGrid");
+
+    if (doctorGrid) {
+      doctorGrid.innerHTML = D.map(
+        (x) =>
+          `<article class="doctor-card">
+
+            <div class="doctor-avatar">
+              🧑‍⚕️
+            </div>
+
+            <div class="doctor-body">
+
+              <h3>${x[1]}</h3>
+
+              <div class="doctor-title">
+                ${x[2]}
+              </div>
+
+              <div class="doctor-meta">
+
+                <span>
+                  ★ ${x[5]} (${x[6]})
+                </span>
+
+                <span>
+                  ${x[3]}
+                </span>
+
+                <span>
+                  Medical Council ✓
+                </span>
+
+                <span>
+                  ${x[8]}
+                </span>
+
+                ${x[7]
+                  .map(
+                    (v) =>
+                      `<span>${v}</span>`
+                  )
+                  .join("")}
+
+                <span class="available">
+                  ${x[9]}
+                </span>
+
+              </div>
+
+              <small>
+                ${x[4]}
+              </small>
+
+              <button
+                class="doctor-book"
+                data-doctor="${x[0]}"
+              >
+                Book with Dr.
+                ${x[1].split(" ")[1]}
+              </button>
+
+            </div>
+
+          </article>`
+      ).join("");
+    }
+
+    /* -------------------------------------------------------
+       REVIEWS
+       ------------------------------------------------------- */
+
+    const reviewsGrid =
+      $("#reviewsGrid");
+
+    if (reviewsGrid) {
+      reviewsGrid.innerHTML = S.map(
+        (x) =>
+          `<article class="review">
+
+            <div class="stars">
+              ★★★★★
+            </div>
+
+            <p>
+              “${x[3]}”
+            </p>
+
+            <div class="reviewer">
+              <b>${x[0]}</b>
+              <span>
+                ${x[1]} • ✓ ${x[2]}
+              </span>
+            </div>
+
+          </article>`
+      ).join("");
+    }
+
+    /* -------------------------------------------------------
+       FAQ
+       ------------------------------------------------------- */
+
+    const faqAccordion =
+      $("#faqAccordion");
+
+    if (faqAccordion) {
+      faqAccordion.innerHTML = F.map(
+        (x, i) =>
+          `<div class="accordion-item">
+
+            <h2 class="accordion-header">
+
+              <button
+                class="accordion-button ${
+                  i ? "collapsed" : ""
+                }"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq${i}"
+              >
+                ${x[0]}
+              </button>
+
+            </h2>
+
+            <div
+              id="faq${i}"
+              class="accordion-collapse collapse ${
+                i ? "" : "show"
+              }"
+            >
+
+              <div class="accordion-body">
+                ${x[1]}
+              </div>
+
+            </div>
+
+          </div>`
+      ).join("");
+    }
+
+    /* -------------------------------------------------------
+       YEAR
+       ------------------------------------------------------- */
+
+    const year = $("#year");
+
+    if (year) {
+      year.textContent =
+        new Date().getFullYear();
+    }
+
+    /* -------------------------------------------------------
+       COMMON CLICK EVENTS
+       ------------------------------------------------------- */
+
+    document.addEventListener(
+      "click",
+      (e) => {
+        /* OPEN BOOKING */
+
+        if (
+          e.target.closest(
+            "[data-open-booking]"
+          )
+        ) {
+          B = {
+            step: 1,
+            t: null,
+            d: null,
+            date: null,
+            shift: "morning",
+            slot: null,
+          };
+
+          bookingView();
+          open("bookingModal");
+        }
+
+        /* BOOK TREATMENT */
+
+        const bt =
+          e.target.closest("[data-book]");
+
+        if (bt) {
+          B = {
+            step: 3,
+            t: bt.dataset.book,
+            d: "fastest",
+            date: dates()[0]
+              .toISOString()
+              .slice(0, 10),
+            shift: "morning",
+            slot: null,
+          };
+
+          bookingView();
+          open("bookingModal");
+          close("protocolModal");
+        }
+
+        /* BOOK WITH DOCTOR */
+
+        const db =
+          e.target.closest("[data-doctor]");
+
+        if (db) {
+          B = {
+            step: 1,
+            t: null,
+            d: db.dataset.doctor,
+            date: null,
+            shift: "morning",
+            slot: null,
+          };
+
+          bookingView();
+          open("bookingModal");
+        }
+
+        /* PROTOCOL */
+
+        const tt =
+          e.target.closest(
+            "[data-protocol]"
+          );
+
+        if (tt) {
+          const t = T.find(
+            (x) =>
+              x[0] ===
+              tt.dataset.protocol
+          );
+
+          if (!t) return;
+
+          $("#protocolContent").innerHTML = `
+            <span class="eyebrow">
+              ${t[2]}
+            </span>
+
+            <h2>${t[1]}</h2>
+
+            <p>${t[3]}</p>
+
+            <div class="roadmap-line">
+
+              ${t[8]
+                .map(
+                  (s, i) =>
+                    `<article>
+                      <b>0${i + 1}</b>
+                      <h3>${s}</h3>
+                      <p>
+                        Preparation, comfort-first
+                        treatment and review.
+                      </p>
+                    </article>`
+                )
+                .join("")}
+
+            </div>
+
+            <p>
+              <b>
+                Starting from
+                ₹${t[5].toLocaleString("en-IN")}
+              </b>
+
+              ${
+                t[6]
+                  ? " • EMI from ₹" +
+                    t[6].toLocaleString(
+                      "en-IN"
+                    ) +
+                    "/mo"
+                  : ""
+              }
+            </p>
+
+            <button
+              class="btn btn-primary-glow"
+              data-book="${t[0]}"
+            >
+              Book this treatment
+            </button>
+          `;
+
+          open("protocolModal");
+        }
+
+        /* CLOSE BOOKING */
+
+        if (
+          e.target.closest(
+            "[data-close-booking]"
+          )
+        ) {
+          close("bookingModal");
+        }
+
+        /* CLOSE MODAL */
+
+        if (
+          e.target.closest("[data-close]")
+        ) {
+          close(
+            e.target.closest(
+              "[data-close]"
+            ).dataset.close
+          );
+        }
+
+        /* BACK */
+
+        if (
+          e.target.closest("[data-back]")
+        ) {
+          B.step--;
+
+          bookingView();
+        }
+
+        /* NEXT */
+
+        if (
+          e.target.closest("[data-next]")
+        ) {
+          B.step++;
+
+          if (
+            B.step === 3 &&
+            !B.date
+          ) {
+            B.date = dates()[0]
+              .toISOString()
+              .slice(0, 10);
+          }
+
+          bookingView();
+        }
+
+        /* TREATMENT */
+
+        const t =
+          e.target.closest("[data-t]");
+
+        if (t) {
+          B.t = t.dataset.t;
+          bookingView();
+        }
+
+        /* DOCTOR */
+
+        const d =
+          e.target.closest("[data-d]");
+
+        if (d) {
+          B.d = d.dataset.d;
+          bookingView();
+        }
+
+        /* DATE */
+
+        const dt =
+          e.target.closest(
+            "[data-date]"
+          );
+
+        if (dt) {
+          B.date = dt.dataset.date;
+          bookingView();
+        }
+
+        /* SHIFT */
+
+        const sh =
+          e.target.closest(
+            "[data-shift]"
+          );
+
+        if (sh) {
+          B.shift = sh.dataset.shift;
+          B.slot = null;
+          bookingView();
+        }
+
+        /* SLOT */
+
+        const sl =
+          e.target.closest(
+            "[data-slot]"
+          );
+
+        if (
+          sl &&
+          !sl.disabled
+        ) {
+          B.slot = sl.dataset.slot;
+          bookingView();
+        }
+
+        /* WHATSAPP */
+
+        if (
+          e.target.closest("#closeWa")
+        ) {
+          const toast =
+            $("#whatsappToast");
+
+          if (toast) {
+            toast.classList.remove(
+              "show"
+            );
+          }
+        }
+
+        /* TOUR */
+
+        if (
+          e.target.closest("#playTour")
+        ) {
+          alert(
+            "Virtual tour preview: Reception → Consultation → Digital Scan → Surgery → Recovery."
+          );
+        }
+
+        /* ASSESSMENT */
+
+        if (
+          e.target.closest(
+            "[data-open-assessment]"
+          )
+        ) {
+          assessment();
+        }
+      }
+    );
+
+    /* -------------------------------------------------------
+       FORM SUBMISSION
+       ------------------------------------------------------- */
+
+    document.addEventListener(
+      "submit",
+      (e) => {
+        if (
+          e.target.id !==
+          "patientForm"
+        ) {
+          return;
+        }
+
+        e.preventDefault();
+
+        const form =
+          new FormData(e.target);
+
+        const t = T.find(
+          (x) =>
+            x[0] === B.t
+        );
+
+        const d =
+          B.d === "fastest"
+            ? D[0]
+            : D.find(
+                (x) =>
+                  x[0] === B.d
+              ) || D[0];
+
+        const p = {
+          name: form.get("name"),
+          phone: form.get("phone"),
+          age: form.get("age"),
+          gender: form.get("gender"),
+          type: form.get("type"),
+          complaint:
+            form.get("complaint"),
+
           token:
             "#APX-" +
             new Date().getFullYear() +
             "-" +
-            Math.floor(1000 + Math.random() * 9000),
+            Math.floor(
+              1000 +
+                Math.random() *
+                  9000
+            ),
+
           date: B.date,
           slot: B.slot,
         };
-      localStorage.setItem("apexLastAppointment", JSON.stringify(p));
-      confirm(p, t, d);
-    });
+
+        localStorage.setItem(
+          "apexLastAppointment",
+          JSON.stringify(p)
+        );
+
+        confirm(p, t, d);
+      }
+    );
+
+    /* =====================================================
+       ASSESSMENT
+       ===================================================== */
+
     function assessment() {
-      let step = 0,
-        a = [];
-      let q = [
+      let step = 0;
+      const a = [];
+
+      const q = [
         [
           "What is your primary dental goal?",
           [
@@ -590,27 +1683,142 @@
             "Whiter smile",
           ],
         ],
+
         [
           "How long have you experienced this issue?",
-          ["Less than a week", "1-6 months", "Over a year"],
+          [
+            "Less than a week",
+            "1-6 months",
+            "Over a year",
+          ],
         ],
+
         [
           "Do you experience dental anxiety or fear of needles?",
-          ["Yes, need pain-free sedation", "No, comfortable"],
+          [
+            "Yes, need pain-free sedation",
+            "No, comfortable",
+          ],
         ],
       ];
-      let render = () =>
-        ($("#assessmentContent").innerHTML =
+
+      const render = () => {
+        const content =
+          $("#assessmentContent");
+
+        if (!content) return;
+
+        content.innerHTML =
           step < 3
-            ? `<span class="eyebrow">60-SECOND SMILE ASSESSMENT • ${step + 1}/3</span><h2>${q[step][0]}</h2><div class="assessment-options">${q[step][1].map((o) => `<button data-answer="${o}">${o}</button>`).join("")}</div>`
-            : `<span class="eyebrow">YOUR RESULT</span><h2>Recommended Treatment Plan</h2><div class="result-plan"><h3>${a[0] === "Replace missing teeth" ? "Computerized Implant Evaluation + 3D CBCT Scan" : a[0] === "Straighten teeth" ? "3D Clear Aligner Smile Plan" : a[0] === "Whiter smile" ? "In-Clinic Laser Whitening Consultation" : "Urgent Dental Examination & Pain-Relief Consultation"}</h3><p>Recommended Specialist: <b>${a[0] === "Straighten teeth" ? "Dr. Sneha Reddy, MDS" : a[0] === "Replace missing teeth" ? "Dr. Arvind Swaminathan, MDS" : a[0] === "Whiter smile" ? "Dr. Sneha Reddy, MDS" : "Dr. Vikram Varma, MDS"}</b></p><strong>₹500 Consultation Waiver Applied to Token</strong></div><button class="btn btn-primary-glow mt-3" data-open-booking>Book This Solution</button>`);
-      $("#assessmentContent").onclick = (e) => {
-        let b = e.target.closest("[data-answer]");
+            ? `
+              <span class="eyebrow">
+                60-SECOND SMILE ASSESSMENT •
+                ${step + 1}/3
+              </span>
+
+              <h2>
+                ${q[step][0]}
+              </h2>
+
+              <div class="assessment-options">
+
+                ${q[step][1]
+                  .map(
+                    (o) =>
+                      `<button
+                        data-answer="${o}"
+                      >
+                        ${o}
+                      </button>`
+                  )
+                  .join("")}
+
+              </div>
+            `
+            : `
+              <span class="eyebrow">
+                YOUR RESULT
+              </span>
+
+              <h2>
+                Recommended Treatment Plan
+              </h2>
+
+              <div class="result-plan">
+
+                <h3>
+                  ${
+                    a[0] ===
+                    "Replace missing teeth"
+                      ? "Computerized Implant Evaluation + 3D CBCT Scan"
+                      : a[0] ===
+                          "Straighten teeth"
+                        ? "3D Clear Aligner Smile Plan"
+                        : a[0] ===
+                            "Whiter smile"
+                          ? "In-Clinic Laser Whitening Consultation"
+                          : "Urgent Dental Examination & Pain-Relief Consultation"
+                  }
+                </h3>
+
+                <p>
+                  Recommended Specialist:
+                  <b>
+                    ${
+                      a[0] ===
+                      "Straighten teeth"
+                        ? "Dr. Sneha Reddy, MDS"
+                        : a[0] ===
+                            "Replace missing teeth"
+                          ? "Dr. Arvind Swaminathan, MDS"
+                          : a[0] ===
+                              "Whiter smile"
+                            ? "Dr. Sneha Reddy, MDS"
+                            : "Dr. Vikram Varma, MDS"
+                    }
+                  </b>
+                </p>
+
+                <strong>
+                  ₹500 Consultation Waiver Applied to Token
+                </strong>
+
+              </div>
+
+              <button
+                class="btn btn-primary-glow mt-3"
+                data-open-booking
+              >
+                Book This Solution
+              </button>
+            `;
+      };
+
+      const content =
+        $("#assessmentContent");
+
+      if (!content) return;
+
+      content.onclick = (e) => {
+        const b =
+          e.target.closest(
+            "[data-answer]"
+          );
+
         if (b) {
-          a[step++] = b.dataset.answer;
+          a[step++] =
+            b.dataset.answer;
+
           render();
-        } else if (e.target.closest("[data-open-booking]")) {
-          close("assessmentModal");
+        } else if (
+          e.target.closest(
+            "[data-open-booking]"
+          )
+        ) {
+          close(
+            "assessmentModal"
+          );
+
           B = {
             step: 1,
             t: null,
@@ -619,52 +1827,157 @@
             shift: "morning",
             slot: null,
           };
+
           bookingView();
           open("bookingModal");
         }
       };
+
       render();
       open("assessmentModal");
     }
-    // EMI
-    let ec = $("#emiCost"),
-      em = $("#emiMonths");
+
+    /* =====================================================
+       EMI
+       ===================================================== */
+
+    const ec = $("#emiCost");
+    const em = $("#emiMonths");
+
     function emi() {
-      let c = +ec.value,
-        m = +em.value;
-      $("#emiCostOut").textContent = "₹" + c.toLocaleString("en-IN");
-      $("#emiMonthsOut").textContent = m + " months";
-      $("#emiResult").textContent =
-        "₹" + Math.round(c / m).toLocaleString("en-IN");
+      if (!ec || !em) return;
+
+      const c = +ec.value;
+      const m = +em.value;
+
+      const costOut =
+        $("#emiCostOut");
+
+      const monthsOut =
+        $("#emiMonthsOut");
+
+      const result =
+        $("#emiResult");
+
+      if (costOut) {
+        costOut.textContent =
+          "₹" +
+          c.toLocaleString(
+            "en-IN"
+          );
+      }
+
+      if (monthsOut) {
+        monthsOut.textContent =
+          m + " months";
+      }
+
+      if (result) {
+        result.textContent =
+          "₹" +
+          Math.round(
+            c / m
+          ).toLocaleString(
+            "en-IN"
+          );
+      }
     }
-    ec.oninput = em.oninput = emi;
-    emi();
-    // counters + reveal
-    let io = new IntersectionObserver(
-      (es) =>
-        es.forEach((e) => {
-          if (e.isIntersecting) {
-            if (e.target.dataset.count) {
-              let n = +e.target.dataset.count,
-                start = performance.now();
-              let f = (t) => {
-                let p = Math.min(1, (t - start) / 1000);
-                e.target.textContent =
-                  Math.floor(n * (1 - (1 - p) ** 3)).toLocaleString("en-IN") +
-                  "+";
-                if (p < 1) requestAnimationFrame(f);
-              };
-              requestAnimationFrame(f);
-            }
-            e.target.classList.add("visible");
-            io.unobserve(e.target);
+
+    if (ec && em) {
+      ec.oninput = emi;
+      em.oninput = emi;
+      emi();
+    }
+
+    /* =====================================================
+       COUNTERS + REVEAL
+       ===================================================== */
+
+    if (
+      "IntersectionObserver" in window
+    ) {
+      const io =
+        new IntersectionObserver(
+          (es) =>
+            es.forEach((e) => {
+              if (
+                e.isIntersecting
+              ) {
+                if (
+                  e.target.dataset.count
+                ) {
+                  const n =
+                    +e.target
+                      .dataset.count;
+
+                  const start =
+                    performance.now();
+
+                  const f = (t) => {
+                    const p =
+                      Math.min(
+                        1,
+                        (t -
+                          start) /
+                          1000
+                      );
+
+                    e.target.textContent =
+                      Math.floor(
+                        n *
+                          (1 -
+                            (1 -
+                              p) **
+                              3)
+                      ).toLocaleString(
+                        "en-IN"
+                      ) + "+";
+
+                    if (p < 1) {
+                      requestAnimationFrame(
+                        f
+                      );
+                    }
+                  };
+
+                  requestAnimationFrame(
+                    f
+                  );
+                }
+
+                e.target.classList.add(
+                  "visible"
+                );
+
+                io.unobserve(
+                  e.target
+                );
+              }
+            }),
+          {
+            threshold: 0.2,
           }
-        }),
-      { threshold: 0.2 },
-    );
-    $$(".reveal,[data-count]").forEach((e) => io.observe(e));
+        );
+
+      $$(".reveal,[data-count]").forEach(
+        (e) => io.observe(e)
+      );
+    }
   }
-  if (document.readyState === "loading")
-    document.addEventListener("DOMContentLoaded", init);
-  else init();
+
+  /* =========================================================
+     START APPLICATION
+     ========================================================= */
+
+  if (
+    document.readyState ===
+    "loading"
+  ) {
+    document.addEventListener(
+      "DOMContentLoaded",
+      init
+    );
+  } else {
+    init();
+  }
 })();
