@@ -664,7 +664,7 @@
             ></textarea>
           </label>
 
-          <label class="full">
+          <label class="full checkbox-option">
             <input
               name="wa"
               type="checkbox"
