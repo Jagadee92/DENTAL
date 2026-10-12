@@ -738,6 +738,10 @@
 
       </div>
     `;
+
+    $$(".booking-progress span").forEach((step, index) => {
+      step.classList.toggle("active", index + 1 === B.step);
+    });
   }
 
   /* =========================================================
