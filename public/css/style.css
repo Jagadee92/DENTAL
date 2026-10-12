@@ -489,6 +489,86 @@ a {
   font-weight: 700;
 }
 
+.compare-preview {
+  margin: 12px 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.emi-preview {
+  display: grid;
+  gap: 10px;
+}
+
+.emi-preview > div {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2px 8px;
+  align-items: baseline;
+}
+
+.emi-preview span {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.emi-preview strong {
+  color: var(--teal900);
+  font-size: 0.76rem;
+}
+
+.emi-preview div small {
+  grid-column: 1 / -1;
+  color: var(--teal700);
+  font-size: 0.7rem;
+}
+
+.emi-preview .preview-note {
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.65rem;
+  line-height: 1.4;
+}
+
+.roadmap-preview {
+  display: grid;
+  gap: 9px;
+  padding-left: 12px;
+  list-style: none;
+}
+
+.roadmap-preview li {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+}
+
+.roadmap-preview li > b {
+  color: var(--teal700);
+  font-size: 0.72rem;
+}
+
+.roadmap-preview span,
+.roadmap-preview strong,
+.roadmap-preview small {
+  display: block;
+}
+
+.roadmap-preview strong {
+  color: var(--text);
+  font-size: 0.72rem;
+}
+
+.roadmap-preview small {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.66rem;
+  line-height: 1.4;
+}
+
 .demo-link {
   border: 0;
   background: none;
