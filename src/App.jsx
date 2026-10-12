@@ -47,7 +47,9 @@ function HomePage() {
 export default function App() {
  const navigation = performance.getEntriesByType('navigation')[0];
  const isClinicReload =
-   navigation?.type === 'reload' && window.location.hash === '#/clinic';
+   navigation?.type === 'reload' &&
+   (window.location.hash === '#/clinic' ||
+     window.location.pathname.replace(/\/$/, '') === '/clinic');
 
  if (isClinicReload) {
    window.history.replaceState(null, '', window.location.pathname + window.location.search);

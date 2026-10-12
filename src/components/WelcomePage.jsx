@@ -31,7 +31,7 @@ export default function WelcomePage() {
           </p>
 
           <div className="welcome-actions">
-            <a className="welcome-cta" href="#/clinic">
+            <a className="welcome-cta" href="/clinic">
               Explore Clinic <span aria-hidden="true">→</span>
             </a>
             <a className="welcome-phone" href="tel:+917032859259">
