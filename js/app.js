@@ -668,7 +668,6 @@
             <input
               name="wa"
               type="checkbox"
-              checked
             >
             Receive instant appointment confirmation & reminders on WhatsApp
           </label>
