@@ -1072,6 +1072,35 @@ endobj`,
       updateMobileBar();
     }
 
+    const formatPrice = (value) =>
+      "₹" + value.toLocaleString("en-IN");
+    const implantTreatment = T.find((item) => item[0] === "implant-single");
+    const alignerTreatment = T.find((item) => item[0] === "clear-aligners");
+    const emiButton = $("[data-open-emi]");
+    const roadmapButton = $("[data-open-roadmap]");
+
+    if (emiButton && implantTreatment && alignerTreatment) {
+      emiButton.insertAdjacentHTML(
+        "beforebegin",
+        `<div class="compare-preview emi-preview">
+          <div><span>Dental implant</span><strong>From ${formatPrice(implantTreatment[5])}</strong><small>EMI from ${formatPrice(implantTreatment[6])}/mo</small></div>
+          <div><span>Clear aligners</span><strong>From ${formatPrice(alignerTreatment[5])}</strong><small>EMI from ${formatPrice(alignerTreatment[6])}/mo</small></div>
+          <small class="preview-note">Illustrative starting prices; final treatment cost is confirmed after consultation.</small>
+        </div>`
+      );
+    }
+
+    if (roadmapButton) {
+      roadmapButton.insertAdjacentHTML(
+        "beforebegin",
+        `<ol class="compare-preview roadmap-preview">
+          <li><b>01</b><span><strong>Digital assessment</strong><small>Examination and personalised plan</small></span></li>
+          <li><b>02</b><span><strong>Planned treatment</strong><small>Specialist care focused on comfort</small></span></li>
+          <li><b>03</b><span><strong>Review & aftercare</strong><small>Result check and follow-up guidance</small></span></li>
+        </ol>`
+      );
+    }
+
     /* -------------------------------------------------------
        TREATMENT FILTERS
        ------------------------------------------------------- */
@@ -1622,7 +1651,8 @@ endobj`,
 
         /* ASSESSMENT */
 
-        if (e.target.closest(
+        if (
+          e.target.closest(
             "[data-open-assessment]"
           )
         ) {
