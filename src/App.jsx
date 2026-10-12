@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import LegacyOverlays from './components/LegacyOverlays';
@@ -22,7 +22,9 @@ function HomePage() {
  useEffect(() => {
    if (document.getElementById('apex-legacy-script')) return;
    const script = document.createElement('script');
-   script.id = 'apex-legacy-script'; script.src = '/js/app.js'; script.defer = true;
+   script.id = 'apex-legacy-script';
+   script.src = `${import.meta.env.BASE_URL}js/app.js`;
+   script.defer = true;
    document.body.appendChild(script);
    return () => { /* Keep the delegated legacy handlers active during app lifetime. */ };
  }, []);
@@ -44,15 +46,35 @@ function HomePage() {
 
 export default function App() {
  const navigation = performance.getEntriesByType('navigation')[0];
-
- if (
+ const isClinicReload =
    navigation?.type === 'reload' &&
-   window.location.pathname.replace(/\/$/, '') === '/clinic'
- ) {
-   window.history.replaceState(null, '', '/');
+   (window.location.hash === '#/clinic' ||
+     window.location.pathname.replace(/\/$/, '') === '/clinic');
+
+ if (isClinicReload) {
+   window.history.replaceState(null, '', window.location.pathname + window.location.search);
  }
 
- const path = window.location.pathname.replace(/\/$/, '') || '/';
+ const getPath = () =>
+   window.location.hash.startsWith('#/')
+     ? window.location.hash.slice(1)
+     : window.location.pathname.replace(/\/$/, '') || '/';
+ const [path, setPath] = useState(getPath);
+
+ useEffect(() => {
+   const updatePath = () => {
+     if (!window.location.hash || window.location.hash.startsWith('#/')) {
+       setPath(getPath());
+     }
+   };
+   window.addEventListener('hashchange', updatePath);
+   window.addEventListener('popstate', updatePath);
+   return () => {
+     window.removeEventListener('hashchange', updatePath);
+     window.removeEventListener('popstate', updatePath);
+   };
+ }, []);
+
  const isQueue = path === '/queue';
  const isClinic = path === '/clinic';
  const page = isQueue
