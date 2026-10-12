@@ -16,6 +16,7 @@ import QueueSection from './components/QueueSection.jsx';
 import EmiSection from './components/EmiSection.jsx';
 import FaqSection from './components/FaqSection.jsx';
 import Section12Section from './components/Section12Section.jsx';
+import WelcomePage from './components/WelcomePage.jsx';
 
 function HomePage() {
  useEffect(() => {
@@ -42,6 +43,23 @@ function HomePage() {
 }
 
 export default function App() {
- const isQueue = window.location.pathname.replace(/\/$/, '') === '/queue';
- return <BookingProvider>{isQueue ? <QueuePage /> : <HomePage />}</BookingProvider>;
+ const navigation = performance.getEntriesByType('navigation')[0];
+
+ if (
+   navigation?.type === 'reload' &&
+   window.location.pathname.replace(/\/$/, '') === '/clinic'
+ ) {
+   window.history.replaceState(null, '', '/');
+ }
+
+ const path = window.location.pathname.replace(/\/$/, '') || '/';
+ const isQueue = path === '/queue';
+ const isClinic = path === '/clinic';
+ const page = isQueue
+   ? <QueuePage />
+   : isClinic
+     ? <HomePage />
+     : <WelcomePage />;
+
+ return <BookingProvider>{page}</BookingProvider>;
 }
