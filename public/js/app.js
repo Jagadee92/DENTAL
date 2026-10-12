@@ -1080,19 +1080,19 @@ endobj`,
 
     if (f) {
       f.innerHTML = [
-        "All Procedures (8)",
-        "Implants & Surgery",
-        "Cosmetic & Aligners",
-        "Root Canal & Crowns",
-        "Pediatric (Kids)",
+        { label: "All Procedures (8)", value: "All Procedures" },
+        { label: "Implants & Surgery", value: "Implants & Surgery" },
+        { label: "Cosmetic & Aligners", value: "Cosmetic & Aligners" },
+        { label: "Root Canal & Crowns", value: "Root Canal & Crowns" },
+        { label: "Pediatric (Kids)", value: "Pediatric (Kids)" },
       ]
         .map(
-          (x, i) =>
+          ({ label, value }, i) =>
             `<button
               class="${i ? "" : "active"}"
-              data-filter="${i ? "" : x}"
+              data-filter="${value}"
             >
-              ${x}
+              ${label}
             </button>`
         )
         .join("");
@@ -1111,10 +1111,7 @@ endobj`,
 
         b.classList.add("active");
 
-        treatmentCards(
-          b.dataset.filter ||
-            "All Procedures"
-        );
+        treatmentCards(b.dataset.filter);
       };
     }
 
