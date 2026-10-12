@@ -1425,6 +1425,30 @@ endobj`,
 
             <p>${t[3]}</p>
 
+            <div class="protocol-facts">
+              <div>
+                <small>Appointment duration</small>
+                <strong>${t[4]}</strong>
+              </div>
+              <div>
+                <small>Recommended specialist</small>
+                <strong>${t[8]}</strong>
+              </div>
+              <div>
+                <small>Starting price</small>
+                <strong>₹${t[5].toLocaleString("en-IN")}</strong>
+              </div>
+              ${
+                t[6]
+                  ? `<div>
+                      <small>Indicative monthly EMI</small>
+                      <strong>₹${t[6].toLocaleString("en-IN")}/mo</strong>
+                    </div>`
+                  : ""
+              }
+            </div>
+
+            <h3 class="protocol-section-title">Your treatment journey</h3>
             <div class="roadmap-line">
 
               ${t[9]
@@ -1433,31 +1457,20 @@ endobj`,
                     `<article>
                       <b>0${i + 1}</b>
                       <h3>${s}</h3>
-                      <p>
-                        Preparation, comfort-first
-                        treatment and review.
-                      </p>
+                      <p>${[
+                        "Your dentist assesses your needs and prepares a personalised treatment plan.",
+                        "The specialist performs the planned procedure, prioritising comfort and explaining each stage.",
+                        "Your dentist checks the result and provides tailored aftercare and follow-up guidance.",
+                      ][i]}</p>
                     </article>`
                 )
                 .join("")}
 
             </div>
 
-            <p>
-              <b>
-                Starting from
-                ₹${t[5].toLocaleString("en-IN")}
-              </b>
-
-              ${
-                t[6]
-                  ? " • EMI from ₹" +
-                    t[6].toLocaleString(
-                      "en-IN"
-                    ) +
-                    "/mo"
-                  : ""
-              }
+            <p class="protocol-note">
+              Pricing is an estimate; the dentist will confirm the treatment plan and final cost after an examination.
+              ${t[6] ? " EMI shown is indicative and subject to eligibility." : ""}
             </p>
 
             <button
@@ -1615,6 +1628,32 @@ endobj`,
           )
         ) {
           assessment();
+        }
+
+        /* EMI CALCULATOR */
+
+        if (
+          e.target.closest("[data-open-emi]")
+        ) {
+          const emiSection = $("#emi");
+
+          if (!emiSection) {
+            console.error("EMI calculator section was not found.");
+            return;
+          }
+
+          emiSection.scrollIntoView({
+            behavior: "instant",
+            block: "start",
+          });
+        }
+
+        /* TREATMENT ROADMAP */
+
+        if (
+          e.target.closest("[data-open-roadmap]")
+        ) {
+          open("roadmapModal");
         }
       }
     );

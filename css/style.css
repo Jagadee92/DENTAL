@@ -1388,6 +1388,46 @@ a {
   color: var(--teal800);
 }
 
+.protocol-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin: 22px 0;
+}
+
+.protocol-facts > div {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--teal50);
+}
+
+.protocol-facts small,
+.protocol-facts strong {
+  display: block;
+}
+
+.protocol-facts small {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.protocol-facts strong {
+  margin-top: 4px;
+  color: var(--teal900);
+}
+
+.protocol-section-title {
+  margin-top: 26px;
+  font-size: 1.2rem;
+}
+
+.protocol-note {
+  margin: 20px 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
 .choice-grid {
   display: grid;
 
