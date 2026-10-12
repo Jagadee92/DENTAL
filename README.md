@@ -17,9 +17,8 @@ This updated project preserves the existing Apex Dental visual design and patien
 Run `npm run build`, then `npm run preview` to test the production build.
 
 ## Routes
-- `/#/` — Apex Dental welcome page.
-- `/#/clinic` — full clinic experience.
-- `/#/queue` — full-screen clinic token queue demo.
+- `/` — full Apex Dental clinic experience.
+- `/queue` — full-screen clinic token queue demo.
 
 ## Added React architecture
 - `src/components/` — reusable React section wrappers and queue screen.
